@@ -1,6 +1,6 @@
 # jupyterlab_niryo_one
- Blockly extension for JupyterLab to control a Niryo One robot.
 
+Blockly extension for JupyterLab to control a Niryo One robot.
 
 ## Blockly
 
@@ -10,6 +10,7 @@ Docs: https://developers.google.com/blockly/guides/overview
 Repo: https://github.com/google/blockly
 
 ## Niryo One
+
 Niryo One, a collaborative and open source 6-axis robot made in France for: higher education, vocational training and R&D laboratories. Its use is particularly adapted to study robotics and programming in the context of the industry 4.0.
 
 Docs: https://niryo.com/fr/product/niryo-one/
@@ -17,7 +18,7 @@ Repo: https://github.com/NiryoRobotics/niryo_one_ros
 
 ## Requirements
 
-* JupyterLab == 3.4
+- JupyterLab == 3.4
 
 ## Install
 
@@ -44,7 +45,6 @@ To remove the extension, execute:
 ```bash
 pip uninstall jupyterlab_niryo_one
 ```
-
 
 ## Contributing
 

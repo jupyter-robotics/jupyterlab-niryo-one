@@ -43,10 +43,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
     palette: ICommandPalette | null
   ) => {
     console.log('JupyterLab extension jupyterlab-niryo-one is activated!');
-    
+
     // Activating the Blockly plugin.
-    const BlocklyReturn = 
-    Blocklyplugin.activate(
+    const BlocklyReturn = Blocklyplugin.activate(
       app,
       restorer,
       rendermime,
@@ -55,10 +54,14 @@ const plugin: JupyterFrontEndPlugin<void> = {
       settings,
       translator,
       launcher,
-      palette);
-    
+      palette
+    );
+
     //Registering the new toolbox containing all Niryo One blocks.
-    (BlocklyReturn as IBlocklyRegisty).registerToolbox('niryo', BlocklyNiryo.Toolbox);
+    (BlocklyReturn as IBlocklyRegisty).registerToolbox(
+      'niryo',
+      BlocklyNiryo.Toolbox
+    );
   }
 };
 
