@@ -58,7 +58,7 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 micromamba create -n niryo -c conda-forge python nodejs yarn jupyterlab==3.4 jupyter-packaging jupyterlab-language-pack-es-ES jupyterlab-language-pack-fr-FR ipykernel xeus-python xeus-lua
-micromamba activate blockly
+micromamba activate niryo
 # Clone the repo to your local environment
 # Change directory to the jupyterlab_niryo_one directory
 # Install package in development mode
