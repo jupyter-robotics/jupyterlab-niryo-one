@@ -6,6 +6,7 @@ include package.json
 include install.json
 include ts*.json
 include yarn.lock
+include *.log
 
 graft jupyterlab_niryo_one/labextension
 recursive-include patches *.patch
