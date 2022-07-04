@@ -880,7 +880,20 @@ Blockly.Blocks['niryo_one_conveyor_stop'] = {
  * Generators
  */
 
-const connexion = `
+Blockly.Python['niryo_one_connect'] = function (block) {
+  var ip_0 = block.getFieldValue('ip_0');
+  var ip_1 = block.getFieldValue('ip_1');
+  var ip_2 = block.getFieldValue('ip_2');
+  var ip_3 = block.getFieldValue('ip_3');
+
+  let branch = Blockly.Python.statementToCode(block, 'DO');
+  var ip = ip_0 + '.' + ip_1 + '.' + ip_2 + '.' + ip_3;
+
+  var code = '\nwith niryo_connect("' + ip + '") as n:\n' + branch;
+  return code;
+};
+
+Blockly.Blocks['niryo_one_connect'].toplevel_init = `
 from pyniryo import *
 
 class niryo_connect():
@@ -891,19 +904,6 @@ class niryo_connect():
   def __exit__(self):
     self.n.close_connection()
 `;
-
-Blockly.Python['niryo_one_connect'] = function (block) {
-  var ip_0 = block.getFieldValue('ip_0');
-  var ip_1 = block.getFieldValue('ip_1');
-  var ip_2 = block.getFieldValue('ip_2');
-  var ip_3 = block.getFieldValue('ip_3');
-
-  let branch = Blockly.Python.statementToCode(block, 'DO');
-  var ip = ip_0 + '.' + ip_1 + '.' + ip_2 + '.' + ip_3;
-
-  var code = connexion + '\nwith niryo_connect("' + ip + '") as n:\n' + branch;
-  return code;
-};
 
 Blockly.Python['niryo_one_move_joints'] = function (block) {
   var number_joints_1 = block.getFieldValue('JOINTS_1');
