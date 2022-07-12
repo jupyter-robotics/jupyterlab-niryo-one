@@ -1,4 +1,4 @@
-# jupyterlab_niryo_one
+# jupyterlab-niryo-one
 
 Blockly extension for JupyterLab to control a Niryo One robot.
 
@@ -27,7 +27,7 @@ To install the extension, execute:
 ```bash
 micromamba create -n niryo -c conda-forge python jupyterlab==3.4 ipykernel xeus-python xeus-lua jupyterlab-language-pack-es-ES jupyterlab-language-pack-fr-FR
 micromamba activate niryo
-pip install jupyterlab_niryo_one
+pip install jupyterlab-niryo-one
 ```
 
 #### Kernels
@@ -43,7 +43,7 @@ pip install jupyterlab_niryo_one
 To remove the extension, execute:
 
 ```bash
-pip uninstall jupyterlab_niryo_one
+pip uninstall jupyterlab-niryo-one
 ```
 
 ## Contributing
@@ -89,7 +89,7 @@ jupyter lab build --minimize=False
 ### Development uninstall
 
 ```bash
-pip uninstall jupyterlab_niryo_one
+pip uninstall jupyterlab-niryo-one
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
