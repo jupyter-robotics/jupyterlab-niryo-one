@@ -179,7 +179,7 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.3.1.tgz#b50a781709c81e10701004214340f25475a171a0"
   integrity sha512-zMM9Ds+SawiUkakS7y94Ymqx+S0ORzpG3frZirN3l+UlXUmSUR7hF4wxCVqW+ei94JzV5kt0uXBcoOEAuiydrw==
 
-"@jupyterlab/application@^3.3", "@jupyterlab/application@^3.4":
+"@jupyterlab/application@^3.4":
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/@jupyterlab/application/-/application-3.4.3.tgz#acaecafbce1be71776ceee11203b9fb0a02e27d8"
   integrity sha512-JZy/4yB23N9o0gJFL8L219N7cWhUgulBECa+esN8K/i3TVoG0m/obacLBJrmwdgmQKAgyJ2Vfo1tyhW3UHvlFw==
