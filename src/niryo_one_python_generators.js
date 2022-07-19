@@ -21,9 +21,9 @@
 
 import * as Blockly from 'blockly';
 import BlocklyPy from 'blockly/python';
-console.debug("Blockly:", Blockly);
-console.debug("Blockly blocks:", Blockly.Blocks);
-console.debug("Blockly Python:", BlocklyPy);
+console.debug('Blockly:', Blockly);
+console.debug('Blockly blocks:', Blockly.Blocks);
+console.debug('Blockly Python:', BlocklyPy);
 
 var niryo_one_color = '#3D4D9A';
 
@@ -974,11 +974,8 @@ BlocklyPy['niryo_one_shift_pose'] = function (block) {
 
 BlocklyPy['niryo_one_set_arm_max_speed'] = function (block) {
   var value_set_arm_max_speed =
-    BlocklyPy.valueToCode(
-      block,
-      'SET_ARM_MAX_SPEED',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '0';
+    BlocklyPy.valueToCode(block, 'SET_ARM_MAX_SPEED', BlocklyPy.ORDER_ATOMIC) ||
+    '0';
   value_set_arm_max_speed = value_set_arm_max_speed
     .replace('(', '')
     .replace(')', '');
@@ -1003,46 +1000,22 @@ BlocklyPy['niryo_one_activate_learning_mode'] = function (block) {
 };
 
 BlocklyPy['niryo_one_joint'] = function (block) {
-  var value_j1 = BlocklyPy.valueToCode(
-    block,
-    'j1',
-    BlocklyPy.ORDER_ATOMIC
-  )
+  var value_j1 = BlocklyPy.valueToCode(block, 'j1', BlocklyPy.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_j2 = BlocklyPy.valueToCode(
-    block,
-    'j2',
-    BlocklyPy.ORDER_ATOMIC
-  )
+  var value_j2 = BlocklyPy.valueToCode(block, 'j2', BlocklyPy.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_j3 = BlocklyPy.valueToCode(
-    block,
-    'j3',
-    BlocklyPy.ORDER_ATOMIC
-  )
+  var value_j3 = BlocklyPy.valueToCode(block, 'j3', BlocklyPy.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_j4 = BlocklyPy.valueToCode(
-    block,
-    'j4',
-    BlocklyPy.ORDER_ATOMIC
-  )
+  var value_j4 = BlocklyPy.valueToCode(block, 'j4', BlocklyPy.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_j5 = BlocklyPy.valueToCode(
-    block,
-    'j5',
-    BlocklyPy.ORDER_ATOMIC
-  )
+  var value_j5 = BlocklyPy.valueToCode(block, 'j5', BlocklyPy.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_j6 = BlocklyPy.valueToCode(
-    block,
-    'j6',
-    BlocklyPy.ORDER_ATOMIC
-  )
+  var value_j6 = BlocklyPy.valueToCode(block, 'j6', BlocklyPy.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
 
@@ -1077,32 +1050,16 @@ BlocklyPy['niryo_one_move_joint_from_joint'] = function (block) {
 };
 
 BlocklyPy['niryo_one_pose'] = function (block) {
-  var value_x = BlocklyPy.valueToCode(
-    block,
-    'x',
-    BlocklyPy.ORDER_ATOMIC
-  )
+  var value_x = BlocklyPy.valueToCode(block, 'x', BlocklyPy.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_y = BlocklyPy.valueToCode(
-    block,
-    'y',
-    BlocklyPy.ORDER_ATOMIC
-  )
+  var value_y = BlocklyPy.valueToCode(block, 'y', BlocklyPy.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_z = BlocklyPy.valueToCode(
-    block,
-    'z',
-    BlocklyPy.ORDER_ATOMIC
-  )
+  var value_z = BlocklyPy.valueToCode(block, 'z', BlocklyPy.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_roll = BlocklyPy.valueToCode(
-    block,
-    'roll',
-    BlocklyPy.ORDER_ATOMIC
-  )
+  var value_roll = BlocklyPy.valueToCode(block, 'roll', BlocklyPy.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
   var value_pitch = BlocklyPy.valueToCode(
@@ -1112,11 +1069,7 @@ BlocklyPy['niryo_one_pose'] = function (block) {
   )
     .replace('(', '')
     .replace(')', '');
-  var value_yaw = BlocklyPy.valueToCode(
-    block,
-    'yaw',
-    BlocklyPy.ORDER_ATOMIC
-  )
+  var value_yaw = BlocklyPy.valueToCode(block, 'yaw', BlocklyPy.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
 
@@ -1139,11 +1092,7 @@ BlocklyPy['niryo_one_pose'] = function (block) {
 
 BlocklyPy['niryo_one_move_pose_from_pose'] = function (block) {
   // Position object
-  var value_pose = BlocklyPy.valueToCode(
-    block,
-    'POSE',
-    BlocklyPy.ORDER_ATOMIC
-  );
+  var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
   value_pose = value_pose.replace('(', '').replace(')', '');
 
   var code = 'n.move_pose(*' + value_pose + ')\n';
@@ -1152,11 +1101,7 @@ BlocklyPy['niryo_one_move_pose_from_pose'] = function (block) {
 
 BlocklyPy['niryo_one_pick_from_pose'] = function (block) {
   // Position object
-  var value_pose = BlocklyPy.valueToCode(
-    block,
-    'POSE',
-    BlocklyPy.ORDER_ATOMIC
-  );
+  var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
   value_pose = value_pose.replace('(', '').replace(')', '');
 
   var code = 'n.pick_from_pose(*' + value_pose + ')\n';
@@ -1165,11 +1110,7 @@ BlocklyPy['niryo_one_pick_from_pose'] = function (block) {
 
 BlocklyPy['niryo_one_place_from_pose'] = function (block) {
   // Position object
-  var value_pose = BlocklyPy.valueToCode(
-    block,
-    'POSE',
-    BlocklyPy.ORDER_ATOMIC
-  );
+  var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
   value_pose = value_pose.replace('(', '').replace(')', '');
 
   var code = 'n.place_from_pose(*' + value_pose + ')\n';
@@ -1186,11 +1127,8 @@ BlocklyPy['niryo_one_gpio_state'] = function (block) {
 
 BlocklyPy['niryo_one_set_pin_mode'] = function (block) {
   var value_pin =
-    BlocklyPy.valueToCode(
-      block,
-      'SET_PIN_MODE_PIN',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'SET_PIN_MODE_PIN', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   value_pin = value_pin.replace('(', '').replace(')', '');
   var dropdown_pin_mode_select = block.getFieldValue('PIN_MODE_SELECT');
   var code =
@@ -1200,11 +1138,8 @@ BlocklyPy['niryo_one_set_pin_mode'] = function (block) {
 
 BlocklyPy['niryo_one_digital_write'] = function (block) {
   var value_pin =
-    BlocklyPy.valueToCode(
-      block,
-      'DIGITAL_WRITE_PIN',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'DIGITAL_WRITE_PIN', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   value_pin = value_pin.replace('(', '').replace(')', '');
   var dropdown_pin_write_select = block.getFieldValue('PIN_WRITE_SELECT');
   var code =
@@ -1214,11 +1149,8 @@ BlocklyPy['niryo_one_digital_write'] = function (block) {
 
 BlocklyPy['niryo_one_digital_read'] = function (block) {
   var value_pin =
-    BlocklyPy.valueToCode(
-      block,
-      'DIGITAL_READ_PIN',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'DIGITAL_READ_PIN', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   value_pin = value_pin.replace('(', '').replace(')', '');
   var code = 'n.digital_read(' + value_pin + ')';
   return [code, BlocklyPy.ORDER_NONE];
@@ -1238,11 +1170,8 @@ BlocklyPy['niryo_one_sw_select'] = function (block) {
 
 BlocklyPy['niryo_one_set_12v_switch'] = function (block) {
   var value_pin =
-    BlocklyPy.valueToCode(
-      block,
-      'SET_12V_SWITCH',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'SET_12V_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   value_pin = value_pin.replace('(', '').replace(')', '');
   var dropdown_set_12v_switch_select = block.getFieldValue(
     'SET_12V_SWITCH_SELECT'
@@ -1266,11 +1195,8 @@ BlocklyPy['niryo_one_tool_select'] = function (block) {
 
 BlocklyPy['niryo_one_change_tool'] = function (block) {
   var value_tool_name =
-    BlocklyPy.valueToCode(
-      block,
-      'NEW_TOOL_ID',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(TOOL_NONE)';
+    BlocklyPy.valueToCode(block, 'NEW_TOOL_ID', BlocklyPy.ORDER_ATOMIC) ||
+    '(TOOL_NONE)';
   value_tool_name = value_tool_name.replace('(', '').replace(')', '');
   var code = 'n.change_tool(' + value_tool_name + ')\n';
   return code;
@@ -1283,11 +1209,8 @@ BlocklyPy['niryo_one_detach_tool'] = function (block) {
 
 BlocklyPy['niryo_one_open_gripper'] = function (block) {
   var value_gripper_id =
-    BlocklyPy.valueToCode(
-      block,
-      'OPEN_GRIPPER_ID',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(TOOL_NONE)';
+    BlocklyPy.valueToCode(block, 'OPEN_GRIPPER_ID', BlocklyPy.ORDER_ATOMIC) ||
+    '(TOOL_NONE)';
   value_gripper_id = value_gripper_id.replace('(', '').replace(')', '');
   var number_open_speed = block.getFieldValue('OPEN_SPEED');
   var code =
@@ -1297,11 +1220,8 @@ BlocklyPy['niryo_one_open_gripper'] = function (block) {
 
 BlocklyPy['niryo_one_close_gripper'] = function (block) {
   var value_gripper_id =
-    BlocklyPy.valueToCode(
-      block,
-      'CLOSE_GRIPPER_ID',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(TOOL_NONE)';
+    BlocklyPy.valueToCode(block, 'CLOSE_GRIPPER_ID', BlocklyPy.ORDER_ATOMIC) ||
+    '(TOOL_NONE)';
   value_gripper_id = value_gripper_id.replace('(', '').replace(')', '');
   var number_close_speed = block.getFieldValue('CLOSE_SPEED');
   var code =
@@ -1421,11 +1341,7 @@ BlocklyPy['niryo_one_deactivate_electromagnet'] = function (block) {
 
 BlocklyPy['niryo_one_sleep'] = function (block) {
   var value_sleep_time =
-    BlocklyPy.valueToCode(
-      block,
-      'SLEEP_TIME',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '0';
+    BlocklyPy.valueToCode(block, 'SLEEP_TIME', BlocklyPy.ORDER_ATOMIC) || '0';
   value_sleep_time = value_sleep_time.replace('(', '').replace(')', '');
   var code = 'n.wait(' + value_sleep_time + ')\n';
   return code;
@@ -1461,38 +1377,26 @@ BlocklyPy['niryo_one_vision_shape'] = function (block) {
 BlocklyPy['niryo_one_vision_pick'] = function (block) {
   // Color (int) value (see g_shape_values at top of this file)
   var value_color =
-    BlocklyPy.valueToCode(
-      block,
-      'COLOR_SWITCH',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'COLOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   value_color = value_color.replace('(', '').replace(')', '');
 
   // Shape (int) value (see g_shape_values at top of this file)
   var value_shape =
-    BlocklyPy.valueToCode(
-      block,
-      'SHAPE_SWITCH',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'SHAPE_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   value_shape = value_shape.replace('(', '').replace(')', '');
 
   // Name of workspace
   var workspace_name =
-    BlocklyPy.valueToCode(
-      block,
-      'WORKSPACE_NAME',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   workspace_name = workspace_name.replace('(', '').replace(')', '');
 
   // Height in centimeter
   var height_offset =
-    BlocklyPy.valueToCode(
-      block,
-      'HEIGHT_OFFSET',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'HEIGHT_OFFSET', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   height_offset = height_offset.replace('(', '').replace(')', '');
 
   var code =
@@ -1511,29 +1415,20 @@ BlocklyPy['niryo_one_vision_pick'] = function (block) {
 BlocklyPy['niryo_one_vision_is_object_detected'] = function (block) {
   // Color (int) value (see g_shape_values at top of this file)
   var value_color =
-    BlocklyPy.valueToCode(
-      block,
-      'COLOR_SWITCH',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'COLOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   value_color = value_color.replace('(', '').replace(')', '');
 
   // Shape (int) value (see g_shape_values at top of this file)
   var value_shape =
-    BlocklyPy.valueToCode(
-      block,
-      'SHAPE_SWITCH',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'SHAPE_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   value_shape = value_shape.replace('(', '').replace(')', '');
 
   // Name of workspace
   var workspace_name =
-    BlocklyPy.valueToCode(
-      block,
-      'WORKSPACE_NAME',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   workspace_name = workspace_name.replace('(', '').replace(')', '');
 
   var code =
@@ -1561,11 +1456,8 @@ BlocklyPy['niryo_one_conveyor_models'] = function (block) {
 
 BlocklyPy['niryo_one_conveyor_use'] = function (block) {
   var conveyor_id =
-    BlocklyPy.valueToCode(
-      block,
-      'CONVEYOR_SWITCH',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   conveyor_id = conveyor_id.replace('(', '').replace(')', '');
   var code = 'n.set_conveyor(' + conveyor_id + ', True)\n';
   return code;
@@ -1573,18 +1465,12 @@ BlocklyPy['niryo_one_conveyor_use'] = function (block) {
 
 BlocklyPy['niryo_one_conveyor_control'] = function (block) {
   var conveyor_id =
-    BlocklyPy.valueToCode(
-      block,
-      'CONVEYOR_SWITCH',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   conveyor_id = conveyor_id.replace('(', '').replace(')', '');
   var speed_percent =
-    BlocklyPy.valueToCode(
-      block,
-      'SPEED_PERCENT',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'SPEED_PERCENT', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   speed_percent = speed_percent.replace('(', '').replace(')', '');
   var direction = block.getFieldValue('DIRECTION_SELECT');
   var code =
@@ -1600,11 +1486,8 @@ BlocklyPy['niryo_one_conveyor_control'] = function (block) {
 
 BlocklyPy['niryo_one_conveyor_stop'] = function (block) {
   var conveyor_id =
-    BlocklyPy.valueToCode(
-      block,
-      'CONVEYOR_SWITCH',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(0)';
+    BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
   conveyor_id = conveyor_id.replace('(', '').replace(')', '');
   var code = 'n.control_conveyor(' + conveyor_id + ', False, 0, 1)\n';
   return code;
