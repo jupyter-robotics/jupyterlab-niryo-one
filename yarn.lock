@@ -453,7 +453,7 @@
     "@lumino/widgets" "^1.30.0"
     yjs "^13.5.17"
 
-"@jupyterlab/filebrowser@^3.4", "@jupyterlab/filebrowser@^3.4.3":
+"@jupyterlab/filebrowser@^3.4.3":
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/@jupyterlab/filebrowser/-/filebrowser-3.4.3.tgz#73d288a3a103d13c83734bd23647d1479bd297ec"
   integrity sha512-VlUcEvRAG/eAkxgk90MKKbAYUv3BORxfp9VXUdRm/YOW66ZborF6TNbzjYh9C7L7psXAcpzQ+85p73o25iMDoA==
@@ -479,22 +479,6 @@
     "@lumino/widgets" "^1.30.0"
     react "^17.0.1"
 
-"@jupyterlab/launcher@^3.4":
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/@jupyterlab/launcher/-/launcher-3.4.3.tgz#3370cc6d5a4b85b6ef18ac4c8f18b69a9dae6541"
-  integrity sha512-f+N8tdrvt9zUkGg0dOlJGQVsjZDXlsMm57c5A5uEk7vujieuLbs6Mo1bJu9Cth3qZ5+GWx+axp5X8p/dHayPmQ==
-  dependencies:
-    "@jupyterlab/apputils" "^3.4.3"
-    "@jupyterlab/translation" "^3.4.3"
-    "@jupyterlab/ui-components" "^3.4.3"
-    "@lumino/algorithm" "^1.9.0"
-    "@lumino/commands" "^1.19.0"
-    "@lumino/coreutils" "^1.11.0"
-    "@lumino/disposable" "^1.10.0"
-    "@lumino/properties" "^1.8.0"
-    "@lumino/widgets" "^1.30.0"
-    react "^17.0.1"
-
 "@jupyterlab/nbformat@^3.4.3":
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/@jupyterlab/nbformat/-/nbformat-3.4.3.tgz#cbab1bf507677b7f0f309d8353fc83fe5a973c82"
@@ -513,7 +497,7 @@
     "@lumino/messaging" "^1.10.0"
     "@lumino/signaling" "^1.10.0"
 
-"@jupyterlab/outputarea@^3.4", "@jupyterlab/outputarea@^3.4.3":
+"@jupyterlab/outputarea@^3.4.3":
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/@jupyterlab/outputarea/-/outputarea-3.4.3.tgz#285bb767334d82bbbb3b94f80cefeee746972c3d"
   integrity sha512-acckQMJZOR9D1gcKhaBtP6seopjDpZXYChF9ZeuwgnJJNc+ct3V3iL5lAn+Y2l9BslGP5ogbhT7DDNVsXU8eoQ==
@@ -3753,20 +3737,16 @@ jsprim@^1.2.2:
     json-schema "0.4.0"
     verror "1.10.0"
 
-jupyterlab-blockly@^0.1.0-alpha.2:
-  version "0.1.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/jupyterlab-blockly/-/jupyterlab-blockly-0.1.0-alpha.2.tgz#4423820b3c905221327bde12b794d27b7fcc4047"
-  integrity sha512-N8wYff3n8UMaPfvo3cYJR1OPgFiz3tqeAcWd5ICdJQlKbg47PrDTF1GsLrpiYgOrVyt4tWfQL5slO8dAqctcMQ==
+jupyterlab-blockly@^0.1.0-alpha.4:
+  version "0.1.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/jupyterlab-blockly/-/jupyterlab-blockly-0.1.0-alpha.4.tgz#862d8a991c0fd61d45892c6abb7d912261cffcfb"
+  integrity sha512-FjdObiG/TKnruG8sQlIXo0ewDkaO694d5iKbPIeJj3raij2VWJWSgOiSRJU5uSIKD0tJJbk8c7vDEgEzpTZ44Q==
   dependencies:
-    "@jupyterlab/application" "^3.4"
     "@jupyterlab/apputils" "^3.4"
     "@jupyterlab/cells" "^3.4"
     "@jupyterlab/codeeditor" "^3.4"
     "@jupyterlab/coreutils" "^5.4"
     "@jupyterlab/docregistry" "^3.4"
-    "@jupyterlab/filebrowser" "^3.4"
-    "@jupyterlab/launcher" "^3.4"
-    "@jupyterlab/outputarea" "^3.4"
     "@jupyterlab/rendermime" "^3.4"
     "@jupyterlab/services" "^6.4"
     "@jupyterlab/ui-components" "^3.4"
@@ -3776,8 +3756,8 @@ jupyterlab-blockly@^0.1.0-alpha.2:
     "@lumino/signaling" "^1.10.0"
     "@lumino/widgets" "^1.30.0"
     blockly "^7.20211209.2"
-    patch-package "^6.4.7"
-    postinstall-postinstall "^2.1.0"
+    react "^17.0.1"
+    react-dom "^17.0.1"
 
 jwa@^1.4.1:
   version "1.4.1"
