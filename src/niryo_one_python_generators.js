@@ -21,9 +21,6 @@
 
 import * as Blockly from 'blockly';
 import BlocklyPy from 'blockly/python';
-console.debug('Blockly:', Blockly);
-console.debug('Blockly blocks:', Blockly.Blocks);
-console.debug('Blockly Python:', BlocklyPy);
 
 var niryo_one_color = '#3D4D9A';
 

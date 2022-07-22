@@ -6,6 +6,7 @@ node_modules/
 *.egg-info/
 .ipynb_checkpoints
 *.tsbuildinfo
+yarn-error.log
 jupyterlab_niryo_one/labextension
 
 # Integration tests
