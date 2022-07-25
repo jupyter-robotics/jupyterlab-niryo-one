@@ -54,8 +54,12 @@ setup_args = dict(
     zip_safe=False,
     include_package_data=True,
     python_requires=">=3.7",
+    install_requires=['jupyterlab-blockly>=0.1.0a5,<0.2'],
+    extras_require={
+        'env': ['pyniryo']
+    },
     platforms="Linux, Mac OS X, Windows",
-    keywords=["Jupyter", "JupyterLab", "JupyterLab3"],
+    keywords=["Jupyter", "JupyterLab", "JupyterLab3", "ROS", "Niryo", "Niryo-One"],
     classifiers=[
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python",

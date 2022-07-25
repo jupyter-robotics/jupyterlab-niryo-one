@@ -55,7 +55,10 @@
   },
   "dependencies": {
     "@jupyterlab/application": "^3.4",
-    "jupyterlab-blockly": "^0.1.0-alpha.2"
+    "blockly": "^7.20211209.2",
+    "jupyterlab-blockly": "^0.1.0-alpha.4",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0"
   },
   "devDependencies": {
     "@jupyterlab/builder": "^3.3",
