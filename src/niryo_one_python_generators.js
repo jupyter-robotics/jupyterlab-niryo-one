@@ -118,7 +118,7 @@ Blockly.Blocks['niryo_one_move_joints'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
-    this.setTooltip('Give all 6 joints to move the robot');
+    this.setTooltip('Give all 6 joints to move the robot. Joints are expressed in radians.');
     this.setHelpUrl('');
   }
 };
@@ -161,7 +161,7 @@ Blockly.Blocks['niryo_one_move_pose'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
-    this.setTooltip('');
+    this.setTooltip('Move robot end effector pose to a (x, y, z, roll, pitch, yaw, frame_name) pose. x, y & z are expressed in meters / roll, pitch & yaw are expressed in radians');
     this.setHelpUrl('');
   }
 };
@@ -190,7 +190,7 @@ Blockly.Blocks['niryo_one_shift_pose'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
-    this.setTooltip('');
+    this.setTooltip('Shift robot end effector pose along one axis');
     this.setHelpUrl('');
   }
 };
@@ -205,7 +205,7 @@ Blockly.Blocks['niryo_one_set_arm_max_speed'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
-    this.setTooltip('');
+    this.setTooltip('Limit arm max velocity to a percentage of its maximum velocity. Should be between 1 & 100');
     this.setHelpUrl('');
   }
 };
@@ -223,14 +223,22 @@ Blockly.Blocks['niryo_one_calibrate_auto'] = {
   }
 };
 
-Blockly.Blocks['niryo_one_calibrate_manual'] = {
+Blockly.Blocks['niryo_one_calibrate'] = {
   init: function () {
-    this.appendDummyInput().appendField('Calibrate motors (manual)');
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Auto', 'Auto'],
+          ['Manual', 'Manual']
+        ]),
+        'CALIBRATE_MODE'
+      )
+      .appendField('calibrate mode');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
     this.setTooltip(
-      'Will manually calibrate motors (robot needs to be in home position). If already calibrated, will do nothing.'
+      'Will auto or manually calibrate motors (robot needs to be in home position for manual calibration). If already calibrated, will do nothing.'
     );
     this.setHelpUrl('');
   }
@@ -250,7 +258,7 @@ Blockly.Blocks['niryo_one_activate_learning_mode'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
-    this.setTooltip('');
+    this.setTooltip('Set learning mode if param is True, else turn it off.');
     this.setHelpUrl('');
   }
 };
@@ -336,7 +344,7 @@ Blockly.Blocks['niryo_one_pick_from_pose'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
-    this.setTooltip('Pick an object at a pose given');
+    this.setTooltip('Execute a picking from a pose. A picking is described as: going over the object, going down until height = z, grasping with tool, going back over the object');
     this.setHelpUrl('');
   }
 };
@@ -349,7 +357,7 @@ Blockly.Blocks['niryo_one_place_from_pose'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
-    this.setTooltip('Place an object at a pose given');
+    this.setTooltip('Execute a placing from a position. A placing is described as: going over the place, going down until height = z, releasing the object with tool, going back over the place');
     this.setHelpUrl('');
   }
 };
@@ -499,11 +507,11 @@ Blockly.Blocks['niryo_one_tool_select'] = {
   init: function () {
     this.appendDummyInput().appendField(
       new Blockly.FieldDropdown([
-        ['Standard gripper', 'TOOL_GRIPPER_1_ID'],
-        ['Large gripper', 'TOOL_GRIPPER_2_ID'],
-        ['Adaptive gripper ', 'TOOL_GRIPPER_3_ID'],
-        ['electromagnet 1', 'TOOL_ELECTROMAGNET_1_ID'],
-        ['vacuum pump 1', 'TOOL_VACUUM_PUMP_1_ID']
+        ['Standard gripper', 'GRIPPER_1_ID'],
+        ['Large gripper', 'GRIPPER_2_ID'],
+        ['Adaptive gripper ', 'GRIPPER_3_ID'],
+        ['Electromagnet 1', 'ELECTROMAGNET_1_ID'],
+        ['Vacuum pump 1', 'VACUUM_PUMP_1_ID']
       ]),
       'TOOL_SELECT'
     );
@@ -514,12 +522,9 @@ Blockly.Blocks['niryo_one_tool_select'] = {
   }
 };
 
-Blockly.Blocks['niryo_one_change_tool'] = {
+Blockly.Blocks['niryo_one_update_tool'] = {
   init: function () {
-    this.appendValueInput('NEW_TOOL_ID')
-      .setCheck('niryo_one_tool_select')
-      .appendField('Change tool to');
-    this.setInputsInline(true);
+    this.appendDummyInput().appendField('Update tool');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(tool_color);
@@ -528,24 +533,21 @@ Blockly.Blocks['niryo_one_change_tool'] = {
   }
 };
 
-Blockly.Blocks['niryo_one_detach_tool'] = {
-  init: function () {
-    this.appendDummyInput().appendField('Detach current tool');
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(tool_color);
-    this.setTooltip('');
-    this.setHelpUrl('');
-  }
-};
+// Blockly.Blocks['niryo_one_detach_tool'] = {
+//   init: function () {
+//     this.appendDummyInput().appendField('Detach current tool');
+//     this.setPreviousStatement(true, null);
+//     this.setNextStatement(true, null);
+//     this.setColour(tool_color);
+//     this.setTooltip('');
+//     this.setHelpUrl('');
+//   }
+// };
 
 Blockly.Blocks['niryo_one_open_gripper'] = {
   init: function () {
-    this.appendValueInput('OPEN_GRIPPER_ID')
-      .setCheck('niryo_one_tool_select')
-      .appendField('Open Gripper');
     this.appendDummyInput()
-      .appendField('at speed')
+      .appendField('Open gripper at speed')
       .appendField(
         new Blockly.FieldDropdown([
           ['1/5', '100'],
@@ -567,11 +569,8 @@ Blockly.Blocks['niryo_one_open_gripper'] = {
 
 Blockly.Blocks['niryo_one_close_gripper'] = {
   init: function () {
-    this.appendValueInput('CLOSE_GRIPPER_ID')
-      .setCheck('niryo_one_tool_select')
-      .appendField('Close Gripper');
     this.appendDummyInput()
-      .appendField('at speed')
+      .appendField('Close gripper at speed')
       .appendField(
         new Blockly.FieldDropdown([
           ['1/5', '100'],
@@ -593,24 +592,18 @@ Blockly.Blocks['niryo_one_close_gripper'] = {
 
 Blockly.Blocks['niryo_one_pull_air_vacuum_pump'] = {
   init: function () {
-    this.appendValueInput('PULL_AIR_VACUUM_PUMP_ID')
-      .setCheck('niryo_one_tool_select')
-      .appendField('Pull air with Vacuum Pump');
-    this.setInputsInline(true);
+    this.appendDummyInput().appendField('Pull air with Vacuum Pump');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(tool_color);
-    this.setTooltip('');
+    this.setTooltip('Pull air of vacuum pump.');
     this.setHelpUrl('');
   }
 };
 
 Blockly.Blocks['niryo_one_push_air_vacuum_pump'] = {
   init: function () {
-    this.appendValueInput('PUSH_AIR_VACUUM_PUMP_ID')
-      .setCheck('niryo_one_tool_select')
-      .appendField('Push air with Vacuum Pump');
-    this.setInputsInline(true);
+    this.appendDummyInput().appendField('Push air with Vacuum Pump');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(tool_color);
@@ -621,54 +614,45 @@ Blockly.Blocks['niryo_one_push_air_vacuum_pump'] = {
 
 Blockly.Blocks['niryo_one_setup_electromagnet'] = {
   init: function () {
-    this.appendValueInput('SETUP_ELECTROMAGNET_ID')
-      .setCheck('niryo_one_tool_select')
-      .appendField('Setup Electromagnet');
     this.appendValueInput('SETUP_ELECTROMAGNET_PIN')
       .setCheck('niryo_one_gpio_select')
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField('with pin');
+      .appendField('Setup Electromagnet on pin');
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(tool_color);
-    this.setTooltip('');
+    this.setTooltip('Setup electromagnet on pin');
     this.setHelpUrl('');
   }
 };
 
 Blockly.Blocks['niryo_one_activate_electromagnet'] = {
   init: function () {
-    this.appendValueInput('ACTIVATE_ELECTROMAGNET_ID')
-      .setCheck('niryo_one_tool_select')
-      .appendField('Activate Electromagnet');
     this.appendValueInput('ACTIVATE_ELECTROMAGNET_PIN')
       .setCheck('niryo_one_gpio_select')
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField('with pin');
+      .appendField('Activate Electromagnet on pin');
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(tool_color);
-    this.setTooltip('');
+    this.setTooltip('Activate electromagnet associated to electromagnet_id on pin_id');
     this.setHelpUrl('');
   }
 };
 
 Blockly.Blocks['niryo_one_deactivate_electromagnet'] = {
   init: function () {
-    this.appendValueInput('DEACTIVATE_ELECTROMAGNET_ID')
-      .setCheck('niryo_one_tool_select')
-      .appendField('Deactivate Electromagnet');
     this.appendValueInput('DEACTIVATE_ELECTROMAGNET_PIN')
       .setCheck('niryo_one_gpio_select')
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField('with pin');
+      .appendField('Deactivate Electromagnet on pin');
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(tool_color);
-    this.setTooltip('');
+    this.setTooltip('Deactivate electromagnet associated to electromagnet_id on pin_id');
     this.setHelpUrl('');
   }
 };
@@ -699,19 +683,6 @@ Blockly.Blocks['niryo_one_comment'] = {
     this.setNextStatement(true, null);
     this.setColour(utility_color);
     this.setTooltip('This block will not be executed.');
-    this.setHelpUrl('');
-  }
-};
-
-Blockly.Blocks['niryo_one_break_point'] = {
-  init: function () {
-    this.appendDummyInput().appendField('Break Point');
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(utility_color);
-    this.setTooltip(
-      "Stop the execution of the program. Press 'Play' to resume."
-    );
     this.setHelpUrl('');
   }
 };
@@ -774,8 +745,7 @@ Blockly.Blocks['niryo_one_vision_pick'] = {
     this.setColour(vision_color);
     this.setHelpUrl('');
     this.setTooltip(
-      'Pick an object of SHAPE / COLOR  given, with gripper close position at HEIGHT_OFFSET cm.'
-    );
+      'Picks the specified object from the workspace. This function has multiple phases: 1. detect object using the camera 2. prepare the current tool for picking 3. approach the object 4. move down to the correct picking pose 5. actuate the current tool 6. lift the object');
     this.setInputsInline(false);
   }
 };
@@ -822,13 +792,11 @@ Blockly.Blocks['niryo_one_conveyor_models'] = {
 
 Blockly.Blocks['niryo_one_conveyor_use'] = {
   init: function () {
-    this.appendValueInput('CONVEYOR_SWITCH')
-      .setCheck('niryo_one_conveyor_models')
-      .appendField('Use conveyor:');
-
+    this.appendDummyInput().appendField('Activate conveyor');
     this.setColour(conveyor_color);
+    this.setOutput(true, 'String');
     this.setHelpUrl('');
-    this.setTooltip('Allow the conveyor to be controlled via Niryo One.');
+    this.setTooltip('Activate a new conveyor and return its ID.');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
   }
@@ -904,6 +872,7 @@ class niryo_connect():
     return self.n
   def __exit__(self):
     self.n.close_connection()
+
 `;
 
 BlocklyPy['niryo_one_move_joints'] = function (block) {
@@ -985,14 +954,15 @@ BlocklyPy['niryo_one_calibrate_auto'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_calibrate_manual'] = function (block) {
-  var code = 'n.calibrate_manual()\n';
+BlocklyPy['niryo_one_calibrate'] = function (block) {
+  var dropdown_calibrate_mode = block.getFieldValue('CALIBRATE_MODE');
+  var code = 'n.calibrate(' + dropdown_calibrate_mode + ')\n';
   return code;
 };
 
 BlocklyPy['niryo_one_activate_learning_mode'] = function (block) {
   var dropdown_learning_mode_value = block.getFieldValue('LEARNING_MODE_VALUE');
-  var code = 'n.activate_learning_mode(' + dropdown_learning_mode_value + ')\n';
+  var code = 'n.set_learning_mode(' + dropdown_learning_mode_value + ')\n';
   return code;
 };
 
@@ -1129,7 +1099,7 @@ BlocklyPy['niryo_one_set_pin_mode'] = function (block) {
   value_pin = value_pin.replace('(', '').replace(')', '');
   var dropdown_pin_mode_select = block.getFieldValue('PIN_MODE_SELECT');
   var code =
-    'n.pin_mode(' + value_pin + ', ' + dropdown_pin_mode_select + ')\n';
+    'n.set_pin_mode(' + value_pin + ', ' + dropdown_pin_mode_select + ')\n';
   return code;
 };
 
@@ -1190,76 +1160,42 @@ BlocklyPy['niryo_one_tool_select'] = function (block) {
   return [code, BlocklyPy.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_change_tool'] = function (block) {
-  var value_tool_name =
-    BlocklyPy.valueToCode(block, 'NEW_TOOL_ID', BlocklyPy.ORDER_ATOMIC) ||
-    '(TOOL_NONE)';
-  value_tool_name = value_tool_name.replace('(', '').replace(')', '');
-  var code = 'n.change_tool(' + value_tool_name + ')\n';
+BlocklyPy['niryo_one_update_tool'] = function (block) {
+  var code = 'n.update_tool()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_detach_tool'] = function (block) {
-  var code = 'n.change_tool(0)\n';
-  return code;
-};
+//  new function corresponds to release_with_tool (made in pair with grasp_with_tool)
+//  BlocklyPy['niryo_one_detach_tool'] = function (block) {
+//   var code = 'n.change_tool(0)\n';
+//   return code;
+// };
 
 BlocklyPy['niryo_one_open_gripper'] = function (block) {
-  var value_gripper_id =
-    BlocklyPy.valueToCode(block, 'OPEN_GRIPPER_ID', BlocklyPy.ORDER_ATOMIC) ||
-    '(TOOL_NONE)';
-  value_gripper_id = value_gripper_id.replace('(', '').replace(')', '');
   var number_open_speed = block.getFieldValue('OPEN_SPEED');
   var code =
-    'n.open_gripper(' + value_gripper_id + ', ' + number_open_speed + ')\n';
+    'n.open_gripper( ' + number_open_speed + ')\n';
   return code;
 };
 
 BlocklyPy['niryo_one_close_gripper'] = function (block) {
-  var value_gripper_id =
-    BlocklyPy.valueToCode(block, 'CLOSE_GRIPPER_ID', BlocklyPy.ORDER_ATOMIC) ||
-    '(TOOL_NONE)';
-  value_gripper_id = value_gripper_id.replace('(', '').replace(')', '');
   var number_close_speed = block.getFieldValue('CLOSE_SPEED');
   var code =
-    'n.close_gripper(' + value_gripper_id + ', ' + number_close_speed + ')\n';
+    'n.close_gripper(' + number_close_speed + ')\n';
   return code;
 };
 
 BlocklyPy['niryo_one_pull_air_vacuum_pump'] = function (block) {
-  var value_vacuum_pump_id =
-    BlocklyPy.valueToCode(
-      block,
-      'PULL_AIR_VACUUM_PUMP_ID',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(TOOL_NONE)';
-  value_vacuum_pump_id = value_vacuum_pump_id.replace('(', '').replace(')', '');
-  var code = 'n.pull_air_vacuum_pump(' + value_vacuum_pump_id + ')\n';
+  var code = 'n.pull_air_vacuum_pump()\n';
   return code;
 };
 
 BlocklyPy['niryo_one_push_air_vacuum_pump'] = function (block) {
-  var value_vacuum_pump_id =
-    BlocklyPy.valueToCode(
-      block,
-      'PUSH_AIR_VACUUM_PUMP_ID',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(TOOL_NONE)';
-  value_vacuum_pump_id = value_vacuum_pump_id.replace('(', '').replace(')', '');
-  var code = 'n.push_air_vacuum_pump(' + value_vacuum_pump_id + ')\n';
+  var code = 'n.push_air_vacuum_pump()\n';
   return code;
 };
 
 BlocklyPy['niryo_one_setup_electromagnet'] = function (block) {
-  var value_electromagnet_id =
-    BlocklyPy.valueToCode(
-      block,
-      'SETUP_ELECTROMAGNET_ID',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(TOOL_NONE)';
-  value_electromagnet_id = value_electromagnet_id
-    .replace('(', '')
-    .replace(')', '');
   var value_electromagnet_pin =
     BlocklyPy.valueToCode(
       block,
@@ -1271,23 +1207,12 @@ BlocklyPy['niryo_one_setup_electromagnet'] = function (block) {
     .replace(')', '');
   var code =
     'n.setup_electromagnet(' +
-    value_electromagnet_id +
-    ', ' +
     value_electromagnet_pin +
     ')\n';
   return code;
 };
 
 BlocklyPy['niryo_one_activate_electromagnet'] = function (block) {
-  var value_electromagnet_id =
-    BlocklyPy.valueToCode(
-      block,
-      'ACTIVATE_ELECTROMAGNET_ID',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(TOOL_NONE)';
-  value_electromagnet_id = value_electromagnet_id
-    .replace('(', '')
-    .replace(')', '');
   var value_electromagnet_pin =
     BlocklyPy.valueToCode(
       block,
@@ -1299,23 +1224,12 @@ BlocklyPy['niryo_one_activate_electromagnet'] = function (block) {
     .replace(')', '');
   var code =
     'n.activate_electromagnet(' +
-    value_electromagnet_id +
-    ', ' +
     value_electromagnet_pin +
     ')\n';
   return code;
 };
 
 BlocklyPy['niryo_one_deactivate_electromagnet'] = function (block) {
-  var value_electromagnet_id =
-    BlocklyPy.valueToCode(
-      block,
-      'DEACTIVATE_ELECTROMAGNET_ID',
-      BlocklyPy.ORDER_ATOMIC
-    ) || '(TOOL_NONE)';
-  value_electromagnet_id = value_electromagnet_id
-    .replace('(', '')
-    .replace(')', '');
   var value_electromagnet_pin =
     BlocklyPy.valueToCode(
       block,
@@ -1327,8 +1241,6 @@ BlocklyPy['niryo_one_deactivate_electromagnet'] = function (block) {
     .replace(')', '');
   var code =
     'n.deactivate_electromagnet(' +
-    value_electromagnet_id +
-    ', ' +
     value_electromagnet_pin +
     ')\n';
   return code;
@@ -1347,11 +1259,6 @@ BlocklyPy['niryo_one_sleep'] = function (block) {
 BlocklyPy['niryo_one_comment'] = function (block) {
   var text_comment_text = block.getFieldValue('COMMENT_TEXT');
   var code = ' #' + text_comment_text + '\n';
-  return code;
-};
-
-BlocklyPy['niryo_one_break_point'] = function (block) {
-  var code = 'n.break_point()\n';
   return code;
 };
 
@@ -1443,8 +1350,8 @@ BlocklyPy['niryo_one_vision_is_object_detected'] = function (block) {
 
 BlocklyPy['niryo_one_conveyor_models'] = function (block) {
   const conveyor_id_map = {
-    CONVEYOR_1: 6,
-    CONVEYOR_2: 7
+    CONVEYOR_1: -1,
+    CONVEYOR_2: -2
   };
   var conveyor_model_id = block.getFieldValue('CONVEYOR_SELECT');
   var code = conveyor_id_map[conveyor_model_id];
@@ -1452,11 +1359,7 @@ BlocklyPy['niryo_one_conveyor_models'] = function (block) {
 };
 
 BlocklyPy['niryo_one_conveyor_use'] = function (block) {
-  var conveyor_id =
-    BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
-    '(0)';
-  conveyor_id = conveyor_id.replace('(', '').replace(')', '');
-  var code = 'n.set_conveyor(' + conveyor_id + ', True)\n';
+  var code = 'n.set_conveyor()\n';
   return code;
 };
 
@@ -1486,7 +1389,7 @@ BlocklyPy['niryo_one_conveyor_stop'] = function (block) {
     BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
     '(0)';
   conveyor_id = conveyor_id.replace('(', '').replace(')', '');
-  var code = 'n.control_conveyor(' + conveyor_id + ', False, 0, 1)\n';
+  var code = 'n.stop_conveyor(' + conveyor_id + ')\n';
   return code;
 };
 
@@ -1873,7 +1776,7 @@ const TOOLBOX = {
         },
         {
           kind: 'BLOCK',
-          type: 'niryo_one_calibrate_manual'
+          type: 'niryo_one_calibrate'
         },
         {
           kind: 'BLOCK',
@@ -1941,12 +1844,12 @@ const TOOLBOX = {
         },
         {
           kind: 'BLOCK',
-          type: 'niryo_one_change_tool'
+          type: 'niryo_one_update_tool'
         },
-        {
-          kind: 'BLOCK',
-          type: 'niryo_one_detach_tool'
-        },
+        // {
+        //   kind: 'BLOCK',
+        //   type: 'niryo_one_detach_tool'
+        // },
         {
           kind: 'BLOCK',
           type: 'niryo_one_open_gripper'
@@ -1982,10 +1885,6 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_comment'
-        },
-        {
-          kind: 'BLOCK',
-          type: 'niryo_one_break_point'
         },
         {
           kind: 'BLOCK',

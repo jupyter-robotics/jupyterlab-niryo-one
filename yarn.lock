@@ -3737,10 +3737,10 @@ jsprim@^1.2.2:
     json-schema "0.4.0"
     verror "1.10.0"
 
-jupyterlab-blockly@^0.1.0-alpha.4:
-  version "0.1.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/jupyterlab-blockly/-/jupyterlab-blockly-0.1.0-alpha.4.tgz#862d8a991c0fd61d45892c6abb7d912261cffcfb"
-  integrity sha512-FjdObiG/TKnruG8sQlIXo0ewDkaO694d5iKbPIeJj3raij2VWJWSgOiSRJU5uSIKD0tJJbk8c7vDEgEzpTZ44Q==
+jupyterlab-blockly@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/jupyterlab-blockly/-/jupyterlab-blockly-0.1.0.tgz#9c5d388f96d6cec57859d04868c6976c5db89170"
+  integrity sha512-SAmoM9imtbHONnu9BQNiNSto/cuS2agPbQ4FSOB7iOLDj4XOZClxCOspPO77hGQFODU/6guYB0uYsis/7Jrdbg==
   dependencies:
     "@jupyterlab/apputils" "^3.4"
     "@jupyterlab/cells" "^3.4"
