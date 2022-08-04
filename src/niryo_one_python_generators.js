@@ -59,7 +59,8 @@ const g_shape_values = {
  *  Blocks definition
  */
 
-// Movement
+// Connection
+
 Blockly.Blocks['niryo_one_connect'] = {
   init: function () {
     this.appendDummyInput().appendField('IP Address');
@@ -80,6 +81,103 @@ Blockly.Blocks['niryo_one_connect'] = {
     this.setHelpUrl('');
   }
 };
+
+Blockly.Blocks['niryo_one_need_calibration'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Need calibration');
+    this.setOutput(true, 'Boolean');
+    this.setColour(function_color);
+    this.setTooltip(
+      'Return a bool indicating whereas the robot motors need to be calibrate'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_calibrate_auto'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Calibrate motors (auto)');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(function_color);
+    this.setTooltip(
+      'Will auto calibrate motors. If already calibrated, will do nothing.'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_calibrate'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Auto', 'Auto'],
+          ['Manual', 'Manual']
+        ]),
+        'CALIBRATE_MODE'
+      )
+      .appendField('calibrate mode');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(function_color);
+    this.setTooltip(
+      'Will auto or manually calibrate motors (robot needs to be in home position for manual calibration). If already calibrated, will do nothing.'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_learning_mode'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get Learning Mode');
+    this.setOutput(true, 'Boolean');
+    this.setColour(function_color);
+    this.setTooltip('Set learning mode if param is True, else turn it off.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_activate_learning_mode'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Activate', '1'],
+          ['Deactivate', '0']
+        ]),
+        'LEARNING_MODE_VALUE'
+      )
+      .appendField('learning mode');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(function_color);
+    this.setTooltip('Set learning mode if param is True, else turn it off.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_set_jog_control'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['Activate', '1'],
+          ['Deactivate', '0']
+        ]),
+        'JOG_CONTROL_MODE_VALUE'
+      )
+      .appendField('Jog control mode');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(function_color);
+    this.setTooltip('Set jog control mode if param is True, else turn it off:');
+    this.setHelpUrl('');
+  }
+};
+
+// Movement
+
 Blockly.Blocks['niryo_one_move_joints'] = {
   init: function () {
     this.appendDummyInput().appendField('Move Joints');
@@ -121,6 +219,16 @@ Blockly.Blocks['niryo_one_move_joints'] = {
     this.setTooltip(
       'Give all 6 joints to move the robot. Joints are expressed in radians.'
     );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_joints'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get joints values');
+    this.setOutput(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('Get joints value in radians. You can also use a getter');
     this.setHelpUrl('');
   }
 };
@@ -170,6 +278,73 @@ Blockly.Blocks['niryo_one_move_pose'] = {
   }
 };
 
+Blockly.Blocks['niryo_one_move_linear_pose'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Move Linear Pose');
+    this.appendDummyInput()
+      .appendField('x')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_X'
+      )
+      .appendField('y')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_Y'
+      )
+      .appendField('z')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_Z'
+      )
+      .appendField('roll')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_ROLL'
+      )
+      .appendField('pitch')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_PITCH'
+      )
+      .appendField('yaw')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_YAW'
+      );
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(movement_color);
+    this.setTooltip(
+      'Move robot end effector pose to a (x, y, z, roll, pitch, yaw) pose with a linear trajectory.'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_pose'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get pose value');
+    this.setOutput(true, null);
+    this.setColour(movement_color);
+    this.setTooltip(
+      'Get end effector link pose as [x, y, z, roll, pitch, yaw]. x, y & z are expressed in meters / roll, pitch & yaw are expressed in radians You can also use a getter'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_pose_quat'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get pose value (quaternion)');
+    this.setOutput(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('Get end effector link pose in Quaternion coordinates.');
+    this.setHelpUrl('');
+  }
+};
+
 Blockly.Blocks['niryo_one_shift_pose'] = {
   init: function () {
     this.appendDummyInput().appendField('Shift');
@@ -199,6 +374,37 @@ Blockly.Blocks['niryo_one_shift_pose'] = {
   }
 };
 
+Blockly.Blocks['niryo_one_shift_linear_pose'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Shift linear');
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['pos. x', '0'],
+          ['pos. y', '1'],
+          ['pos. z', '2'],
+          ['rot. x', '3'],
+          ['rot. y', '4'],
+          ['rot. z', '5']
+        ]),
+        'SHIFT_POSE_AXIS'
+      )
+      .appendField('by')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'SHIFT_POSE_VALUE'
+      );
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(movement_color);
+    this.setTooltip(
+      'Shift robot end effector pose along one axis, with a linear trajectory.'
+    );
+    this.setHelpUrl('');
+  }
+};
+
 Blockly.Blocks['niryo_one_set_arm_max_speed'] = {
   init: function () {
     this.appendValueInput('SET_ARM_MAX_SPEED')
@@ -212,59 +418,6 @@ Blockly.Blocks['niryo_one_set_arm_max_speed'] = {
     this.setTooltip(
       'Limit arm max velocity to a percentage of its maximum velocity. Should be between 1 & 100'
     );
-    this.setHelpUrl('');
-  }
-};
-
-Blockly.Blocks['niryo_one_calibrate_auto'] = {
-  init: function () {
-    this.appendDummyInput().appendField('Calibrate motors (auto)');
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(movement_color);
-    this.setTooltip(
-      'Will auto calibrate motors. If already calibrated, will do nothing.'
-    );
-    this.setHelpUrl('');
-  }
-};
-
-Blockly.Blocks['niryo_one_calibrate'] = {
-  init: function () {
-    this.appendDummyInput()
-      .appendField(
-        new Blockly.FieldDropdown([
-          ['Auto', 'Auto'],
-          ['Manual', 'Manual']
-        ]),
-        'CALIBRATE_MODE'
-      )
-      .appendField('calibrate mode');
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(movement_color);
-    this.setTooltip(
-      'Will auto or manually calibrate motors (robot needs to be in home position for manual calibration). If already calibrated, will do nothing.'
-    );
-    this.setHelpUrl('');
-  }
-};
-
-Blockly.Blocks['niryo_one_activate_learning_mode'] = {
-  init: function () {
-    this.appendDummyInput()
-      .appendField(
-        new Blockly.FieldDropdown([
-          ['Activate', '1'],
-          ['Deactivate', '0']
-        ]),
-        'LEARNING_MODE_VALUE'
-      )
-      .appendField('learning mode');
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(movement_color);
-    this.setTooltip('Set learning mode if param is True, else turn it off.');
     this.setHelpUrl('');
   }
 };
@@ -329,19 +482,6 @@ Blockly.Blocks['niryo_one_pose'] = {
   }
 };
 
-Blockly.Blocks['niryo_one_move_pose_from_pose'] = {
-  init: function () {
-    this.appendValueInput('POSE')
-      .setCheck('niryo_one_pose')
-      .appendField('Move pose');
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(movement_color);
-    this.setTooltip('Move pose with an object pose given');
-    this.setHelpUrl('');
-  }
-};
-
 Blockly.Blocks['niryo_one_pick_from_pose'] = {
   init: function () {
     this.appendValueInput('POSE')
@@ -352,6 +492,27 @@ Blockly.Blocks['niryo_one_pick_from_pose'] = {
     this.setColour(movement_color);
     this.setTooltip(
       'Execute a picking from a pose. A picking is described as: going over the object, going down until height = z, grasping with tool, going back over the object'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_pick_and_place'] = {
+  init: function () {
+    this.appendValueInput('POSE_1')
+      .setCheck('niryo_one_pose')
+      .appendField('Pick from pose');
+    this.appendValueInput('POSE_2')
+      .setCheck('niryo_one_pose')
+      .appendField('and place from pose');
+    this.appendValueInput('DIST_SMOOTHING')
+      .setCheck('Number')
+      .appendField('with distance smoothing');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(movement_color);
+    this.setTooltip(
+      'Execute a pick and a place. Distance smoothing refers to distance from waypoints before smoothing trajectory.'
     );
     this.setHelpUrl('');
   }
@@ -368,6 +529,287 @@ Blockly.Blocks['niryo_one_place_from_pose'] = {
     this.setTooltip(
       'Execute a placing from a position. A placing is described as: going over the place, going down until height = z, releasing the object with tool, going back over the place'
     );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_jog_joints'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Jog Joints');
+    this.appendDummyInput()
+      .appendField('j1')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'JOINTS_1'
+      )
+      .appendField('j2')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'JOINTS_2'
+      )
+      .appendField('j3')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'JOINTS_3'
+      )
+      .appendField('j4')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'JOINTS_4'
+      )
+      .appendField('j5')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'JOINTS_5'
+      )
+      .appendField('j6')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'JOINTS_6'
+      );
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(movement_color);
+    this.setTooltip(
+      'Jog robot joints’. Jog corresponds to a shift without motion planning. Values are expressed in radians.'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_jog_pose'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Jog Pose');
+    this.appendDummyInput()
+      .appendField('x')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_X'
+      )
+      .appendField('y')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_Y'
+      )
+      .appendField('z')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_Z'
+      )
+      .appendField('roll')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_ROLL'
+      )
+      .appendField('pitch')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_PITCH'
+      )
+      .appendField('yaw')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_YAW'
+      );
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(movement_color);
+    this.setTooltip(
+      'Jog robot end effector pose Jog corresponds to a shift without motion planning Arguments are [dx, dy, dz, d_roll, d_pitch, d_yaw] dx, dy & dz are expressed in meters / d_roll, d_pitch & d_yaw are expressed in radians'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_move_to_home_pose'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Move to home pose');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('Move to a position where the forearm lays on shoulder.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_sleep'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Go to sleep');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('Go to home pose and activate learning mode.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_forward_kinematics'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Forward Kinematics of Joints');
+    this.appendDummyInput()
+      .appendField('j1')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'JOINTS_1'
+      )
+      .appendField('j2')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'JOINTS_2'
+      )
+      .appendField('j3')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'JOINTS_3'
+      )
+      .appendField('j4')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'JOINTS_4'
+      )
+      .appendField('j5')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'JOINTS_5'
+      )
+      .appendField('j6')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'JOINTS_6'
+      );
+    this.setInputsInline(true);
+    this.setOutput(true, null);
+    this.setColour(movement_color);
+    this.setTooltip(
+      'Compute forward kinematics of a given joints configuration and give the associated spatial pose'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_inverse_kinematics'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Inverse Kinematics of Pose');
+    this.appendDummyInput()
+      .appendField('x')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_X'
+      )
+      .appendField('y')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_Y'
+      )
+      .appendField('z')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_Z'
+      )
+      .appendField('roll')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_ROLL'
+      )
+      .appendField('pitch')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_PITCH'
+      )
+      .appendField('yaw')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_YAW'
+      );
+    this.setInputsInline(true);
+    this.setOutput(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('Compute inverse kinematics.');
+    this.setHelpUrl('');
+  }
+};
+
+// Saved poses
+
+Blockly.Blocks['niryo_one_get_saved_pose'] = {
+  init: function () {
+    this.appendValueInput('POSE_NAME')
+      .setCheck('String')
+      .appendField('Get pose named');
+    this.setOutput(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('Get pose saved in from Niryo’s memory');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_save_pose'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('Save pose')
+      .appendField('x')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_X'
+      )
+      .appendField('y')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_Y'
+      )
+      .appendField('z')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_Z'
+      )
+      .appendField('roll')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_ROLL'
+      )
+      .appendField('pitch')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_PITCH'
+      )
+      .appendField('yaw')
+      .appendField(
+        new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001),
+        'POSE_YAW'
+      );
+    this.appendValueInput('POSE_NAME')
+      .setCheck('String')
+      .appendField('under the name');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(movement_color);
+    this.setTooltip("Save pose in Niryo's memory.");
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_delete_pose'] = {
+  init: function () {
+    this.appendValueInput('POSE_NAME')
+      .setCheck('String')
+      .appendField('Delete pose named');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('Delete pose from Niryo’s memory');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_saved_pose_list'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get list of saved poses');
+    this.setOutput(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('');
     this.setHelpUrl('');
   }
 };
@@ -673,9 +1115,9 @@ Blockly.Blocks['niryo_one_deactivate_electromagnet'] = {
 
 // Utility
 
-Blockly.Blocks['niryo_one_sleep'] = {
+Blockly.Blocks['niryo_one_wait'] = {
   init: function () {
-    this.appendValueInput('SLEEP_TIME')
+    this.appendValueInput('WAIT_TIME')
       .setCheck('Number')
       .appendField('Wait for ');
     this.appendDummyInput().appendField('seconds');
@@ -890,6 +1332,41 @@ class niryo_connect():
 
 `;
 
+BlocklyPy['niryo_one_need_calibration'] = function (block) {
+  var code = 'n.need_calibration()\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_calibrate_auto'] = function (block) {
+  var code = 'n.calibrate_auto()\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_calibrate'] = function (block) {
+  var dropdown_calibrate_mode = block.getFieldValue('CALIBRATE_MODE');
+  var code = 'n.calibrate(' + dropdown_calibrate_mode + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_activate_learning_mode'] = function (block) {
+  var dropdown_learning_mode_value = block.getFieldValue('LEARNING_MODE_VALUE');
+  var code = 'n.set_learning_mode(' + dropdown_learning_mode_value + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_get_learning_mode'] = function (block) {
+  var code = 'n.get_learning_mode()\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_set_jog_control'] = function (block) {
+  var dropdown_jog_control_mode_value = block.getFieldValue(
+    'JOG_CONTROL_MODE_VALUE'
+  );
+  var code = 'n.set_jog_control(' + dropdown_jog_control_mode_value + ')\n';
+  return code;
+};
+
 BlocklyPy['niryo_one_move_joints'] = function (block) {
   var number_joints_1 = block.getFieldValue('JOINTS_1');
   var number_joints_2 = block.getFieldValue('JOINTS_2');
@@ -940,6 +1417,31 @@ BlocklyPy['niryo_one_move_pose'] = function (block) {
   return code;
 };
 
+BlocklyPy['niryo_one_move_linear_pose'] = function (block) {
+  var number_pose_x = block.getFieldValue('POSE_X');
+  var number_pose_y = block.getFieldValue('POSE_Y');
+  var number_pose_z = block.getFieldValue('POSE_Z');
+  var number_pose_roll = block.getFieldValue('POSE_ROLL');
+  var number_pose_pitch = block.getFieldValue('POSE_PITCH');
+  var number_pose_yaw = block.getFieldValue('POSE_YAW');
+
+  var code =
+    'n.move_pose(' +
+    number_pose_x +
+    ', ' +
+    number_pose_y +
+    ', ' +
+    number_pose_z +
+    ', ' +
+    number_pose_roll +
+    ', ' +
+    number_pose_pitch +
+    ', ' +
+    number_pose_yaw +
+    ')\n';
+  return code;
+};
+
 BlocklyPy['niryo_one_shift_pose'] = function (block) {
   var dropdown_shift_pose_axis = block.getFieldValue('SHIFT_POSE_AXIS');
   var number_shift_pose_value = block.getFieldValue('SHIFT_POSE_VALUE');
@@ -961,23 +1463,6 @@ BlocklyPy['niryo_one_set_arm_max_speed'] = function (block) {
     .replace('(', '')
     .replace(')', '');
   var code = 'n.set_arm_max_velocity(' + value_set_arm_max_speed + ')\n';
-  return code;
-};
-
-BlocklyPy['niryo_one_calibrate_auto'] = function (block) {
-  var code = 'n.calibrate_auto()\n';
-  return code;
-};
-
-BlocklyPy['niryo_one_calibrate'] = function (block) {
-  var dropdown_calibrate_mode = block.getFieldValue('CALIBRATE_MODE');
-  var code = 'n.calibrate(' + dropdown_calibrate_mode + ')\n';
-  return code;
-};
-
-BlocklyPy['niryo_one_activate_learning_mode'] = function (block) {
-  var dropdown_learning_mode_value = block.getFieldValue('LEARNING_MODE_VALUE');
-  var code = 'n.set_learning_mode(' + dropdown_learning_mode_value + ')\n';
   return code;
 };
 
@@ -1016,6 +1501,11 @@ BlocklyPy['niryo_one_joint'] = function (block) {
     value_j6 +
     ']';
   return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_get_joints'] = function (block) {
+  var code = 'n.get_joints()\n';
+  return code;
 };
 
 BlocklyPy['niryo_one_move_joint_from_joint'] = function (block) {
@@ -1072,6 +1562,16 @@ BlocklyPy['niryo_one_pose'] = function (block) {
   return [code, BlocklyPy.ORDER_NONE];
 };
 
+BlocklyPy['niryo_one_get_pose'] = function (block) {
+  var code = 'n.get_pose()\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_get_pose_quat'] = function (block) {
+  var code = 'n.get_pose_quat()\n';
+  return code;
+};
+
 BlocklyPy['niryo_one_move_pose_from_pose'] = function (block) {
   // Position object
   var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
@@ -1096,6 +1596,209 @@ BlocklyPy['niryo_one_place_from_pose'] = function (block) {
   value_pose = value_pose.replace('(', '').replace(')', '');
 
   var code = 'n.place_from_pose(*' + value_pose + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_pick_and_place'] = function (block) {
+  var value_pose_1 = BlocklyPy.valueToCode(
+    block,
+    'POSE_1',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_pose_1 = value_pose_1.replace('(', '').replace(')', '');
+
+  var value_pose_2 = BlocklyPy.valueToCode(
+    block,
+    'POSE_2',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_pose_2 = value_pose_2.replace('(', '').replace(')', '');
+
+  var dist_smoothing_value = Blockly.Python.valueToCode(
+    block,
+    'DIST_SMOOTHING',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  // dist_smoothing_value = dist_smoothing_value.replace('(', '').replace(')', '');
+
+  var code =
+    'n.pick_and_place(*' +
+    value_pose_1 +
+    ', *' +
+    value_pose_2 +
+    ', ' +
+    dist_smoothing_value +
+    ')\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_jog_joints'] = function (block) {
+  var number_joints_1 = block.getFieldValue('JOINTS_1');
+  var number_joints_2 = block.getFieldValue('JOINTS_2');
+  var number_joints_3 = block.getFieldValue('JOINTS_3');
+  var number_joints_4 = block.getFieldValue('JOINTS_4');
+  var number_joints_5 = block.getFieldValue('JOINTS_5');
+  var number_joints_6 = block.getFieldValue('JOINTS_6');
+
+  var code =
+    'n.jog_joints([' +
+    number_joints_1 +
+    ', ' +
+    number_joints_2 +
+    ', ' +
+    number_joints_3 +
+    ', ' +
+    number_joints_4 +
+    ', ' +
+    number_joints_5 +
+    ', ' +
+    number_joints_6 +
+    '])\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_jog_pose'] = function (block) {
+  var number_pose_x = block.getFieldValue('POSE_X');
+  var number_pose_y = block.getFieldValue('POSE_Y');
+  var number_pose_z = block.getFieldValue('POSE_Z');
+  var number_pose_roll = block.getFieldValue('POSE_ROLL');
+  var number_pose_pitch = block.getFieldValue('POSE_PITCH');
+  var number_pose_yaw = block.getFieldValue('POSE_YAW');
+
+  var code =
+    'n.jog_pose(' +
+    number_pose_x +
+    ', ' +
+    number_pose_y +
+    ', ' +
+    number_pose_z +
+    ', ' +
+    number_pose_roll +
+    ', ' +
+    number_pose_pitch +
+    ', ' +
+    number_pose_yaw +
+    ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_move_to_home_pose'] = function (block) {
+  var code = 'n.move_to_home_pose()\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_sleep'] = function (block) {
+  var code = 'n.go_to_sleep()\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_forward_kinematics'] = function (block) {
+  var number_joints_1 = block.getFieldValue('JOINTS_1');
+  var number_joints_2 = block.getFieldValue('JOINTS_2');
+  var number_joints_3 = block.getFieldValue('JOINTS_3');
+  var number_joints_4 = block.getFieldValue('JOINTS_4');
+  var number_joints_5 = block.getFieldValue('JOINTS_5');
+  var number_joints_6 = block.getFieldValue('JOINTS_6');
+
+  var code =
+    'n.forward_kinematics([' +
+    number_joints_1 +
+    ', ' +
+    number_joints_2 +
+    ', ' +
+    number_joints_3 +
+    ', ' +
+    number_joints_4 +
+    ', ' +
+    number_joints_5 +
+    ', ' +
+    number_joints_6 +
+    '])\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_inverse_kinematics'] = function (block) {
+  var number_pose_x = block.getFieldValue('POSE_X');
+  var number_pose_y = block.getFieldValue('POSE_Y');
+  var number_pose_z = block.getFieldValue('POSE_Z');
+  var number_pose_roll = block.getFieldValue('POSE_ROLL');
+  var number_pose_pitch = block.getFieldValue('POSE_PITCH');
+  var number_pose_yaw = block.getFieldValue('POSE_YAW');
+
+  var code =
+    'n.inverse_kinematics(' +
+    number_pose_x +
+    ', ' +
+    number_pose_y +
+    ', ' +
+    number_pose_z +
+    ', ' +
+    number_pose_roll +
+    ', ' +
+    number_pose_pitch +
+    ', ' +
+    number_pose_yaw +
+    ')\n';
+  return code;
+};
+
+// Saved poses
+
+BlocklyPy['niryo_one_get_saved_pose'] = function (block) {
+  var value_pose_name = Blockly.Python.valueToCode(
+    block,
+    'POSE_NAME',
+    Blockly.Python.ORDER_ATOMIC
+  );
+  var code = 'n.get_saved_pose(' + value_pose_name + ')\n';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_save_pose'] = function (block) {
+  var pose_name = Blockly.Python.valueToCode(
+    block,
+    'POSE_NAME',
+    Blockly.Python.ORDER_ATOMIC
+  );
+
+  var number_pose_x = block.getFieldValue('POSE_X');
+  var number_pose_y = block.getFieldValue('POSE_Y');
+  var number_pose_z = block.getFieldValue('POSE_Z');
+  var number_pose_roll = block.getFieldValue('POSE_ROLL');
+  var number_pose_pitch = block.getFieldValue('POSE_PITCH');
+  var number_pose_yaw = block.getFieldValue('POSE_YAW');
+
+  var code =
+    'n.save_pose(' +
+    pose_name +
+    ', ' +
+    number_pose_x +
+    ', ' +
+    number_pose_y +
+    ', ' +
+    number_pose_z +
+    ', ' +
+    number_pose_roll +
+    ', ' +
+    number_pose_pitch +
+    ', ' +
+    number_pose_yaw +
+    ')\n';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_delete_pose'] = function (block) {
+  var pose_name = Blockly.Python.valueToCode(
+    block,
+    'POSE_NAME',
+    Blockly.Python.ORDER_ATOMIC
+  );
+  var code = 'n.delete_pose(' + pose_name + ')\n';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_get_saved_pose_list'] = function (block) {
+  var code = 'n.get_saved_pose_list()\n';
   return code;
 };
 
@@ -1252,11 +1955,11 @@ BlocklyPy['niryo_one_deactivate_electromagnet'] = function (block) {
 
 // Utility
 
-BlocklyPy['niryo_one_sleep'] = function (block) {
-  var value_sleep_time =
-    BlocklyPy.valueToCode(block, 'SLEEP_TIME', BlocklyPy.ORDER_ATOMIC) || '0';
-  value_sleep_time = value_sleep_time.replace('(', '').replace(')', '');
-  var code = 'n.wait(' + value_sleep_time + ')\n';
+BlocklyPy['niryo_one_wait'] = function (block) {
+  var value_wait_time =
+    BlocklyPy.valueToCode(block, 'WAIT_TIME', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_wait_time = value_wait_time.replace('(', '').replace(')', '');
+  var code = 'n.wait(' + value_wait_time + ')\n';
   return code;
 };
 
@@ -1760,22 +2463,6 @@ const TOOLBOX = {
         },
         {
           kind: 'BLOCK',
-          type: 'niryo_one_move_joints'
-        },
-        {
-          kind: 'BLOCK',
-          type: 'niryo_one_move_pose'
-        },
-        {
-          kind: 'BLOCK',
-          type: 'niryo_one_shift_pose'
-        },
-        {
-          kind: 'BLOCK',
-          type: 'niryo_one_set_arm_max_speed'
-        },
-        {
-          kind: 'BLOCK',
           type: 'niryo_one_calibrate_auto'
         },
         {
@@ -1784,7 +2471,55 @@ const TOOLBOX = {
         },
         {
           kind: 'BLOCK',
+          type: 'niryo_one_need_calibration'
+        },
+        {
+          kind: 'BLOCK',
           type: 'niryo_one_activate_learning_mode'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_learning_mode'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_jog_control'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_joints'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_joints'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_linear_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_pose_quat'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_shift_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_shift_linear_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_arm_max_speed'
         },
         {
           kind: 'BLOCK',
@@ -1804,15 +2539,55 @@ const TOOLBOX = {
         },
         {
           kind: 'BLOCK',
-          type: 'niryo_one_move_pose_from_pose'
-        },
-        {
-          kind: 'BLOCK',
           type: 'niryo_one_pick_from_pose'
         },
         {
           kind: 'BLOCK',
           type: 'niryo_one_place_from_pose'
+        },
+        // {
+        //   kind: 'BLOCK',
+        //   type: 'niryo_one_pick_and_place'
+        // },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_jog_joints'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_jog_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_to_home_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_sleep'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_forward_kinematics'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_inverse_kinematics'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_saved_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_delete_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_saved_pose_list'
         },
         {
           kind: 'BLOCK',
@@ -1884,7 +2659,7 @@ const TOOLBOX = {
         },
         {
           kind: 'BLOCK',
-          type: 'niryo_one_sleep'
+          type: 'niryo_one_wait'
         },
         {
           kind: 'BLOCK',
