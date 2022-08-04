@@ -118,7 +118,9 @@ Blockly.Blocks['niryo_one_move_joints'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
-    this.setTooltip('Give all 6 joints to move the robot. Joints are expressed in radians.');
+    this.setTooltip(
+      'Give all 6 joints to move the robot. Joints are expressed in radians.'
+    );
     this.setHelpUrl('');
   }
 };
@@ -161,7 +163,9 @@ Blockly.Blocks['niryo_one_move_pose'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
-    this.setTooltip('Move robot end effector pose to a (x, y, z, roll, pitch, yaw, frame_name) pose. x, y & z are expressed in meters / roll, pitch & yaw are expressed in radians');
+    this.setTooltip(
+      'Move robot end effector pose to a (x, y, z, roll, pitch, yaw, frame_name) pose. x, y & z are expressed in meters / roll, pitch & yaw are expressed in radians'
+    );
     this.setHelpUrl('');
   }
 };
@@ -205,7 +209,9 @@ Blockly.Blocks['niryo_one_set_arm_max_speed'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
-    this.setTooltip('Limit arm max velocity to a percentage of its maximum velocity. Should be between 1 & 100');
+    this.setTooltip(
+      'Limit arm max velocity to a percentage of its maximum velocity. Should be between 1 & 100'
+    );
     this.setHelpUrl('');
   }
 };
@@ -344,7 +350,9 @@ Blockly.Blocks['niryo_one_pick_from_pose'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
-    this.setTooltip('Execute a picking from a pose. A picking is described as: going over the object, going down until height = z, grasping with tool, going back over the object');
+    this.setTooltip(
+      'Execute a picking from a pose. A picking is described as: going over the object, going down until height = z, grasping with tool, going back over the object'
+    );
     this.setHelpUrl('');
   }
 };
@@ -357,7 +365,9 @@ Blockly.Blocks['niryo_one_place_from_pose'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(movement_color);
-    this.setTooltip('Execute a placing from a position. A placing is described as: going over the place, going down until height = z, releasing the object with tool, going back over the place');
+    this.setTooltip(
+      'Execute a placing from a position. A placing is described as: going over the place, going down until height = z, releasing the object with tool, going back over the place'
+    );
     this.setHelpUrl('');
   }
 };
@@ -637,7 +647,9 @@ Blockly.Blocks['niryo_one_activate_electromagnet'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(tool_color);
-    this.setTooltip('Activate electromagnet associated to electromagnet_id on pin_id');
+    this.setTooltip(
+      'Activate electromagnet associated to electromagnet_id on pin_id'
+    );
     this.setHelpUrl('');
   }
 };
@@ -652,7 +664,9 @@ Blockly.Blocks['niryo_one_deactivate_electromagnet'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(tool_color);
-    this.setTooltip('Deactivate electromagnet associated to electromagnet_id on pin_id');
+    this.setTooltip(
+      'Deactivate electromagnet associated to electromagnet_id on pin_id'
+    );
     this.setHelpUrl('');
   }
 };
@@ -745,7 +759,8 @@ Blockly.Blocks['niryo_one_vision_pick'] = {
     this.setColour(vision_color);
     this.setHelpUrl('');
     this.setTooltip(
-      'Picks the specified object from the workspace. This function has multiple phases: 1. detect object using the camera 2. prepare the current tool for picking 3. approach the object 4. move down to the correct picking pose 5. actuate the current tool 6. lift the object');
+      'Picks the specified object from the workspace. This function has multiple phases: 1. detect object using the camera 2. prepare the current tool for picking 3. approach the object 4. move down to the correct picking pose 5. actuate the current tool 6. lift the object'
+    );
     this.setInputsInline(false);
   }
 };
@@ -1173,15 +1188,13 @@ BlocklyPy['niryo_one_update_tool'] = function (block) {
 
 BlocklyPy['niryo_one_open_gripper'] = function (block) {
   var number_open_speed = block.getFieldValue('OPEN_SPEED');
-  var code =
-    'n.open_gripper( ' + number_open_speed + ')\n';
+  var code = 'n.open_gripper( ' + number_open_speed + ')\n';
   return code;
 };
 
 BlocklyPy['niryo_one_close_gripper'] = function (block) {
   var number_close_speed = block.getFieldValue('CLOSE_SPEED');
-  var code =
-    'n.close_gripper(' + number_close_speed + ')\n';
+  var code = 'n.close_gripper(' + number_close_speed + ')\n';
   return code;
 };
 
@@ -1205,10 +1218,7 @@ BlocklyPy['niryo_one_setup_electromagnet'] = function (block) {
   value_electromagnet_pin = value_electromagnet_pin
     .replace('(', '')
     .replace(')', '');
-  var code =
-    'n.setup_electromagnet(' +
-    value_electromagnet_pin +
-    ')\n';
+  var code = 'n.setup_electromagnet(' + value_electromagnet_pin + ')\n';
   return code;
 };
 
@@ -1222,10 +1232,7 @@ BlocklyPy['niryo_one_activate_electromagnet'] = function (block) {
   value_electromagnet_pin = value_electromagnet_pin
     .replace('(', '')
     .replace(')', '');
-  var code =
-    'n.activate_electromagnet(' +
-    value_electromagnet_pin +
-    ')\n';
+  var code = 'n.activate_electromagnet(' + value_electromagnet_pin + ')\n';
   return code;
 };
 
@@ -1239,10 +1246,7 @@ BlocklyPy['niryo_one_deactivate_electromagnet'] = function (block) {
   value_electromagnet_pin = value_electromagnet_pin
     .replace('(', '')
     .replace(')', '');
-  var code =
-    'n.deactivate_electromagnet(' +
-    value_electromagnet_pin +
-    ')\n';
+  var code = 'n.deactivate_electromagnet(' + value_electromagnet_pin + ')\n';
   return code;
 };
 
