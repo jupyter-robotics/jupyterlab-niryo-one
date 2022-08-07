@@ -794,7 +794,7 @@ Blockly.Blocks['niryo_one_save_pose'] = {
 Blockly.Blocks['niryo_one_delete_pose'] = {
   init: function () {
     this.appendValueInput('POSE_NAME')
-      .setCheck('String')
+      .setCheck(null)
       .appendField('Delete pose named');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -810,6 +810,87 @@ Blockly.Blocks['niryo_one_get_saved_pose_list'] = {
     this.setOutput(true, null);
     this.setColour(movement_color);
     this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+// Trajectories
+
+// Blockly.Blocks['niryo_one_trajectory'] = {
+//   // Create block which can get a trajectory (list of poses).
+// };
+
+Blockly.Blocks['niryo_one_get_trajectory_saved'] = {
+  init: function () {
+    this.appendValueInput('TRAJECTORY_NAME')
+      .setCheck('String')
+      .appendField('Get trajectory named');
+    this.setOutput(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('Get trajectory saved in Niryo’s memory');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_saved_trajectory_list'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get list of saved trajectories');
+    this.setOutput(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_execute_registered_trajectory'] = {
+  init: function () {
+    this.appendValueInput('TRAJECTORY_NAME')
+      .setCheck('String')
+      .appendField('Execute trajectory named');
+    this.setOutput(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('Execute trajectory from Niryo’s memory');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_save_last_learned_trajectory'] = {
+  init: function () {
+    this.appendValueInput('TRAJECTORY_NAME')
+      .setCheck('String')
+      .appendField('Save last executed trajectory under name');
+    this.appendValueInput('TRAJECTORY_DESCRIPTION')
+      .setCheck('String')
+      .appendField('and description');
+    this.setColour(movement_color);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setTooltip('Save last user executed trajectory');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_delete_trajectory'] = {
+  init: function () {
+    this.appendValueInput('TRAJECTORY_NAME')
+      .setCheck(null)
+      .appendField('Delete trajectory named');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('Delete trajectory from Niryo’s memory');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_clean_trajectory_memory'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Clean trajectory memory');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(movement_color);
+    this.setTooltip('Clean trajectory from Niryo’s memory');
     this.setHelpUrl('');
   }
 };
@@ -1629,7 +1710,7 @@ BlocklyPy['niryo_one_pick_and_place'] = function (block) {
     ', ' +
     dist_smoothing_value +
     ')\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return code;
 };
 
 BlocklyPy['niryo_one_jog_joints'] = function (block) {
@@ -1751,7 +1832,7 @@ BlocklyPy['niryo_one_get_saved_pose'] = function (block) {
     Blockly.Python.ORDER_ATOMIC
   );
   var code = 'n.get_saved_pose(' + value_pose_name + ')\n';
-  return [code, Blockly.Python.ORDER_NONE];
+  return code;
 };
 
 BlocklyPy['niryo_one_save_pose'] = function (block) {
@@ -1784,7 +1865,7 @@ BlocklyPy['niryo_one_save_pose'] = function (block) {
     ', ' +
     number_pose_yaw +
     ')\n';
-  return [code, Blockly.Python.ORDER_NONE];
+  return code;
 };
 
 BlocklyPy['niryo_one_delete_pose'] = function (block) {
@@ -1794,11 +1875,75 @@ BlocklyPy['niryo_one_delete_pose'] = function (block) {
     Blockly.Python.ORDER_ATOMIC
   );
   var code = 'n.delete_pose(' + pose_name + ')\n';
-  return [code, Blockly.Python.ORDER_NONE];
+  return code;
 };
 
 BlocklyPy['niryo_one_get_saved_pose_list'] = function (block) {
   var code = 'n.get_saved_pose_list()\n';
+  return code;
+};
+
+// Trajectories
+
+BlocklyPy['niryo_one_get_trajectory_saved'] = function (block) {
+  var value_trajectory_name = Blockly.Python.valueToCode(
+    block,
+    'TRAJECTORY_NAME',
+    Blockly.Python.ORDER_ATOMIC
+  );
+  var code = 'n.get_trajectory_saved(' + value_trajectory_name + ')\n';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_get_saved_trajectory_list'] = function (block) {
+  var code = 'n.get_saved_trajectory_list()\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_execute_registered_trajectory'] = function (block) {
+  var value_trajectory_name = Blockly.Python.valueToCode(
+    block,
+    'TRAJECTORY_NAME',
+    Blockly.Python.ORDER_ATOMIC
+  );
+  var code = 'n.execute_registered_trajectory(' + value_trajectory_name + ')\n';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_save_last_learned_trajectory'] = function (block) {
+  var trajectory_name = Blockly.Python.valueToCode(
+    block,
+    'TRAJECTORY_NAME',
+    Blockly.Python.ORDER_ATOMIC
+  );
+
+  var trajectory_description = Blockly.Python.valueToCode(
+    block,
+    'TRAJECTORY_DESCRIPTION',
+    Blockly.Python.ORDER_ATOMIC
+  );
+
+  var code =
+    'n.save_last_learned_trajectory(' +
+    trajectory_name +
+    ', ' +
+    trajectory_description +
+    ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_delete_trajectory'] = function (block) {
+  var trajectory_name = Blockly.Python.valueToCode(
+    block,
+    'TRAJECTORY_NAME',
+    Blockly.Python.ORDER_ATOMIC
+  );
+  var code = 'n.delete_trajectory(' + trajectory_name + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_clean_trajectory_memory'] = function (block) {
+  var code = 'n.clean_trajectory_memory()\n';
   return code;
 };
 
@@ -2545,10 +2690,10 @@ const TOOLBOX = {
           kind: 'BLOCK',
           type: 'niryo_one_place_from_pose'
         },
-        // {
-        //   kind: 'BLOCK',
-        //   type: 'niryo_one_pick_and_place'
-        // },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_pick_and_place'
+        },
         {
           kind: 'BLOCK',
           type: 'niryo_one_jog_joints'
@@ -2588,6 +2733,30 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_get_saved_pose_list'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_trajectory_saved'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_saved_trajectory_list'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_execute_registered_trajectory'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_last_learned_trajectory'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_delete_trajectory'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_clean_trajectory_memory'
         },
         {
           kind: 'BLOCK',
