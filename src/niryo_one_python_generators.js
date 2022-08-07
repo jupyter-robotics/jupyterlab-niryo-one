@@ -1330,11 +1330,25 @@ Blockly.Blocks['niryo_one_conveyor_models'] = {
 
 Blockly.Blocks['niryo_one_conveyor_use'] = {
   init: function () {
-    this.appendDummyInput().appendField('Activate conveyor');
+    this.appendDummyInput().appendField('Activate conveyor and return its ID');
     this.setColour(conveyor_color);
     this.setOutput(true, 'String');
     this.setHelpUrl('');
     this.setTooltip('Activate a new conveyor and return its ID.');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+  }
+};
+
+Blockly.Blocks['niryo_one_conveyor_unset'] = {
+  init: function () {
+    this.appendValueInput('CONVEYOR_SWITCH')
+      .setCheck('niryo_one_conveyor_models')
+      .appendField('Remove conveyor');
+
+    this.setColour(conveyor_color);
+    this.setHelpUrl('');
+    this.setTooltip('Remove specific conveyor.');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
   }
@@ -1369,6 +1383,34 @@ Blockly.Blocks['niryo_one_conveyor_control'] = {
   }
 };
 
+Blockly.Blocks['niryo_one_conveyor_run'] = {
+  init: function () {
+    this.appendValueInput('CONVEYOR_SWITCH')
+      .setCheck('niryo_one_conveyor_models')
+      .appendField('Run conveyor:');
+
+    this.appendValueInput('SPEED_PERCENT')
+      .setCheck('Number')
+      .appendField('with speed (%):');
+
+    this.appendDummyInput()
+      .appendField('in direction:')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['FORWARD', '1'],
+          ['BACKWARD', '-1']
+        ]),
+        'DIRECTION_SELECT'
+      );
+    this.setColour(conveyor_color);
+    this.setHelpUrl('');
+    this.setTooltip('Run conveyor');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setInputsInline(false);
+  }
+};
+
 Blockly.Blocks['niryo_one_conveyor_stop'] = {
   init: function () {
     this.appendValueInput('CONVEYOR_SWITCH')
@@ -1383,6 +1425,17 @@ Blockly.Blocks['niryo_one_conveyor_stop'] = {
   }
 };
 
+Blockly.Blocks['niryo_one_get_connected_conveyors_id'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get list of connected conveyors');
+    this.setOutput(true, null);
+    this.setColour(conveyor_color);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setHelpUrl('');
+    this.setTooltip('Conveyors directions available with Niryo One.');
+  }
+};
 /*
  * Generators
  */
@@ -2215,6 +2268,20 @@ BlocklyPy['niryo_one_conveyor_use'] = function (block) {
   return code;
 };
 
+BlocklyPy['niryo_one_conveyor_use'] = function (block) {
+  var code = 'n.set_conveyor()\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_conveyor_unset'] = function (block) {
+  var conveyor_id =
+    BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  conveyor_id = conveyor_id.replace('(', '').replace(')', '');
+  var code = 'n.unset_conveyor(' + conveyor_id + ')\n';
+  return code;
+};
+
 BlocklyPy['niryo_one_conveyor_control'] = function (block) {
   var conveyor_id =
     BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
@@ -2236,12 +2303,38 @@ BlocklyPy['niryo_one_conveyor_control'] = function (block) {
   return code;
 };
 
+BlocklyPy['niryo_one_conveyor_run'] = function (block) {
+  var conveyor_id =
+    BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  conveyor_id = conveyor_id.replace('(', '').replace(')', '');
+  var speed_percent =
+    BlocklyPy.valueToCode(block, 'SPEED_PERCENT', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  speed_percent = speed_percent.replace('(', '').replace(')', '');
+  var direction = block.getFieldValue('DIRECTION_SELECT');
+  var code =
+    'n.run_conveyor(' +
+    conveyor_id +
+    ', ' +
+    speed_percent +
+    ', ' +
+    direction +
+    ')\n';
+  return code;
+};
+
 BlocklyPy['niryo_one_conveyor_stop'] = function (block) {
   var conveyor_id =
     BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
     '(0)';
   conveyor_id = conveyor_id.replace('(', '').replace(')', '');
   var code = 'n.stop_conveyor(' + conveyor_id + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_get_connected_conveyors_id'] = function (block) {
+  var code = 'n.get_connected_conveyors_id()\n';
   return code;
 };
 
@@ -2860,11 +2953,23 @@ const TOOLBOX = {
         },
         {
           kind: 'BLOCK',
+          type: 'niryo_one_conveyor_unset'
+        },
+        {
+          kind: 'BLOCK',
           type: 'niryo_one_conveyor_control'
         },
         {
           kind: 'BLOCK',
+          type: 'niryo_one_conveyor_run'
+        },
+        {
+          kind: 'BLOCK',
           type: 'niryo_one_conveyor_stop'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_connected_conveyors_id'
         }
       ]
     }
