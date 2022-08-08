@@ -1041,14 +1041,24 @@ Blockly.Blocks['niryo_one_tool_select'] = {
   init: function () {
     this.appendDummyInput().appendField(
       new Blockly.FieldDropdown([
-        ['Standard gripper', 'GRIPPER_1_ID'],
-        ['Large gripper', 'GRIPPER_2_ID'],
-        ['Adaptive gripper ', 'GRIPPER_3_ID'],
-        ['Electromagnet 1', 'ELECTROMAGNET_1_ID'],
-        ['Vacuum pump 1', 'VACUUM_PUMP_1_ID']
+        ['Standard gripper', 'GRIPPER_1'],
+        ['Large gripper', 'GRIPPER_2'],
+        ['Adaptive gripper ', 'GRIPPER_3'],
+        ['Electromagnet 1', 'ELECTROMAGNET_1'],
+        ['Vacuum pump 1', 'VACUUM_PUMP_1']
       ]),
       'TOOL_SELECT'
     );
+    this.setOutput(true, 'niryo_one_tool_select');
+    this.setColour(tool_color);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_current_tool_id'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get current tool id');
     this.setOutput(true, 'niryo_one_tool_select');
     this.setColour(tool_color);
     this.setTooltip('');
@@ -1067,16 +1077,31 @@ Blockly.Blocks['niryo_one_update_tool'] = {
   }
 };
 
-// Blockly.Blocks['niryo_one_detach_tool'] = {
-//   init: function () {
-//     this.appendDummyInput().appendField('Detach current tool');
-//     this.setPreviousStatement(true, null);
-//     this.setNextStatement(true, null);
-//     this.setColour(tool_color);
-//     this.setTooltip('');
-//     this.setHelpUrl('');
-//   }
-// };
+Blockly.Blocks['niryo_one_grasp_with_tool'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Grasp with tool');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(tool_color);
+    this.setTooltip(
+      'Grasp with tool | This action correspond to | - Close gripper for Grippers | - Pull Air for Vacuum pump | - Activate for Electromagnet'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_release_with_tool'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Release with tool');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(tool_color);
+    this.setTooltip(
+      'Release with tool | This action correspond to | - Open gripper for Grippers | - Push Air for Vacuum pump | - Deactivate for Electromagnet'
+    );
+    this.setHelpUrl('');
+  }
+};
 
 Blockly.Blocks['niryo_one_open_gripper'] = {
   init: function () {
@@ -1195,6 +1220,68 @@ Blockly.Blocks['niryo_one_deactivate_electromagnet'] = {
   }
 };
 
+Blockly.Blocks['niryo_one_enable_tcp'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('Enable TCP')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['True', '1'],
+          ['False', '0']
+        ]),
+        'ENABLE_TCP'
+      );
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(tool_color);
+    this.setTooltip(
+      'Enables or disables the TCP function (Tool Center Point). If activation is requested, the last recorded TCP value will be applied. The default value depends on the gripper equipped. If deactivation is requested, the TCP will be coincident with the tool_link.'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_set_tcp'] = {
+  init: function () {
+    this.appendValueInput('POSE')
+      .setCheck('niryo_one_pose')
+      .appendField('Set tcp with pose');
+    this.setTooltip(
+      'Activates the TCP function (Tool Center Point) and defines the transformation between the tool_link frame and the TCP frame.'
+    );
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(tool_color);
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_reset_tcp'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Reset TCP');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(tool_color);
+    this.setTooltip(
+      'Reset the TCP (Tool Center Point) transformation. The TCP will be reset according to the tool equipped.'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_tool_reboot'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Reboot tool');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(tool_color);
+    this.setTooltip(
+      'Reboot the motor of the tool equparam_list = [workspace_name]'
+    );
+    this.setHelpUrl('');
+  }
+};
 // Utility
 
 Blockly.Blocks['niryo_one_wait'] = {
@@ -1495,10 +1582,6 @@ Blockly.Blocks['niryo_one_play_sound'] = {
     this.appendValueInput('SOUND_NAME')
       .setCheck('String')
       .appendField('Play sound named');
-
-    // this.appendValueInput('WAIT_END')
-    //   .setcheck('Boolean')
-    //   .appendField('wait until the end');
 
     this.appendDummyInput().appendField('wait until the end');
     this.appendDummyInput().appendField(
@@ -2186,8 +2269,24 @@ BlocklyPy['niryo_one_set_12v_switch'] = function (block) {
 // Tool
 
 BlocklyPy['niryo_one_tool_select'] = function (block) {
-  var dropdown_tool_select = block.getFieldValue('TOOL_SELECT');
-  var code = dropdown_tool_select;
+  const tool_id_map = {
+    NONE: 0,
+    GRIPPER_1: 11,
+    GRIPPER_2: 12,
+    GRIPPER_3: 13,
+    ELECTROMAGNET_1: 30,
+    VACUUM_PUMP_1: 31
+  };
+  var tool_model_id = block.getFieldValue('TOOL_SELECT');
+  var code = tool_id_map[tool_model_id];
+
+  // var dropdown_tool_select = block.getFieldValue('TOOL_SELECT');
+  // var code = dropdown_tool_select;
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_get_current_tool_id'] = function (block) {
+  var code = 'n.get_current_tool_id()\n';
   return [code, BlocklyPy.ORDER_NONE];
 };
 
@@ -2196,11 +2295,15 @@ BlocklyPy['niryo_one_update_tool'] = function (block) {
   return code;
 };
 
-//  new function corresponds to release_with_tool (made in pair with grasp_with_tool)
-//  BlocklyPy['niryo_one_detach_tool'] = function (block) {
-//   var code = 'n.change_tool(0)\n';
-//   return code;
-// };
+BlocklyPy['niryo_one_grasp_with_tool'] = function (block) {
+  var code = 'n.grasp_with_tool()\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_release_with_tool'] = function (block) {
+  var code = 'n.release_with_tool()\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
 
 BlocklyPy['niryo_one_open_gripper'] = function (block) {
   var number_open_speed = block.getFieldValue('OPEN_SPEED');
@@ -2263,6 +2366,30 @@ BlocklyPy['niryo_one_deactivate_electromagnet'] = function (block) {
     .replace('(', '')
     .replace(')', '');
   var code = 'n.deactivate_electromagnet(' + value_electromagnet_pin + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_enable_tcp'] = function (block) {
+  var dropdown_enable_tcp = block.getFieldValue('ENABLE_TCP');
+  var code = 'n.enable_tcp(' + dropdown_enable_tcp + ')\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_set_tcp'] = function (block) {
+  var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
+  value_pose = value_pose.replace('(', '').replace(')', '');
+
+  var code = 'n.set_tcp(' + value_pose + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_reset_tcp'] = function (block) {
+  var code = 'n.reset_tcp()\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_tool_reboot'] = function (block) {
+  var code = 'n.tool_reboot()\n';
   return code;
 };
 
@@ -3069,12 +3196,20 @@ const TOOLBOX = {
         },
         {
           kind: 'BLOCK',
+          type: 'niryo_one_get_current_tool_id'
+        },
+        {
+          kind: 'BLOCK',
           type: 'niryo_one_update_tool'
         },
-        // {
-        //   kind: 'BLOCK',
-        //   type: 'niryo_one_detach_tool'
-        // },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_grasp_with_tool'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_release_with_tool'
+        },
         {
           kind: 'BLOCK',
           type: 'niryo_one_open_gripper'
@@ -3102,6 +3237,18 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_deactivate_electromagnet'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_tcp'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_reset_tcp'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_tool_reboot'
         },
         {
           kind: 'BLOCK',
