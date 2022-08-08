@@ -37,6 +37,7 @@ var tool_color = '#bf964b';
 var utility_color = '#bead76';
 var vision_color = '#546e7a';
 var conveyor_color = '#00838f';
+var sound_color = '#FFC0CB';
 
 // Color object for vision
 //TODO Should be in a class
@@ -1430,12 +1431,126 @@ Blockly.Blocks['niryo_one_get_connected_conveyors_id'] = {
     this.appendDummyInput().appendField('Get list of connected conveyors');
     this.setOutput(true, null);
     this.setColour(conveyor_color);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
     this.setHelpUrl('');
     this.setTooltip('Conveyors directions available with Niryo One.');
   }
 };
+
+// Sound
+
+Blockly.Blocks['niryo_one_get_sounds'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get sound name list');
+    this.setOutput(true, null);
+    this.setColour(sound_color);
+    this.setHelpUrl('');
+    this.setTooltip('Get sound name list.');
+  }
+};
+
+Blockly.Blocks['niryo_one_set_volume'] = {
+  init: function () {
+    this.appendValueInput('SET_VOLUME')
+      .setCheck('Number')
+      .appendField('Set volume procentage of robot to');
+    this.appendDummyInput().appendField('%');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(sound_color);
+    this.setTooltip(
+      'Set the volume percentage of the robot. Volume percentage of the sound (0: no sound, 100: max sound)'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_stop_sound'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Stop sound');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(sound_color);
+    this.setHelpUrl('');
+    this.setTooltip('Stop a sound being played.');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_sound_duration'] = {
+  init: function () {
+    this.appendValueInput('SOUND_NAME')
+      .setCheck('String')
+      .appendField('Get duration of sound named');
+    this.setOutput(true, null);
+    this.setColour(sound_color);
+    this.setHelpUrl('');
+    this.setTooltip(
+      'Returns the duration in seconds of a sound stored in the robot database raise SoundRosWrapperException if the sound doesn’t exists'
+    );
+  }
+};
+
+Blockly.Blocks['niryo_one_play_sound'] = {
+  init: function () {
+    this.appendValueInput('SOUND_NAME')
+      .setCheck('String')
+      .appendField('Play sound named');
+
+    // this.appendValueInput('WAIT_END')
+    //   .setcheck('Boolean')
+    //   .appendField('wait until the end');
+
+    this.appendDummyInput().appendField('wait until the end');
+    this.appendDummyInput().appendField(
+      new Blockly.FieldDropdown([
+        ['True', '1'],
+        ['False', '0']
+      ]),
+      'WAIT_END'
+    );
+
+    this.appendValueInput('START_TIME')
+      .setCheck('Number')
+      .appendField('starting from this second');
+
+    this.appendValueInput('END_TIME')
+      .setCheck('Number')
+      .appendField('ending at this second');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(sound_color);
+    this.setHelpUrl('');
+    this.setTooltip(
+      'Play a sound from the robot, given its name, whether to for the end of the sound before exiting the function (True or False), the start time of the sound from the value in seconds and end time of the sound at this value in seconds.'
+    );
+  }
+};
+
+Blockly.Blocks['niryo_one_say'] = {
+  init: function () {
+    this.appendValueInput('SAY_TEXT').setCheck('String').appendField('Say');
+    this.appendDummyInput().appendField('in');
+    this.appendDummyInput().appendField(
+      new Blockly.FieldDropdown([
+        ['English', '0'],
+        ['French', '1'],
+        ['Spanish', '2'],
+        ['Mandarin', '3'],
+        ['Portuguese', '4']
+      ]),
+      'LANGUAGE_SELECT'
+    );
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(sound_color);
+    this.setHelpUrl('');
+    this.setTooltip(
+      'Use gtts (Google Text To Speech) to interprete a string as sound.'
+    );
+  }
+};
+
 /*
  * Generators
  */
@@ -2338,7 +2453,76 @@ BlocklyPy['niryo_one_get_connected_conveyors_id'] = function (block) {
   return code;
 };
 
-// Creating a toolbox containing all the main (default) blocks.
+// Sound
+BlocklyPy['niryo_one_get_sounds'] = function (block) {
+  var code = 'n.get_sounds()\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_set_volume'] = function (block) {
+  var value_set_volume =
+    BlocklyPy.valueToCode(block, 'SET_VOLUME', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_set_volume = value_set_volume.replace('(', '').replace(')', '');
+  var code = 'n.set_volume(' + value_set_volume + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_stop_sound'] = function (block) {
+  var code = 'n.stop_sound()\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_get_sound_duration'] = function (block) {
+  var value_sound_name =
+    BlocklyPy.valueToCode(block, 'SOUND_NAME', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_sound_name = value_sound_name.replace('(', '').replace(')', '');
+  var code = 'n.get_sound_duration(' + value_sound_name + ')\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_play_sound'] = function (block) {
+  var value_sound_name =
+    BlocklyPy.valueToCode(block, 'SOUND_NAME', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_sound_name = value_sound_name.replace('(', '').replace(')', '');
+
+  var dropdown_wait_end = block.getFieldValue('WAIT_END');
+
+  var value_start_time =
+    BlocklyPy.valueToCode(block, 'START_TIME', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_start_time = value_start_time.replace('(', '').replace(')', '');
+
+  var value_end_time =
+    BlocklyPy.valueToCode(block, 'END_TIME', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_end_time = value_end_time.replace('(', '').replace(')', '');
+
+  var code =
+    'n.play_sound(' +
+    value_sound_name +
+    ', ' +
+    dropdown_wait_end +
+    ', ' +
+    value_start_time +
+    ', ' +
+    value_end_time +
+    ')\n';
+
+  return code;
+};
+
+BlocklyPy['niryo_one_say'] = function (block) {
+  var value_say_text =
+    BlocklyPy.valueToCode(block, 'SAY_TEXT', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_say_text = value_say_text.replace('(', '').replace(')', '');
+
+  var dropdown_language_select = block.getFieldValue('LANGUAGE_SELECT');
+
+  var code =
+    'n.say(' + value_say_text + ', ' + dropdown_language_select + ')\n';
+  return code;
+};
+
+// Creating a toolbox containing all the main (default) blocks
+// and adding the niryo category.
 const TOOLBOX = {
   kind: 'categoryToolbox',
   contents: [
@@ -2970,6 +3154,30 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_get_connected_conveyors_id'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_sounds'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_volume'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_stop_sound'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_sound_duration'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_play_sound'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_say'
         }
       ]
     }
