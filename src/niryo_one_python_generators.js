@@ -1645,11 +1645,12 @@ Blockly.Blocks['niryo_one_vision_is_object_detected'] = {
 
 Blockly.Blocks['niryo_one_get_img_compressed'] = {
   init: function () {
-    this.appendDummyInput()
-      .appendField('Get image compressed')
+    this.appendDummyInput().appendField('Get image compressed');
     this.setOutput(true, 'String');
     this.setColour(vision_color);
-    this.setTooltip('Get image from video stream in a compressed format. Returns string containing a JPEG compressed image.');
+    this.setTooltip(
+      'Get image from video stream in a compressed format. Returns string containing a JPEG compressed image.'
+    );
     this.setHelpUrl('');
   }
 };
@@ -1662,7 +1663,9 @@ Blockly.Blocks['niryo_one_set_brightness'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(vision_color);
-    this.setTooltip('Modify video stream brightness.How much to adjust the brightness. 0.5 will give a darkened image, 1 will give the original image while 2 will enhance the brightness by a factor of 2.');
+    this.setTooltip(
+      'Modify video stream brightness.How much to adjust the brightness. 0.5 will give a darkened image, 1 will give the original image while 2 will enhance the brightness by a factor of 2.'
+    );
     this.setHelpUrl('');
   }
 };
@@ -1675,7 +1678,9 @@ Blockly.Blocks['niryo_one_set_contrast'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(vision_color);
-    this.setTooltip('Modify video stream contrast. While a factor of 1 gives original image. Making the factor towards 0 makes the image greyer, while factor>1 increases the contrast of the image.');
+    this.setTooltip(
+      'Modify video stream contrast. While a factor of 1 gives original image. Making the factor towards 0 makes the image greyer, while factor>1 increases the contrast of the image.'
+    );
     this.setHelpUrl('');
   }
 };
@@ -1688,18 +1693,21 @@ Blockly.Blocks['niryo_one_set_saturation'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(vision_color);
-    this.setTooltip('Modify video stream saturation. How much to adjust the saturation. 0 will give a black and white image, 1 will give the original image while 2 will enhance the saturation by a factor of 2.');
+    this.setTooltip(
+      'Modify video stream saturation. How much to adjust the saturation. 0 will give a black and white image, 1 will give the original image while 2 will enhance the saturation by a factor of 2.'
+    );
     this.setHelpUrl('');
   }
 };
 
 Blockly.Blocks['niryo_one_get_image_parameters'] = {
   init: function () {
-    this.appendDummyInput()
-      .appendField('Get image parameters');
+    this.appendDummyInput().appendField('Get image parameters');
     this.setOutput(true, 'String');
     this.setColour(vision_color);
-    this.setTooltip('Get last stream image parameters: Brightness factor, Contrast factor, Saturation factor.');
+    this.setTooltip(
+      'Get last stream image parameters: Brightness factor, Contrast factor, Saturation factor.'
+    );
     this.setHelpUrl('');
   }
 };
@@ -1709,29 +1717,22 @@ Blockly.Blocks['niryo_one_get_target_pose_from_rel'] = {
     this.appendDummyInput().appendField('Get robot pose relative to pose');
     this.appendDummyInput()
       .appendField('x')
-      .appendField(
-        new Blockly.FieldNumber(0, 0, 1, 0.001),
-        'POSE_X'
-      )
+      .appendField(new Blockly.FieldNumber(0, 0, 1, 0.001), 'POSE_X')
       .appendField('y')
-      .appendField(
-        new Blockly.FieldNumber(0, 0, 1, 0.001),
-        'POSE_Y'
-      )
+      .appendField(new Blockly.FieldNumber(0, 0, 1, 0.001), 'POSE_Y')
       .appendField('z')
-      .appendField(
-        new Blockly.FieldNumber(0, 0, 1, 0.001),
-        'POSE_Z'
-      )
+      .appendField(new Blockly.FieldNumber(0, 0, 1, 0.001), 'POSE_Z');
     this.appendValueInput('HEIGHT_OFFSET')
       .setCheck('Number')
       .appendField('with heigh offset');
-   this.appendValueInput('WORKSPACE_NAME')
+    this.appendValueInput('WORKSPACE_NAME')
       .setCheck('String')
       .appendField('in workspace');
     this.setOutput(true, 'niryo_one_pose');
     this.setColour(vision_color);
-    this.setTooltip('Given a pose (x_rel, y_rel, yaw_rel) relative to a workspace, this function returns the robot pose in which the current tool will be able to pick an object at this pose. The height_offset argument (in m) defines how high the tool will hover over the workspace. If height_offset = 0, the tool will nearly touch the workspace.');
+    this.setTooltip(
+      'Given a pose (x_rel, y_rel, yaw_rel) relative to a workspace, this function returns the robot pose in which the current tool will be able to pick an object at this pose. The height_offset argument (in m) defines how high the tool will hover over the workspace. If height_offset = 0, the tool will nearly touch the workspace.'
+    );
     this.setHelpUrl('');
   }
 };
@@ -1747,13 +1748,15 @@ Blockly.Blocks['niryo_one_get_target_pose_from_cam'] = {
       .appendField('with height offset');
     this.appendValueInput('SHAPE')
       .setCheck('niryo_one_vision_shape')
-      .appendField('for object of shape')
+      .appendField('for object of shape');
     this.appendValueInput('COLOR')
       .setCheck('niryo_one_vision_color')
       .appendField('and color');
     this.setOutput(true, 'niryo_one_pose');
     this.setColour(vision_color);
-    this.setTooltip('First detects the specified object using the camera and then returns the robot pose in which the object can be picked with the current tool');
+    this.setTooltip(
+      'First detects the specified object using the camera and then returns the robot pose in which the object can be picked with the current tool'
+    );
     this.setHelpUrl('');
   }
 };
@@ -1769,13 +1772,15 @@ Blockly.Blocks['niryo_one_move_to_object'] = {
       .appendField('with height offset');
     this.appendValueInput('SHAPE')
       .setCheck('niryo_one_vision_shape')
-      .appendField('for object of shape')
+      .appendField('for object of shape');
     this.appendValueInput('COLOR')
       .setCheck('niryo_one_vision_color')
       .appendField('and color');
     this.setOutput(true, 'niryo_one_pose');
     this.setColour(vision_color);
-    this.setTooltip('Same as get_target_pose_from_cam but directly moves to this position');
+    this.setTooltip(
+      'Same as get_target_pose_from_cam but directly moves to this position'
+    );
     this.setHelpUrl('');
   }
 };
@@ -1785,7 +1790,9 @@ Blockly.Blocks['niryo_one_get_camera_intrinsics'] = {
     this.appendDummyInput().appendField('Get camera intrinsics');
     this.setOutput(true, 'String');
     this.setColour(vision_color);
-    this.setTooltip('Get calibration object: camera intrinsics, distortions coefficients');
+    this.setTooltip(
+      'Get calibration object: camera intrinsics, distortions coefficients'
+    );
     this.setHelpUrl('');
   }
 };
@@ -1795,8 +1802,8 @@ Blockly.Blocks['niryo_one_save_workspace_from_robot_poses'] = {
     this.appendValueInput('WORKSPACE_NAME')
       .setCheck('String')
       .appendField('Save workspace under name');
-    this.appendDummyInput().appendField('from the 4 corners defined by')
-    this.appendDummyInput().appendField('\n')
+    this.appendDummyInput().appendField('from the 4 corners defined by');
+    this.appendDummyInput().appendField('\n');
     this.appendValueInput('POSE_1')
       .setCheck('niryo_one_pose')
       .appendField('pose 1');
@@ -1812,7 +1819,9 @@ Blockly.Blocks['niryo_one_save_workspace_from_robot_poses'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(vision_color);
-    this.setTooltip('Save workspace by giving the poses of the robot to point its 4 corners with the calibration Tip. Corners should be in the good order. Markers’ pose will be deduced from these poses');
+    this.setTooltip(
+      'Save workspace by giving the poses of the robot to point its 4 corners with the calibration Tip. Corners should be in the good order. Markers’ pose will be deduced from these poses'
+    );
     this.setHelpUrl('');
   }
 };
@@ -1822,8 +1831,8 @@ Blockly.Blocks['niryo_one_save_workspace_from_points'] = {
     this.appendValueInput('WORKSPACE_NAME')
       .setCheck('String')
       .appendField('Save workspace under name');
-    this.appendDummyInput().appendField('from the 4 corners defined by')
-    this.appendDummyInput().appendField('\n')
+    this.appendDummyInput().appendField('from the 4 corners defined by');
+    this.appendDummyInput().appendField('\n');
     this.appendValueInput('POINT_1')
       .setCheck('niryo_one_point')
       .appendField('point 1');
@@ -1839,7 +1848,9 @@ Blockly.Blocks['niryo_one_save_workspace_from_points'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(vision_color);
-    this.setTooltip('Save workspace by giving the points of worskpace’s 4 corners. Points are written as [x, y, z] Corners should be in the good order.');
+    this.setTooltip(
+      'Save workspace by giving the points of worskpace’s 4 corners. Points are written as [x, y, z] Corners should be in the good order.'
+    );
     this.setHelpUrl('');
   }
 };
@@ -3551,7 +3562,7 @@ BlocklyPy['niryo_one_get_target_pose_from_rel'] = function (block) {
   var height_offset_value =
     BlocklyPy.valueToCode(block, 'HEIGHT_OFFSET', BlocklyPy.ORDER_ATOMIC) ||
     '(0)';
-    height_offset_value = height_offset_value.replace('(', '').replace(')', '');
+  height_offset_value = height_offset_value.replace('(', '').replace(')', '');
 
   var workspace_name =
     BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
@@ -3559,8 +3570,11 @@ BlocklyPy['niryo_one_get_target_pose_from_rel'] = function (block) {
   workspace_name = workspace_name.replace('(', '').replace(')', '');
 
   var code =
-    'n.get_target_pose_from_rel(' + workspace_name + ', ' +
-    height_offset_value + ', ' +
+    'n.get_target_pose_from_rel(' +
+    workspace_name +
+    ', ' +
+    height_offset_value +
+    ', ' +
     value_x +
     ', ' +
     value_y +
@@ -3579,23 +3593,29 @@ BlocklyPy['niryo_one_get_target_pose_from_cam'] = function (block) {
   var height_offset_value =
     BlocklyPy.valueToCode(block, 'HEIGHT_OFFSET', BlocklyPy.ORDER_ATOMIC) ||
     '(0)';
-    height_offset_value = height_offset_value.replace('(', '').replace(')', '');
+  height_offset_value = height_offset_value.replace('(', '').replace(')', '');
 
   // Color (int) value (see g_shape_values at top of this file)
   var value_color =
-    BlocklyPy.valueToCode(block, 'COLOR', BlocklyPy.ORDER_ATOMIC) ||
-    '(0)';
+    BlocklyPy.valueToCode(block, 'COLOR', BlocklyPy.ORDER_ATOMIC) || '(0)';
   value_color = value_color.replace('(', '').replace(')', '');
 
   // Shape (int) value (see g_shape_values at top of this file)
   var value_shape =
-    BlocklyPy.valueToCode(block, 'SHAPE', BlocklyPy.ORDER_ATOMIC) ||
-    '(0)';
+    BlocklyPy.valueToCode(block, 'SHAPE', BlocklyPy.ORDER_ATOMIC) || '(0)';
   value_shape = value_shape.replace('(', '').replace(')', '');
 
-  var code = 'n.get_target_pose_from_cam(' + workspace_name + ', ' +  height_offset_value + ', ' + value_color + ', ' + value_shape + ')\n';
+  var code =
+    'n.get_target_pose_from_cam(' +
+    workspace_name +
+    ', ' +
+    height_offset_value +
+    ', ' +
+    value_color +
+    ', ' +
+    value_shape +
+    ')\n';
   return [code, BlocklyPy.ORDER_NONE];
-  
 };
 
 BlocklyPy['niryo_one_move_to_object'] = function (block) {
@@ -3607,23 +3627,29 @@ BlocklyPy['niryo_one_move_to_object'] = function (block) {
   var height_offset_value =
     BlocklyPy.valueToCode(block, 'HEIGHT_OFFSET', BlocklyPy.ORDER_ATOMIC) ||
     '(0)';
-    height_offset_value = height_offset_value.replace('(', '').replace(')', '');
+  height_offset_value = height_offset_value.replace('(', '').replace(')', '');
 
   // Color (int) value (see g_shape_values at top of this file)
   var value_color =
-    BlocklyPy.valueToCode(block, 'COLOR', BlocklyPy.ORDER_ATOMIC) ||
-    '(0)';
+    BlocklyPy.valueToCode(block, 'COLOR', BlocklyPy.ORDER_ATOMIC) || '(0)';
   value_color = value_color.replace('(', '').replace(')', '');
 
   // Shape (int) value (see g_shape_values at top of this file)
   var value_shape =
-    BlocklyPy.valueToCode(block, 'SHAPE', BlocklyPy.ORDER_ATOMIC) ||
-    '(0)';
+    BlocklyPy.valueToCode(block, 'SHAPE', BlocklyPy.ORDER_ATOMIC) || '(0)';
   value_shape = value_shape.replace('(', '').replace(')', '');
 
-  var code = 'n.move_to_object(' + workspace_name + ', ' +  height_offset_value + ', ' + value_color + ', ' + value_shape + ')\n';
+  var code =
+    'n.move_to_object(' +
+    workspace_name +
+    ', ' +
+    height_offset_value +
+    ', ' +
+    value_color +
+    ', ' +
+    value_shape +
+    ')\n';
   return [code, BlocklyPy.ORDER_NONE];
-  
 };
 
 BlocklyPy['niryo_one_get_camera_intrinsics'] = function (block) {
@@ -3631,7 +3657,7 @@ BlocklyPy['niryo_one_get_camera_intrinsics'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_save_workspace_from_robot_poses']  = function (block) {
+BlocklyPy['niryo_one_save_workspace_from_robot_poses'] = function (block) {
   var workspace_name =
     BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
     '(0)';
@@ -3665,15 +3691,22 @@ BlocklyPy['niryo_one_save_workspace_from_robot_poses']  = function (block) {
   );
   value_pose_4 = value_pose_4.replace('(', '').replace(')', '');
 
-  var code = 'n.save_workspace_from_robot_poses(' + workspace_name + ', ' +
-  value_pose_1 + ', ' + 
-  value_pose_2 + ', ' + 
-  value_pose_3 + ', ' + 
-  value_pose_4  + ')\n';
+  var code =
+    'n.save_workspace_from_robot_poses(' +
+    workspace_name +
+    ', ' +
+    value_pose_1 +
+    ', ' +
+    value_pose_2 +
+    ', ' +
+    value_pose_3 +
+    ', ' +
+    value_pose_4 +
+    ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_save_workspace_from_points']  = function (block) {
+BlocklyPy['niryo_one_save_workspace_from_points'] = function (block) {
   var workspace_name =
     BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
     '(0)';
@@ -3707,15 +3740,22 @@ BlocklyPy['niryo_one_save_workspace_from_points']  = function (block) {
   );
   value_point_4 = value_point_4.replace('(', '').replace(')', '');
 
-  var code = 'n.save_workspace_from_points(' + workspace_name + ', ' +
-  value_point_1 + ', ' + 
-  value_point_2 + ', ' + 
-  value_point_3 + ', ' + 
-  value_point_4  + ')\n';
+  var code =
+    'n.save_workspace_from_points(' +
+    workspace_name +
+    ', ' +
+    value_point_1 +
+    ', ' +
+    value_point_2 +
+    ', ' +
+    value_point_3 +
+    ', ' +
+    value_point_4 +
+    ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_delete_workspace']  = function (block) {
+BlocklyPy['niryo_one_delete_workspace'] = function (block) {
   var workspace_name =
     BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
     '(0)';
