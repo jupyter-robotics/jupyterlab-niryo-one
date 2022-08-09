@@ -35,10 +35,10 @@ var movement_color = '#4f87c0';
 var io_color = '#c05150';
 var tool_color = '#bf964b';
 var utility_color = '#bead76';
-var vision_color = '#546e7a';
+var vision_color = '#4B0082';
 var conveyor_color = '#00838f';
 var sound_color = '#FFC0CB';
-var frames_color = '#4B0082';
+var frames_color = '#546e7a';
 var led_color = '65c368';
 var trajectory_color = '#9370DB';
 
@@ -1640,6 +1640,242 @@ Blockly.Blocks['niryo_one_vision_is_object_detected'] = {
       'Detect is there is an object of SHAPE / COLOR in the WORKSPACE given.'
     );
     this.setInputsInline(false);
+  }
+};
+
+Blockly.Blocks['niryo_one_get_img_compressed'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('Get image compressed')
+    this.setOutput(true, 'String');
+    this.setColour(vision_color);
+    this.setTooltip('Get image from video stream in a compressed format. Returns string containing a JPEG compressed image.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_set_brightness'] = {
+  init: function () {
+    this.appendValueInput('BRIGHTNESS')
+      .setCheck('Number')
+      .appendField('Set brightness to');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(vision_color);
+    this.setTooltip('Modify video stream brightness.How much to adjust the brightness. 0.5 will give a darkened image, 1 will give the original image while 2 will enhance the brightness by a factor of 2.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_set_contrast'] = {
+  init: function () {
+    this.appendValueInput('CONTRAST')
+      .setCheck('Number')
+      .appendField('Set contrast to');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(vision_color);
+    this.setTooltip('Modify video stream contrast. While a factor of 1 gives original image. Making the factor towards 0 makes the image greyer, while factor>1 increases the contrast of the image.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_set_saturation'] = {
+  init: function () {
+    this.appendValueInput('SATURATION')
+      .setCheck('Number')
+      .appendField('Set saturation to');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(vision_color);
+    this.setTooltip('Modify video stream saturation. How much to adjust the saturation. 0 will give a black and white image, 1 will give the original image while 2 will enhance the saturation by a factor of 2.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_image_parameters'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('Get image parameters');
+    this.setOutput(true, 'String');
+    this.setColour(vision_color);
+    this.setTooltip('Get last stream image parameters: Brightness factor, Contrast factor, Saturation factor.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_target_pose_from_rel'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get robot pose relative to pose');
+    this.appendDummyInput()
+      .appendField('x')
+      .appendField(
+        new Blockly.FieldNumber(0, 0, 1, 0.001),
+        'POSE_X'
+      )
+      .appendField('y')
+      .appendField(
+        new Blockly.FieldNumber(0, 0, 1, 0.001),
+        'POSE_Y'
+      )
+      .appendField('z')
+      .appendField(
+        new Blockly.FieldNumber(0, 0, 1, 0.001),
+        'POSE_Z'
+      )
+    this.appendValueInput('HEIGHT_OFFSET')
+      .setCheck('Number')
+      .appendField('with heigh offset');
+   this.appendValueInput('WORKSPACE_NAME')
+      .setCheck('String')
+      .appendField('in workspace');
+    this.setOutput(true, 'niryo_one_pose');
+    this.setColour(vision_color);
+    this.setTooltip('Given a pose (x_rel, y_rel, yaw_rel) relative to a workspace, this function returns the robot pose in which the current tool will be able to pick an object at this pose. The height_offset argument (in m) defines how high the tool will hover over the workspace. If height_offset = 0, the tool will nearly touch the workspace.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_target_pose_from_cam'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get target pose from camera');
+    this.appendValueInput('WORKSPACE_NAME')
+      .setCheck('String')
+      .appendField('in workspace');
+    this.appendValueInput('HEIGHT_OFFSET')
+      .setCheck('Number')
+      .appendField('with height offset');
+    this.appendValueInput('SHAPE')
+      .setCheck('niryo_one_vision_shape')
+      .appendField('for object of shape')
+    this.appendValueInput('COLOR')
+      .setCheck('niryo_one_vision_color')
+      .appendField('and color');
+    this.setOutput(true, 'niryo_one_pose');
+    this.setColour(vision_color);
+    this.setTooltip('First detects the specified object using the camera and then returns the robot pose in which the object can be picked with the current tool');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_move_to_object'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Detect target and move to it');
+    this.appendValueInput('WORKSPACE_NAME')
+      .setCheck('String')
+      .appendField('in workspace');
+    this.appendValueInput('HEIGHT_OFFSET')
+      .setCheck('Number')
+      .appendField('with height offset');
+    this.appendValueInput('SHAPE')
+      .setCheck('niryo_one_vision_shape')
+      .appendField('for object of shape')
+    this.appendValueInput('COLOR')
+      .setCheck('niryo_one_vision_color')
+      .appendField('and color');
+    this.setOutput(true, 'niryo_one_pose');
+    this.setColour(vision_color);
+    this.setTooltip('Same as get_target_pose_from_cam but directly moves to this position');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_camera_intrinsics'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get camera intrinsics');
+    this.setOutput(true, 'String');
+    this.setColour(vision_color);
+    this.setTooltip('Get calibration object: camera intrinsics, distortions coefficients');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_save_workspace_from_robot_poses'] = {
+  init: function () {
+    this.appendValueInput('WORKSPACE_NAME')
+      .setCheck('String')
+      .appendField('Save workspace under name');
+    this.appendDummyInput().appendField('from the 4 corners defined by')
+    this.appendDummyInput().appendField('\n')
+    this.appendValueInput('POSE_1')
+      .setCheck('niryo_one_pose')
+      .appendField('pose 1');
+    this.appendValueInput('POSE_2')
+      .setCheck('niryo_one_pose')
+      .appendField('pose 2');
+    this.appendValueInput('POSE_3')
+      .setCheck('niryo_one_pose')
+      .appendField('pose 3');
+    this.appendValueInput('POSE_4')
+      .setCheck('niryo_one_pose')
+      .appendField('and pose 4');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(vision_color);
+    this.setTooltip('Save workspace by giving the poses of the robot to point its 4 corners with the calibration Tip. Corners should be in the good order. Markers’ pose will be deduced from these poses');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_save_workspace_from_points'] = {
+  init: function () {
+    this.appendValueInput('WORKSPACE_NAME')
+      .setCheck('String')
+      .appendField('Save workspace under name');
+    this.appendDummyInput().appendField('from the 4 corners defined by')
+    this.appendDummyInput().appendField('\n')
+    this.appendValueInput('POINT_1')
+      .setCheck('niryo_one_point')
+      .appendField('point 1');
+    this.appendValueInput('POINT_2')
+      .setCheck('niryo_one_point')
+      .appendField('point 2');
+    this.appendValueInput('POINT_3')
+      .setCheck('niryo_one_point')
+      .appendField('point 3');
+    this.appendValueInput('POINT_4')
+      .setCheck('niryo_one_point')
+      .appendField('and point 4');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(vision_color);
+    this.setTooltip('Save workspace by giving the points of worskpace’s 4 corners. Points are written as [x, y, z] Corners should be in the good order.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_delete_workspace'] = {
+  init: function () {
+    this.appendValueInput('WORKSPACE_NAME')
+      .setCheck('String')
+      .appendField('Delete workspace');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(vision_color);
+    this.setTooltip('Delete workspace');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_workspace_ratio'] = {
+  init: function () {
+    this.appendValueInput('WORKSPACE_NAME')
+      .setCheck('String')
+      .appendField('Get ratio of workspace');
+    this.setOutput(true, 'Number');
+    this.setColour(vision_color);
+    this.setTooltip('Get workspace ratio');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_workspace_list'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get workspace list');
+    this.setOutput(true, 'any');
+    this.setColour(vision_color);
+    this.setTooltip('Get list of workspaces’ name store in robot’s memory');
+    this.setHelpUrl('');
   }
 };
 
@@ -3262,6 +3498,248 @@ BlocklyPy['niryo_one_vision_is_object_detected'] = function (block) {
   return [code, BlocklyPy.ORDER_NONE];
 };
 
+BlocklyPy['niryo_one_get_img_compressed'] = function (block) {
+  var code = 'n.get_img_compressed()\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_set_brightness'] = function (block) {
+  var value_brightness =
+    BlocklyPy.valueToCode(block, 'BRIGHTNESS', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_brightness = value_brightness.replace('(', '').replace(')', '');
+
+  var code = 'n.set_brightness(' + value_brightness + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_set_contrast'] = function (block) {
+  var value_contrast =
+    BlocklyPy.valueToCode(block, 'CONTRAST', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_contrast = value_contrast.replace('(', '').replace(')', '');
+
+  var code = 'n.set_contrast(' + value_contrast + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_set_saturation'] = function (block) {
+  var value_saturation =
+    BlocklyPy.valueToCode(block, 'SATURATION', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_saturation = value_saturation.replace('(', '').replace(')', '');
+
+  var code = 'n.set_saturation(' + value_saturation + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_get_image_parameters'] = function (block) {
+  var code = 'n.get_image_parameters()\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_get_target_pose_from_rel'] = function (block) {
+  var value_x =
+    BlocklyPy.valueToCode(block, 'POSE_X', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_x = value_x.replace('(', '').replace(')', '');
+
+  var value_y =
+    BlocklyPy.valueToCode(block, 'POSE_Y', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_y = value_y.replace('(', '').replace(')', '');
+
+  var value_z =
+    BlocklyPy.valueToCode(block, 'POSE_Z', BlocklyPy.ORDER_ATOMIC) || '0';
+  value_z = value_z.replace('(', '').replace(')', '');
+
+  var height_offset_value =
+    BlocklyPy.valueToCode(block, 'HEIGHT_OFFSET', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+    height_offset_value = height_offset_value.replace('(', '').replace(')', '');
+
+  var workspace_name =
+    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  workspace_name = workspace_name.replace('(', '').replace(')', '');
+
+  var code =
+    'n.get_target_pose_from_rel(' + workspace_name + ', ' +
+    height_offset_value + ', ' +
+    value_x +
+    ', ' +
+    value_y +
+    ', ' +
+    value_z +
+    ')\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_get_target_pose_from_cam'] = function (block) {
+  var workspace_name =
+    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  workspace_name = workspace_name.replace('(', '').replace(')', '');
+
+  var height_offset_value =
+    BlocklyPy.valueToCode(block, 'HEIGHT_OFFSET', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+    height_offset_value = height_offset_value.replace('(', '').replace(')', '');
+
+  // Color (int) value (see g_shape_values at top of this file)
+  var value_color =
+    BlocklyPy.valueToCode(block, 'COLOR', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  value_color = value_color.replace('(', '').replace(')', '');
+
+  // Shape (int) value (see g_shape_values at top of this file)
+  var value_shape =
+    BlocklyPy.valueToCode(block, 'SHAPE', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  value_shape = value_shape.replace('(', '').replace(')', '');
+
+  var code = 'n.get_target_pose_from_cam(' + workspace_name + ', ' +  height_offset_value + ', ' + value_color + ', ' + value_shape + ')\n';
+  return [code, BlocklyPy.ORDER_NONE];
+  
+};
+
+BlocklyPy['niryo_one_move_to_object'] = function (block) {
+  var workspace_name =
+    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  workspace_name = workspace_name.replace('(', '').replace(')', '');
+
+  var height_offset_value =
+    BlocklyPy.valueToCode(block, 'HEIGHT_OFFSET', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+    height_offset_value = height_offset_value.replace('(', '').replace(')', '');
+
+  // Color (int) value (see g_shape_values at top of this file)
+  var value_color =
+    BlocklyPy.valueToCode(block, 'COLOR', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  value_color = value_color.replace('(', '').replace(')', '');
+
+  // Shape (int) value (see g_shape_values at top of this file)
+  var value_shape =
+    BlocklyPy.valueToCode(block, 'SHAPE', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  value_shape = value_shape.replace('(', '').replace(')', '');
+
+  var code = 'n.move_to_object(' + workspace_name + ', ' +  height_offset_value + ', ' + value_color + ', ' + value_shape + ')\n';
+  return [code, BlocklyPy.ORDER_NONE];
+  
+};
+
+BlocklyPy['niryo_one_get_camera_intrinsics'] = function (block) {
+  var code = 'n.get_camera_intrinsics()\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_save_workspace_from_robot_poses']  = function (block) {
+  var workspace_name =
+    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  workspace_name = workspace_name.replace('(', '').replace(')', '');
+
+  var value_pose_1 = BlocklyPy.valueToCode(
+    block,
+    'POSE_1',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_pose_1 = value_pose_1.replace('(', '').replace(')', '');
+
+  var value_pose_2 = BlocklyPy.valueToCode(
+    block,
+    'POSE_2',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_pose_2 = value_pose_2.replace('(', '').replace(')', '');
+
+  var value_pose_3 = BlocklyPy.valueToCode(
+    block,
+    'POSE_3',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_pose_3 = value_pose_3.replace('(', '').replace(')', '');
+
+  var value_pose_4 = BlocklyPy.valueToCode(
+    block,
+    'POSE_4',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_pose_4 = value_pose_4.replace('(', '').replace(')', '');
+
+  var code = 'n.save_workspace_from_robot_poses(' + workspace_name + ', ' +
+  value_pose_1 + ', ' + 
+  value_pose_2 + ', ' + 
+  value_pose_3 + ', ' + 
+  value_pose_4  + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_save_workspace_from_points']  = function (block) {
+  var workspace_name =
+    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  workspace_name = workspace_name.replace('(', '').replace(')', '');
+
+  var value_point_1 = BlocklyPy.valueToCode(
+    block,
+    'POINT_1',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_point_1 = value_point_1.replace('(', '').replace(')', '');
+
+  var value_point_2 = BlocklyPy.valueToCode(
+    block,
+    'POINT_2',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_point_2 = value_point_2.replace('(', '').replace(')', '');
+
+  var value_point_3 = BlocklyPy.valueToCode(
+    block,
+    'POINT_3',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_point_3 = value_point_3.replace('(', '').replace(')', '');
+
+  var value_point_4 = BlocklyPy.valueToCode(
+    block,
+    'POINT_4',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_point_4 = value_point_4.replace('(', '').replace(')', '');
+
+  var code = 'n.save_workspace_from_points(' + workspace_name + ', ' +
+  value_point_1 + ', ' + 
+  value_point_2 + ', ' + 
+  value_point_3 + ', ' + 
+  value_point_4  + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_delete_workspace']  = function (block) {
+  var workspace_name =
+    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  workspace_name = workspace_name.replace('(', '').replace(')', '');
+
+  var code = 'n.delete_workspace(' + workspace_name + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_get_workspace_ratio'] = function (block) {
+  var workspace_name =
+    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  workspace_name = workspace_name.replace('(', '').replace(')', '');
+
+  var code = 'n.get_workspace_ratio(' + workspace_name + ')\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_get_workspace_list'] = function (block) {
+  var code = 'n.get_workspace_list()\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
 // Conveyor
 
 BlocklyPy['niryo_one_conveyor_models'] = function (block) {
@@ -4528,6 +5006,62 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_vision_is_object_detected'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_img_compressed'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_brightness'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_contrast'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_saturation'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_image_parameters'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_target_pose_from_rel'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_target_pose_from_cam'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_to_object'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_camera_intrinsics'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_workspace_from_robot_poses'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_workspace_from_points'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_delete_workspace'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_workspace_ratio'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_workspace_list'
         },
         {
           kind: 'BLOCK',
