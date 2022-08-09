@@ -896,7 +896,7 @@ Blockly.Blocks['niryo_one_clean_trajectory_memory'] = {
   }
 };
 
-// I/O
+// I/O - Hardware
 
 Blockly.Blocks['niryo_one_gpio_select'] = {
   init: function () {
@@ -979,6 +979,56 @@ Blockly.Blocks['niryo_one_digital_read'] = {
   }
 };
 
+Blockly.Blocks['niryo_one_get_hardware_status'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get hardware status');
+    this.setOutput(true, 'any');
+    this.setColour(io_color);
+    this.setTooltip(
+      'Get hardware status : Temperature, Hardware version, motors names & types …'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_digital_io_state'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get digital IO state');
+    this.setOutput(true, 'any');
+    this.setColour(io_color);
+    this.setTooltip('Get Digital IO state : Names, modes, states.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_analog_io_state'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get analog IO state');
+    this.setOutput(true, 'any');
+    this.setColour(io_color);
+    this.setTooltip('Get Analog IO state : Names, modes, states.');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_analog_write'] = {
+  init: function () {
+    this.appendValueInput('ANALOG_WRITE_PIN')
+      .setCheck('niryo_one_gpio_select')
+      .appendField('Set Pin');
+    this.appendDummyInput()
+      .appendField('to voltage')
+      .appendField('VOLTAGE_VALUE')
+      .setCheck('Number');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(io_color);
+    this.setTooltip('Set and analog pin_id state to a value between 0 and 5V.');
+    this.setHelpUrl('');
+  }
+};
+
 Blockly.Blocks['niryo_one_gpio_state'] = {
   init: function () {
     this.appendDummyInput()
@@ -1031,6 +1081,41 @@ Blockly.Blocks['niryo_one_set_12v_switch'] = {
     this.setNextStatement(true, null);
     this.setColour(io_color);
     this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_analog_write'] = {
+  init: function () {
+    this.appendValueInput('ANALOG_WRITE_PIN')
+      .setCheck('niryo_one_gpio_select')
+      .appendField('Set Pin');
+    this.appendDummyInput()
+      .appendField('to state')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['HIGH', 'PIN_HIGH'],
+          ['LOW', 'PIN_LOW']
+        ]),
+        'PIN_WRITE_SELECT'
+      );
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(io_color);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_analog_read'] = {
+  init: function () {
+    this.appendValueInput('ANALOG_READ_PIN')
+      .setCheck('niryo_one_gpio_select')
+      .appendField('Read analog value of pin');
+    this.setOutput(true, 'any');
+    this.setColour(io_color);
+    this.setTooltip('Read the analog pin value.');
     this.setHelpUrl('');
   }
 };
@@ -2198,7 +2283,7 @@ BlocklyPy['niryo_one_clean_trajectory_memory'] = function (block) {
   return code;
 };
 
-// I/O
+// I/O - Hardware
 
 BlocklyPy['niryo_one_gpio_state'] = function (block) {
   var dropdown_gpio_state_select = block.getFieldValue('GPIO_STATE_SELECT');
@@ -2234,6 +2319,45 @@ BlocklyPy['niryo_one_digital_read'] = function (block) {
     '(0)';
   value_pin = value_pin.replace('(', '').replace(')', '');
   var code = 'n.digital_read(' + value_pin + ')';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_get_hardware_status'] = function (block) {
+  var code = 'n.get_hardware_status()\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_get_digital_io_state'] = function (block) {
+  var code = 'n.get_digital_io_state()\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_get_analog_io_state'] = function (block) {
+  var code = 'n.get_analog_io_state()\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_analog_write'] = function (block) {
+  var value_pin =
+    BlocklyPy.valueToCode(block, 'ANALOG_WRITE_PIN', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  value_pin = value_pin.replace('(', '').replace(')', '');
+
+  var voltage_value =
+    BlocklyPy.valueToCode(block, 'VOLTAGE_VALUE', BlocklyPy.ORDER_ATOMIC) ||
+    '0';
+  voltage_value = voltage_value.replace('(', '').replace(')', '');
+
+  var code = 'n.analog_write(' + value_pin + ', ' + voltage_value + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_analog_read'] = function (block) {
+  var value_pin =
+    BlocklyPy.valueToCode(block, 'ANALOG_READ_PIN', BlocklyPy.ORDER_ATOMIC) ||
+    '(0)';
+  value_pin = value_pin.replace('(', '').replace(')', '');
+  var code = 'n.analog_read(' + value_pin + ')';
   return [code, BlocklyPy.ORDER_NONE];
 };
 
@@ -2581,6 +2705,7 @@ BlocklyPy['niryo_one_get_connected_conveyors_id'] = function (block) {
 };
 
 // Sound
+
 BlocklyPy['niryo_one_get_sounds'] = function (block) {
   var code = 'n.get_sounds()\n';
   return [code, BlocklyPy.ORDER_NONE];
@@ -3180,6 +3305,18 @@ const TOOLBOX = {
         },
         {
           kind: 'BLOCK',
+          type: 'niryo_one_get_hardware_status'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_digital_io_state'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_analog_io_state'
+        },
+        {
+          kind: 'BLOCK',
           type: 'niryo_one_gpio_state'
         },
         {
@@ -3189,6 +3326,14 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_set_12v_switch'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_analog_write'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_analog_read'
         },
         {
           kind: 'BLOCK',
