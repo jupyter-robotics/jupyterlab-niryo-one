@@ -39,6 +39,8 @@ var vision_color = '#546e7a';
 var conveyor_color = '#00838f';
 var sound_color = '#FFC0CB';
 var frames_color = '#4B0082';
+var led_color = '65c368';
+var trajectory_color = '#9370DB';
 
 // Color object for vision
 //TODO Should be in a class
@@ -828,7 +830,7 @@ Blockly.Blocks['niryo_one_get_trajectory_saved'] = {
       .setCheck('String')
       .appendField('Get trajectory named');
     this.setOutput(true, null);
-    this.setColour(movement_color);
+    this.setColour(trajectory_color);
     this.setTooltip('Get trajectory saved in Niryo’s memory');
     this.setHelpUrl('');
   }
@@ -838,7 +840,7 @@ Blockly.Blocks['niryo_one_get_saved_trajectory_list'] = {
   init: function () {
     this.appendDummyInput().appendField('Get list of saved trajectories');
     this.setOutput(true, null);
-    this.setColour(movement_color);
+    this.setColour(trajectory_color);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -850,7 +852,7 @@ Blockly.Blocks['niryo_one_execute_registered_trajectory'] = {
       .setCheck('String')
       .appendField('Execute trajectory named');
     this.setOutput(true, null);
-    this.setColour(movement_color);
+    this.setColour(trajectory_color);
     this.setTooltip('Execute trajectory from Niryo’s memory');
     this.setHelpUrl('');
   }
@@ -864,7 +866,7 @@ Blockly.Blocks['niryo_one_save_last_learned_trajectory'] = {
     this.appendValueInput('TRAJECTORY_DESCRIPTION')
       .setCheck('String')
       .appendField('and description');
-    this.setColour(movement_color);
+    this.setColour(trajectory_color);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -880,7 +882,7 @@ Blockly.Blocks['niryo_one_delete_trajectory'] = {
       .appendField('Delete trajectory named');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(movement_color);
+    this.setColour(trajectory_color);
     this.setTooltip('Delete trajectory from Niryo’s memory');
     this.setHelpUrl('');
   }
@@ -891,7 +893,7 @@ Blockly.Blocks['niryo_one_clean_trajectory_memory'] = {
     this.appendDummyInput().appendField('Clean trajectory memory');
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(movement_color);
+    this.setColour(trajectory_color);
     this.setTooltip('Clean trajectory from Niryo’s memory');
     this.setHelpUrl('');
   }
@@ -1874,6 +1876,281 @@ Blockly.Blocks['niryo_one_say'] = {
     this.setHelpUrl('');
     this.setTooltip(
       'Use gtts (Google Text To Speech) to interprete a string as sound.'
+    );
+  }
+};
+
+// Led Ring
+
+Blockly.Blocks['niryo_one_color'] = {
+  init: function () {
+    // this.appendDummyInput().appendField('Color');
+    this.appendValueInput('RED').setCheck('Number').appendField('R');
+    this.appendValueInput('GREEN').setCheck('Number').appendField('G');
+    this.appendValueInput('BLUE').setCheck('Number').appendField('B');
+    this.setOutput(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip(
+      'Define color in RGB. Each value has to be between 0 and 255.'
+    );
+  }
+};
+
+Blockly.Blocks['niryo_one_set_led_color'] = {
+  init: function () {
+    this.appendValueInput('LED_RING_ID')
+      .setCheck('Number')
+      .appendField('Set led ring with id');
+    this.appendValueInput('COLOR')
+      .setCheck('niryo_one_color')
+      .appendField('to color');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip('Set led ring color. The led id is between 0 and 29.');
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_solid'] = {
+  init: function () {
+    this.appendValueInput('COLOR')
+      .setCheck('niryo_one_color')
+      .appendField('Set ring to color');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip('Set the whole Led Ring to a fixed color.');
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_turn_off'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Turn off led ring');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip('Turn off all LEDs.');
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_flashing'] = {
+  init: function () {
+    this.appendValueInput('COLOR')
+      .setCheck('niryo_one_color')
+      .appendField('Flash ring to color');
+    this.appendValueInput('PERIOD')
+      .setCheck('Number')
+      .appendField('for duration');
+    this.appendValueInput('ITERATIONS')
+      .setCheck('Number')
+      .appendField('at frequency');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip(
+      'Flashes a color according to a frequency. The frequency is equal to 1 / period. Duration for a pattern is in seconds, if 0 default time will be used. Frequency considered as number of consecutive flashses, if 0 the led ring flashes endlessly.'
+    );
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_alternate'] = {
+  init: function () {
+    this.appendValueInput('COLOR_1')
+      .setCheck('niryo_one_color')
+      .appendField('Alternate ring to colors');
+    this.appendValueInput('COLOR_2').setCheck('niryo_one_color');
+    this.appendValueInput('COLOR_3').setCheck('niryo_one_color');
+    this.appendValueInput('PERIOD')
+      .setCheck('Number')
+      .appendField('for duration');
+    this.appendValueInput('ITERATIONS')
+      .setCheck('Number')
+      .appendField('at frequency');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip(
+      'Several colors are alternated one after the other. The frequency is equal to 1 / period. Duration for a pattern is in seconds, if 0 default time will be used. Frequency considered as number of consecutive alternates, if 0 the led ring alternates endlessly.'
+    );
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_chase'] = {
+  init: function () {
+    this.appendValueInput('COLOR')
+      .setCheck('niryo_one_color')
+      .appendField('Chaser ring animation to color');
+    this.appendValueInput('PERIOD')
+      .setCheck('Number')
+      .appendField('for duration');
+    this.appendValueInput('ITERATIONS')
+      .setCheck('Number')
+      .appendField('at frequency');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip(
+      'Movie theater light style chaser animation. The frequency is equal to 1 / period. Duration for a pattern is in seconds, if 0 default time will be used. Frequency considered as number of consecutive flashses, if 0 the led ring flashes endlessly.'
+    );
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_wipe'] = {
+  init: function () {
+    this.appendValueInput('COLOR')
+      .setCheck('niryo_one_color')
+      .appendField('Wipe across led ring the color');
+    this.appendValueInput('PERIOD')
+      .setCheck('Number')
+      .appendField('for duration');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip('Wipe a color across the Led Ring, light a Led at a time.');
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_rainbow'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Fading rainbow animation');
+    this.appendValueInput('PERIOD')
+      .setCheck('Number')
+      .appendField('for duration');
+    this.appendValueInput('ITERATIONS')
+      .setCheck('Number')
+      .appendField('at frequency');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip('Draw rainbow that fades across all LEDs at once.');
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_rainbow_cycle'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Draw rainbow');
+    this.appendValueInput('PERIOD')
+      .setCheck('Number')
+      .appendField('for duration');
+    this.appendValueInput('ITERATIONS')
+      .setCheck('Number')
+      .appendField('at frequency');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip(
+      'Draw rainbow that uniformly distributes itself across all LEDs.'
+    );
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_rainbow_chase'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Rainbow chase animation');
+    this.appendValueInput('PERIOD')
+      .setCheck('Number')
+      .appendField('for duration');
+    this.appendValueInput('ITERATIONS')
+      .setCheck('Number')
+      .appendField('at frequency');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip('Rainbow chase animation, like the led_ring_chase method.');
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_go_up'] = {
+  init: function () {
+    this.appendValueInput('COLOR')
+      .setCheck('niryo_one_color')
+      .appendField('Led ring go up in color');
+    this.appendValueInput('PERIOD')
+      .setCheck('Number')
+      .appendField('for duration');
+    this.appendValueInput('ITERATIONS')
+      .setCheck('Number')
+      .appendField('at frequency');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip(
+      'LEDs turn on like a loading circle, and are then all turned off at once.'
+    );
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_go_up_down'] = {
+  init: function () {
+    this.appendValueInput('COLOR')
+      .setCheck('niryo_one_color')
+      .appendField('Load circle in color');
+    this.appendValueInput('PERIOD')
+      .setCheck('Number')
+      .appendField('for duration');
+    this.appendValueInput('ITERATIONS')
+      .setCheck('Number')
+      .appendField('at frequency');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip(
+      'LEDs turn on like a loading circle, and are turned off the same way.'
+    );
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_breath'] = {
+  init: function () {
+    this.appendValueInput('COLOR')
+      .setCheck('niryo_one_color')
+      .appendField('LED ring lights up like breathing in color');
+    this.appendValueInput('PERIOD')
+      .setCheck('Number')
+      .appendField('for duration');
+    this.appendValueInput('ITERATIONS')
+      .setCheck('Number')
+      .appendField('at frequency');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip(
+      'Variation of the light intensity of the LED ring, similar to human breathing.'
+    );
+  }
+};
+
+Blockly.Blocks['niryo_one_led_ring_snake'] = {
+  init: function () {
+    this.appendValueInput('COLOR')
+      .setCheck('niryo_one_color')
+      .appendField('Snake lights up in color');
+    this.appendValueInput('PERIOD')
+      .setCheck('Number')
+      .appendField('for duration');
+    this.appendValueInput('ITERATIONS')
+      .setCheck('Number')
+      .appendField('at frequency');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(led_color);
+    this.setHelpUrl('');
+    this.setTooltip(
+      'A small coloured snake (certainly a python :D ) runs around the LED ring.'
     );
   }
 };
@@ -3141,6 +3418,435 @@ BlocklyPy['niryo_one_say'] = function (block) {
   return code;
 };
 
+//Led Ring
+
+BlocklyPy['niryo_one_color'] = function (block) {
+  var value_r = BlocklyPy.valueToCode(block, 'RED', BlocklyPy.ORDER_ATOMIC)
+    .replace('(', '')
+    .replace(')', '');
+  var value_g = BlocklyPy.valueToCode(block, 'GREEN', BlocklyPy.ORDER_ATOMIC)
+    .replace('(', '')
+    .replace(')', '');
+  var value_b = BlocklyPy.valueToCode(block, 'BLUE', BlocklyPy.ORDER_ATOMIC)
+    .replace('(', '')
+    .replace(')', '');
+
+  var code = '[' + value_r + ', ' + value_g + ', ' + value_b + ']';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_set_led_color'] = function (block) {
+  var value_led_ring_id = BlocklyPy.valueToCode(
+    block,
+    'LED_RING_ID',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_color = BlocklyPy.valueToCode(
+    block,
+    'COLOR',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code =
+    'n.set_led_color(' + value_led_ring_id + ', ' + value_color + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_solid'] = function (block) {
+  var value_color = BlocklyPy.valueToCode(
+    block,
+    'COLOR',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code = 'n.led_ring_solid(' + value_color + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_turn_off'] = function (block) {
+  var code = 'n.led_ring_turn_off()\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_flashing'] = function (block) {
+  var value_color = BlocklyPy.valueToCode(
+    block,
+    'COLOR',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_period = BlocklyPy.valueToCode(
+    block,
+    'PERIOD',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_iterations = BlocklyPy.valueToCode(
+    block,
+    'ITERATIONS',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code =
+    'n.led_ring_flashing(' +
+    value_color +
+    ', ' +
+    value_period +
+    ', ' +
+    value_iterations +
+    ', True)\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_alternate'] = function (block) {
+  var value_color_1 = BlocklyPy.valueToCode(
+    block,
+    'COLOR_1',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_color_2 = BlocklyPy.valueToCode(
+    block,
+    'COLOR_2',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_color_3 = BlocklyPy.valueToCode(
+    block,
+    'COLOR_3',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_period = BlocklyPy.valueToCode(
+    block,
+    'PERIOD',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_iterations = BlocklyPy.valueToCode(
+    block,
+    'ITERATIONS',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code =
+    'n.led_ring_alternate( [' +
+    value_color_1 +
+    ', ' +
+    value_color_2 +
+    ', ' +
+    value_color_3 +
+    '], ' +
+    value_period +
+    ', ' +
+    value_iterations +
+    ', True)\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_chase'] = function (block) {
+  var value_color = BlocklyPy.valueToCode(
+    block,
+    'COLOR',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_period = BlocklyPy.valueToCode(
+    block,
+    'PERIOD',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_iterations = BlocklyPy.valueToCode(
+    block,
+    'ITERATIONS',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code =
+    'n.led_ring_chase(' +
+    value_color +
+    ', ' +
+    value_period +
+    ', ' +
+    value_iterations +
+    ', True)\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_wipe'] = function (block) {
+  var value_color = BlocklyPy.valueToCode(
+    block,
+    'COLOR',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_period = BlocklyPy.valueToCode(
+    block,
+    'PERIOD',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code =
+    'n.led_ring_wipe(' + value_color + ', ' + value_period + ', True)\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_rainbow'] = function (block) {
+  var value_period = BlocklyPy.valueToCode(
+    block,
+    'PERIOD',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_iterations = BlocklyPy.valueToCode(
+    block,
+    'ITERATIONS',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code =
+    'n.led_ring_rainbow(' +
+    value_period +
+    ', ' +
+    value_iterations +
+    ', True)\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_rainbow_cycle'] = function (block) {
+  var value_period = BlocklyPy.valueToCode(
+    block,
+    'PERIOD',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_iterations = BlocklyPy.valueToCode(
+    block,
+    'ITERATIONS',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code =
+    'n.led_ring_rainbow_cycle(' +
+    value_period +
+    ', ' +
+    value_iterations +
+    ', True)\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_rainbow_chase'] = function (block) {
+  var value_period = BlocklyPy.valueToCode(
+    block,
+    'PERIOD',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_iterations = BlocklyPy.valueToCode(
+    block,
+    'ITERATIONS',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code =
+    'n.led_ring_rainbow_chase(' +
+    value_period +
+    ', ' +
+    value_iterations +
+    ', True)\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_go_up'] = function (block) {
+  var value_color = BlocklyPy.valueToCode(
+    block,
+    'COLOR',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_period = BlocklyPy.valueToCode(
+    block,
+    'PERIOD',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_iterations = BlocklyPy.valueToCode(
+    block,
+    'ITERATIONS',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code =
+    'n.led_ring_go_up(' +
+    value_color +
+    ', ' +
+    value_period +
+    ', ' +
+    value_iterations +
+    ', True)\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_go_up_down'] = function (block) {
+  var value_color = BlocklyPy.valueToCode(
+    block,
+    'COLOR',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_period = BlocklyPy.valueToCode(
+    block,
+    'PERIOD',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_iterations = BlocklyPy.valueToCode(
+    block,
+    'ITERATIONS',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code =
+    'n.led_ring_go_up_down(' +
+    value_color +
+    ', ' +
+    value_period +
+    ', ' +
+    value_iterations +
+    ', True)\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_breath'] = function (block) {
+  var value_color = BlocklyPy.valueToCode(
+    block,
+    'COLOR',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_period = BlocklyPy.valueToCode(
+    block,
+    'PERIOD',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_iterations = BlocklyPy.valueToCode(
+    block,
+    'ITERATIONS',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code =
+    'n.led_ring_breath(' +
+    value_color +
+    ', ' +
+    value_period +
+    ', ' +
+    value_iterations +
+    ', True)\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_led_ring_snake'] = function (block) {
+  var value_color = BlocklyPy.valueToCode(
+    block,
+    'COLOR',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_period = BlocklyPy.valueToCode(
+    block,
+    'PERIOD',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var value_iterations = BlocklyPy.valueToCode(
+    block,
+    'ITERATIONS',
+    BlocklyPy.ORDER_ATOMIC
+  )
+    .replace('(', '')
+    .replace(')', '');
+
+  var code =
+    'n.led_ring_snake(' +
+    value_color +
+    ', ' +
+    value_period +
+    ', ' +
+    value_iterations +
+    ', True)\n';
+  return code;
+};
+
 // Creating a toolbox containing all the main (default) blocks
 // and adding the niryo category.
 const TOOLBOX = {
@@ -3874,6 +4580,66 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_say'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_color'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_led_color'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_solid'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_turn_off'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_flashing'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_alternate'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_chase'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_wipe'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_rainbow'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_rainbow_cycle'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_rainbow_chase'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_go_up'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_go_up_down'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_breath'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_snake'
         }
       ]
     }
