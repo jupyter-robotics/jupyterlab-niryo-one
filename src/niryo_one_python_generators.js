@@ -38,6 +38,7 @@ var utility_color = '#bead76';
 var vision_color = '#546e7a';
 var conveyor_color = '#00838f';
 var sound_color = '#FFC0CB';
+var frames_color = '#4B0082';
 
 // Color object for vision
 //TODO Should be in a class
@@ -892,6 +893,164 @@ Blockly.Blocks['niryo_one_clean_trajectory_memory'] = {
     this.setNextStatement(true, null);
     this.setColour(movement_color);
     this.setTooltip('Clean trajectory from Niryo’s memory');
+    this.setHelpUrl('');
+  }
+};
+
+// Dynamic frames
+
+Blockly.Blocks['niryo_one_get_saved_dynamic_frame_list'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Get list of saved dynamic frames');
+    this.setOutput(true, null);
+    this.setColour(frames_color);
+    this.setTooltip('Get list of saved dynamic frames');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_get_saved_dynamic_frame'] = {
+  init: function () {
+    this.appendValueInput('DYNAMIC_FRAME_NAME')
+      .setCheck('String')
+      .appendField('Get dynamic frame named');
+    this.setOutput(true, null);
+    this.setColour(frames_color);
+    this.setTooltip('Get name, description and pose of a dynamic frame');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_save_dynamic_frame_from_poses'] = {
+  init: function () {
+    this.appendValueInput('DYNAMIC_FRAME_NAME')
+      .setCheck('String')
+      .appendField('Save dynamic frame under name');
+    this.appendValueInput('DYNAMIC_FRAME_DESCRIPTION')
+      .setCheck('String')
+      .appendField('and description');
+    this.appendValueInput('POSE_1')
+      .setCheck('niryo_one_pose')
+      .appendField('with origin pose');
+    this.appendValueInput('POSE_2')
+      .setCheck('niryo_one_pose')
+      .appendField('first pose');
+    this.appendValueInput('POSE_3')
+      .setCheck('niryo_one_pose')
+      .appendField('and second pose');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(frames_color);
+    this.setTooltip(
+      'Create a dynamic frame given name, description and 3 poses (origin, x, y)'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_point'] = {
+  init: function () {
+    this.appendDummyInput().appendField('Point');
+    this.appendValueInput('x').setCheck('Number').appendField('x');
+    this.appendValueInput('y').setCheck('Number').appendField('y');
+    this.appendValueInput('z').setCheck('Number').appendField('z');
+    this.setInputsInline(true);
+    this.setOutput(true, null);
+    this.setColour(frames_color);
+    this.setTooltip('Represents a point in 3D space');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_save_dynamic_frame_from_points'] = {
+  init: function () {
+    this.appendValueInput('DYNAMIC_FRAME_NAME')
+      .setCheck('String')
+      .appendField('Save dynamic frame under name');
+    this.appendValueInput('DYNAMIC_FRAME_DESCRIPTION')
+      .setCheck('String')
+      .appendField('and description');
+    this.appendValueInput('POINT_1')
+      .setCheck('niryo_one_point')
+      .appendField('with origin point');
+    this.appendValueInput('POINT_2')
+      .setCheck('niryo_one_point')
+      .appendField('first point');
+    this.appendValueInput('POINT_3')
+      .setCheck('niryo_one_point')
+      .appendField('and second point');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(frames_color);
+    this.setTooltip(
+      'Create a dynamic frame given name, description and 3 points (origin, x, y)'
+    );
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_edit_dynamic_frame'] = {
+  init: function () {
+    this.appendValueInput('DYNAMIC_FRAME_NAME')
+      .setCheck('String')
+      .appendField('Modify dynamic frame named');
+    this.appendValueInput('DYNAMIC_FRAME_NEW_NAME')
+      .setCheck('String')
+      .appendField('with new name');
+    this.appendValueInput('DYNAMIC_FRAME_NEW_DESCRIPTION')
+      .setCheck('String')
+      .appendField('and new description');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(frames_color);
+    this.setTooltip('Modify a dynamic frame');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_delete_dynamic_frame'] = {
+  init: function () {
+    this.appendValueInput('DYNAMIC_FRAME_NAME')
+      .setCheck('String')
+      .appendField('Modify dynamic frame named');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(frames_color);
+    this.setTooltip('Delete a dynamic frame');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_move_relative'] = {
+  init: function () {
+    this.appendValueInput('POSE')
+      .setCheck('niryo_one_pose')
+      .appendField('Move relative to pose');
+    this.appendValueInput('DYNAMIC_FRAME_NAME')
+      .setCheck('String')
+      .appendField('in frame');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(frames_color);
+    this.setTooltip('Move robot end of a offset in a frame');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['niryo_one_move_linear_relative'] = {
+  init: function () {
+    this.appendValueInput('POSE')
+      .setCheck('niryo_one_pose')
+      .appendField('Move linearly relative to pose');
+    this.appendValueInput('DYNAMIC_FRAME_NAME')
+      .setCheck('String')
+      .appendField('in frame');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(frames_color);
+    this.setTooltip(
+      'Move robot end of a offset by a linear movement in a frame'
+    );
     this.setHelpUrl('');
   }
 };
@@ -2031,7 +2190,7 @@ BlocklyPy['niryo_one_pick_and_place'] = function (block) {
   );
   value_pose_2 = value_pose_2.replace('(', '').replace(')', '');
 
-  var dist_smoothing_value = Blockly.Python.valueToCode(
+  var dist_smoothing_value = BlocklyPy.valueToCode(
     block,
     'DIST_SMOOTHING',
     BlocklyPy.ORDER_ATOMIC
@@ -2162,20 +2321,20 @@ BlocklyPy['niryo_one_inverse_kinematics'] = function (block) {
 // Saved poses
 
 BlocklyPy['niryo_one_get_saved_pose'] = function (block) {
-  var value_pose_name = Blockly.Python.valueToCode(
+  var value_pose_name = BlocklyPy.valueToCode(
     block,
     'POSE_NAME',
-    Blockly.Python.ORDER_ATOMIC
+    BlocklyPy.ORDER_ATOMIC
   );
   var code = 'n.get_saved_pose(' + value_pose_name + ')\n';
   return code;
 };
 
 BlocklyPy['niryo_one_save_pose'] = function (block) {
-  var pose_name = Blockly.Python.valueToCode(
+  var pose_name = BlocklyPy.valueToCode(
     block,
     'POSE_NAME',
-    Blockly.Python.ORDER_ATOMIC
+    BlocklyPy.ORDER_ATOMIC
   );
 
   var number_pose_x = block.getFieldValue('POSE_X');
@@ -2205,10 +2364,10 @@ BlocklyPy['niryo_one_save_pose'] = function (block) {
 };
 
 BlocklyPy['niryo_one_delete_pose'] = function (block) {
-  var pose_name = Blockly.Python.valueToCode(
+  var pose_name = BlocklyPy.valueToCode(
     block,
     'POSE_NAME',
-    Blockly.Python.ORDER_ATOMIC
+    BlocklyPy.ORDER_ATOMIC
   );
   var code = 'n.delete_pose(' + pose_name + ')\n';
   return code;
@@ -2222,13 +2381,13 @@ BlocklyPy['niryo_one_get_saved_pose_list'] = function (block) {
 // Trajectories
 
 BlocklyPy['niryo_one_get_trajectory_saved'] = function (block) {
-  var value_trajectory_name = Blockly.Python.valueToCode(
+  var value_trajectory_name = BlocklyPy.valueToCode(
     block,
     'TRAJECTORY_NAME',
-    Blockly.Python.ORDER_ATOMIC
+    BlocklyPy.ORDER_ATOMIC
   );
   var code = 'n.get_trajectory_saved(' + value_trajectory_name + ')\n';
-  return [code, Blockly.Python.ORDER_NONE];
+  return [code, BlocklyPy.ORDER_NONE];
 };
 
 BlocklyPy['niryo_one_get_saved_trajectory_list'] = function (block) {
@@ -2237,26 +2396,26 @@ BlocklyPy['niryo_one_get_saved_trajectory_list'] = function (block) {
 };
 
 BlocklyPy['niryo_one_execute_registered_trajectory'] = function (block) {
-  var value_trajectory_name = Blockly.Python.valueToCode(
+  var value_trajectory_name = BlocklyPy.valueToCode(
     block,
     'TRAJECTORY_NAME',
-    Blockly.Python.ORDER_ATOMIC
+    BlocklyPy.ORDER_ATOMIC
   );
   var code = 'n.execute_registered_trajectory(' + value_trajectory_name + ')\n';
-  return [code, Blockly.Python.ORDER_NONE];
+  return [code, BlocklyPy.ORDER_NONE];
 };
 
 BlocklyPy['niryo_one_save_last_learned_trajectory'] = function (block) {
-  var trajectory_name = Blockly.Python.valueToCode(
+  var trajectory_name = BlocklyPy.valueToCode(
     block,
     'TRAJECTORY_NAME',
-    Blockly.Python.ORDER_ATOMIC
+    BlocklyPy.ORDER_ATOMIC
   );
 
-  var trajectory_description = Blockly.Python.valueToCode(
+  var trajectory_description = BlocklyPy.valueToCode(
     block,
     'TRAJECTORY_DESCRIPTION',
-    Blockly.Python.ORDER_ATOMIC
+    BlocklyPy.ORDER_ATOMIC
   );
 
   var code =
@@ -2269,10 +2428,10 @@ BlocklyPy['niryo_one_save_last_learned_trajectory'] = function (block) {
 };
 
 BlocklyPy['niryo_one_delete_trajectory'] = function (block) {
-  var trajectory_name = Blockly.Python.valueToCode(
+  var trajectory_name = BlocklyPy.valueToCode(
     block,
     'TRAJECTORY_NAME',
-    Blockly.Python.ORDER_ATOMIC
+    BlocklyPy.ORDER_ATOMIC
   );
   var code = 'n.delete_trajectory(' + trajectory_name + ')\n';
   return code;
@@ -2280,6 +2439,215 @@ BlocklyPy['niryo_one_delete_trajectory'] = function (block) {
 
 BlocklyPy['niryo_one_clean_trajectory_memory'] = function (block) {
   var code = 'n.clean_trajectory_memory()\n';
+  return code;
+};
+
+// Dynamic frames
+
+BlocklyPy['niryo_one_get_saved_dynamic_frame_list'] = function (block) {
+  var code = 'n.get_saved_dynamic_frame_list()\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_get_saved_dynamic_frame'] = function (block) {
+  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+    block,
+    'DYNAMIC_FRAME_NAME',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  var code = 'n.get_saved_dynamic_frame(' + value_dynamic_frame_name + ')\n';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_save_dynamic_frame_from_poses'] = function (block) {
+  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+    block,
+    'DYNAMIC_FRAME_NAME',
+    BlocklyPy.ORDER_ATOMIC
+  );
+
+  var value_dynamic_frame_description = BlocklyPy.valueToCode(
+    block,
+    'DYNAMIC_FRAME_DESCRIPTION',
+    BlocklyPy.ORDER_ATOMIC
+  );
+
+  var value_pose_1 = BlocklyPy.valueToCode(
+    block,
+    'POSE_1',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_pose_1 = value_pose_1.replace('(', '').replace(')', '');
+
+  var value_pose_2 = BlocklyPy.valueToCode(
+    block,
+    'POSE_2',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_pose_2 = value_pose_2.replace('(', '').replace(')', '');
+
+  var value_pose_3 = BlocklyPy.valueToCode(
+    block,
+    'POSE_3',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_pose_3 = value_pose_3.replace('(', '').replace(')', '');
+
+  var code =
+    'n.save_dynamic_frame_from_poses(' +
+    value_dynamic_frame_name +
+    ', ' +
+    value_dynamic_frame_description +
+    ', ' +
+    value_pose_1 +
+    ', ' +
+    value_pose_2 +
+    ', ' +
+    value_pose_3 +
+    ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_point'] = function (block) {
+  var value_x = BlocklyPy.valueToCode(block, 'x', BlocklyPy.ORDER_ATOMIC)
+    .replace('(', '')
+    .replace(')', '');
+  var value_y = BlocklyPy.valueToCode(block, 'y', BlocklyPy.ORDER_ATOMIC)
+    .replace('(', '')
+    .replace(')', '');
+  var value_z = BlocklyPy.valueToCode(block, 'z', BlocklyPy.ORDER_ATOMIC)
+    .replace('(', '')
+    .replace(')', '');
+
+  var code = '[' + value_x + ', ' + value_y + ', ' + value_z + ']';
+  return [code, BlocklyPy.ORDER_NONE];
+};
+
+BlocklyPy['niryo_one_save_dynamic_frame_from_points'] = function (block) {
+  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+    block,
+    'DYNAMIC_FRAME_NAME',
+    BlocklyPy.ORDER_ATOMIC
+  );
+
+  var value_dynamic_frame_description = BlocklyPy.valueToCode(
+    block,
+    'DYNAMIC_FRAME_DESCRIPTION',
+    BlocklyPy.ORDER_ATOMIC
+  );
+
+  var value_point_1 = BlocklyPy.valueToCode(
+    block,
+    'POINT_1',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_point_1 = value_point_1.replace('(', '').replace(')', '');
+
+  var value_point_2 = BlocklyPy.valueToCode(
+    block,
+    'POINT_2',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_point_2 = value_point_2.replace('(', '').replace(')', '');
+
+  var value_point_3 = BlocklyPy.valueToCode(
+    block,
+    'POINT_3',
+    BlocklyPy.ORDER_ATOMIC
+  );
+  value_point_3 = value_point_3.replace('(', '').replace(')', '');
+
+  var code =
+    'n.save_dynamic_frame_from_points(' +
+    value_dynamic_frame_name +
+    ', ' +
+    value_dynamic_frame_description +
+    ', ' +
+    value_point_1 +
+    ', ' +
+    value_point_2 +
+    ', ' +
+    value_point_3 +
+    ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_edit_dynamic_frame'] = function (block) {
+  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+    block,
+    'DYNAMIC_FRAME_NAME',
+    BlocklyPy.ORDER_ATOMIC
+  );
+
+  var value_dynamic_frame_new_name = BlocklyPy.valueToCode(
+    block,
+    'DYNAMIC_FRAME_NEW_NAME',
+    BlocklyPy.ORDER_ATOMIC
+  );
+
+  var value_dynamic_frame_new_description = BlocklyPy.valueToCode(
+    block,
+    'DYNAMIC_FRAME_NEW_DESCRIPTION',
+    BlocklyPy.ORDER_ATOMIC
+  );
+
+  var code =
+    'n.edit_dynamic_frame(' +
+    value_dynamic_frame_name +
+    ', ' +
+    value_dynamic_frame_new_name +
+    ', ' +
+    value_dynamic_frame_new_description +
+    ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_delete_dynamic_frame'] = function (block) {
+  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+    block,
+    'DYNAMIC_FRAME_NAME',
+    BlocklyPy.ORDER_ATOMIC
+  );
+
+  var code = 'n.delete_dynamic_frame(' + value_dynamic_frame_name + ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_move_relative'] = function (block) {
+  var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
+  value_pose = value_pose.replace('(', '').replace(')', '');
+
+  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+    block,
+    'DYNAMIC_FRAME_NAME',
+    BlocklyPy.ORDER_ATOMIC
+  );
+
+  var code =
+    'n.move_relative(' +
+    value_pose +
+    ', frame=' +
+    value_dynamic_frame_name +
+    ')\n';
+  return code;
+};
+
+BlocklyPy['niryo_one_move_linear_relative'] = function (block) {
+  var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
+  value_pose = value_pose.replace('(', '').replace(')', '');
+
+  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+    block,
+    'DYNAMIC_FRAME_NAME',
+    BlocklyPy.ORDER_ATOMIC
+  );
+
+  var code =
+    'n.move_linear_relative(' +
+    value_pose +
+    ', frame=' +
+    value_dynamic_frame_name +
+    ')\n';
   return code;
 };
 
@@ -3286,6 +3654,42 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_clean_trajectory_memory'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_saved_dynamic_frame_list'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_saved_dynamic_frame'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_dynamic_frame_from_poses'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_point'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_dynamic_frame_from_points'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_edit_dynamic_frame'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_delete_dynamic_frame'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_relative'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_linear_relative'
         },
         {
           kind: 'BLOCK',
