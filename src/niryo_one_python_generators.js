@@ -2508,7 +2508,7 @@ class niryo_connect():
     self.n = NiryoRobot(ip)
   def __enter__(self):
     return self.n
-  def __exit__(self):
+  def __exit__(self, exception_type, exception_value, traceback):
     self.n.close_connection()
 
 `;
