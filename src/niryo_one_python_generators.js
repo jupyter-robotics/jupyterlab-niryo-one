@@ -30,16 +30,16 @@ var loop_color = '#49a563';
 var math_color = '#5769a1';
 var list_color = '#765da1';
 var variable_color = '#ad5a7e';
-var function_color = '#9f5ca1';
+var function_color = '#844D84';
 var movement_color = '#4f87c0';
-var io_color = '#c05150';
+var io_color = '#a200d8';
 var tool_color = '#bf964b';
 var utility_color = '#bead76';
-var vision_color = '#4B0082';
+var vision_color = '#3B1344';
 var conveyor_color = '#00838f';
-var sound_color = '#FFC0CB';
+var sound_color = '#C9A3A2';
 var frames_color = '#546e7a';
-var led_color = '65c368';
+var led_color = '#105E1D';
 var trajectory_color = '#9370DB';
 
 // Color object for vision
@@ -4904,8 +4904,8 @@ const TOOLBOX = {
     },
     {
       kind: 'CATEGORY',
-      colour: '210',
-      name: 'Niryo',
+      colour: function_color,
+      name: 'Niryo Connect',
       contents: [
         {
           kind: 'BLOCK',
@@ -4935,6 +4935,21 @@ const TOOLBOX = {
           kind: 'BLOCK',
           type: 'niryo_one_set_jog_control'
         },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_wait'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_comment'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Niryo Movement',
+      colour: movement_color,
+      contents: [
         {
           kind: 'BLOCK',
           type: 'niryo_one_move_joints'
@@ -5038,7 +5053,14 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_get_saved_pose_list'
-        },
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Niryo Trajectory',
+      colour: trajectory_color,
+      contents: [
         {
           kind: 'BLOCK',
           type: 'niryo_one_get_trajectory_saved'
@@ -5070,7 +5092,14 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_clean_trajectory_memory'
-        },
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Niryo Frames',
+      colour: frames_color,
+      contents: [
         {
           kind: 'BLOCK',
           type: 'niryo_one_get_saved_dynamic_frame_list'
@@ -5106,7 +5135,14 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_move_linear_relative'
-        },
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Niryo IO',
+      colour: io_color,
+      contents: [
         {
           kind: 'BLOCK',
           type: 'niryo_one_gpio_select'
@@ -5162,7 +5198,14 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_analog_read'
-        },
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Niryo Tools',
+      colour: tool_color,
+      contents: [
         {
           kind: 'BLOCK',
           type: 'niryo_one_tool_select'
@@ -5222,15 +5265,14 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_tool_reboot'
-        },
-        {
-          kind: 'BLOCK',
-          type: 'niryo_one_wait'
-        },
-        {
-          kind: 'BLOCK',
-          type: 'niryo_one_comment'
-        },
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Niryo Vision',
+      colour: vision_color,
+      contents: [
         {
           kind: 'BLOCK',
           type: 'niryo_one_vision_color'
@@ -5302,7 +5344,14 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_get_workspace_list'
-        },
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Niryo Conveyors',
+      colour: conveyor_color,
+      contents: [
         {
           kind: 'BLOCK',
           type: 'niryo_one_conveyor_models'
@@ -5330,7 +5379,14 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_get_connected_conveyors_id'
-        },
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Niryo Sounds',
+      colour: sound_color,
+      contents: [
         {
           kind: 'BLOCK',
           type: 'niryo_one_get_sounds'
@@ -5354,7 +5410,14 @@ const TOOLBOX = {
         {
           kind: 'BLOCK',
           type: 'niryo_one_say'
-        },
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Niryo Led Ring',
+      colour: led_color,
+      contents: [
         {
           kind: 'BLOCK',
           type: 'niryo_one_color'
