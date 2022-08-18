@@ -54,7 +54,7 @@ setup_args = dict(
     zip_safe=False,
     include_package_data=True,
     python_requires=">=3.7",
-    install_requires=['jupyterlab-blockly>=0.1.0a5,<0.2'],
+    install_requires=['jupyterlab-blockly>=0.1.1,<0.2'],
     extras_require={
         'env': ['pyniryo']
     },
