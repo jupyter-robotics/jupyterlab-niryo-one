@@ -1,6 +1,6 @@
 # jupyterlab-niryo-one
 
-Blockly extension for JupyterLab to control a Niryo One robot.
+Blockly extension for JupyterLab to control a Niryo robot.
 
 ## Blockly
 
@@ -9,12 +9,20 @@ Blockly is a library from Google for building beginner-friendly block-based prog
 Docs: https://developers.google.com/blockly/guides/overview
 Repo: https://github.com/google/blockly
 
-## Niryo One
+## Niryo robots
 
-Niryo One, a collaborative and open source 6-axis robot made in France for: higher education, vocational training and R&D laboratories. Its use is particularly adapted to study robotics and programming in the context of the industry 4.0.
+The Niryo robots are collaborative and open source 6-axis robots made in France for: higher education, vocational training and R&D laboratories. Its use is particularly adapted to study robotics and programming in the context of the industry 4.0.
 
-Docs: https://niryo.com/fr/product/niryo-one/
-Repo: https://github.com/NiryoRobotics/niryo_one_ros
+Docs: https://niryo.com
+Repo for Niryo One: https://github.com/NiryoRobotics/niryo_one_ros
+
+## PyNiryo API
+
+The extension is using the latest version of the `pyniryo` API - `v1.1.2`. This version is compatible with the Niryo, Ned and Ned2 robots.
+
+The Niryo One and Ned robots are compatible with the `niryo` toolbox, whereas the Ned2 robot has the `ned2` toolbox. You can use all 130 blocks from each toolbox to program your robot.
+
+Docs: https://docs.niryo.com/dev/pyniryo/v1.1.2/en/index.html
 
 ## Requirements
 
@@ -25,9 +33,7 @@ Repo: https://github.com/NiryoRobotics/niryo_one_ros
 To install the extension, execute:
 
 ```bash
-micromamba create -n niryo -c conda-forge python jupyterlab==3.4 ipykernel xeus-python xeus-lua jupyterlab-language-pack-es-ES jupyterlab-language-pack-fr-FR
-micromamba activate niryo
-pip install jupyterlab-niryo-one
+conda install jupyterlab-niryo-one -c conda-forge
 ```
 
 #### Kernels

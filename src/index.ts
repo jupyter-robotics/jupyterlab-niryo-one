@@ -5,7 +5,7 @@ import {
 
 import { IBlocklyRegistry } from 'jupyterlab-blockly';
 
-import BlocklyNiryo from './niryo_one_python_generators';
+import { BlocklyNiryo, BlocklyNed } from './niryo_one_python_generators';
 
 /**
  * Initialization data for the jupyterlab-niryo-one extension.
@@ -19,6 +19,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
     //Registering the new toolbox containing all Niryo One blocks.
     blockly.registerToolbox('niryo', BlocklyNiryo.Toolbox);
+
+    //Registering the new toolbox containing all Niryo One blocks.
+    blockly.registerToolbox('ned2', BlocklyNed.Toolbox);
   }
 };
 
