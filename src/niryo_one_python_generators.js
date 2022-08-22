@@ -4550,8 +4550,8 @@ BlocklyPy['niryo_one_led_ring_snake'] = function (block) {
 };
 
 // Creating a toolbox containing all the main (default) blocks
-// and adding the niryo category.
-const TOOLBOX = {
+// and adding the niryo categories.
+const TOOLBOX_NIRYO = {
   kind: 'categoryToolbox',
   contents: [
     {
@@ -5486,7 +5486,1048 @@ const TOOLBOX = {
 const BlocklyNiryo = {
   Blocks: Blockly.Blocks,
   Generator: BlocklyPy,
-  Toolbox: TOOLBOX
+  Toolbox: TOOLBOX_NIRYO
 };
 
-export default BlocklyNiryo;
+// Defining blocks that are different for the Ned2 robot.
+Blockly.Blocks['ned_open_gripper'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('Open gripper at speed')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['1/5', '100'],
+          ['2/5', '250'],
+          ['3/5', '500'],
+          ['4/5', '750'],
+          ['5/5', '1000']
+        ]),
+        'OPEN_SPEED'
+      )
+    this.appendValueInput('MAX_TORQUE_PERCENTAGE')
+      .setCheck('Number')
+      .appendField('with max torque percentage')
+    this.appendDummyInput().appendField('%');
+    this.appendValueInput('HOLD_TORQUE_PERCENTAGE')
+      .setCheck('Number')
+      .appendField('and hold torque percentage');      
+    this.appendDummyInput().appendField('%');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(tool_color);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['ned_close_gripper'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('Close gripper at speed')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['1/5', '100'],
+          ['2/5', '250'],
+          ['3/5', '500'],
+          ['4/5', '750'],
+          ['5/5', '1000']
+        ]),
+        'CLOSE_SPEED'
+      )
+    this.appendValueInput('MAX_TORQUE_PERCENTAGE')
+      .setCheck('Number')
+      .appendField('with max torque percentage')
+    this.appendDummyInput().appendField('%');
+    this.appendValueInput('HOLD_TORQUE_PERCENTAGE')
+      .setCheck('Number')
+      .appendField('and hold torque percentage');  
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(tool_color);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+// Defining Python generators for Ned2 blocks.
+
+BlocklyPy['ned_open_gripper'] = function (block) {
+  var number_open_speed = block.getFieldValue('OPEN_SPEED');
+  var value_max_torque_percentage =
+    BlocklyPy.valueToCode(block, 'MAX_TORQUE_PERCENTAGE', BlocklyPy.ORDER_ATOMIC) ||
+    '0';
+  value_max_torque_percentage = value_max_torque_percentage
+    .replace('(', '')
+    .replace(')', '');
+  var value_hold_torque_percentage =
+    BlocklyPy.valueToCode(block, 'HOLD_TORQUE_PERCENTAGE', BlocklyPy.ORDER_ATOMIC) ||
+    '0';
+  value_hold_torque_percentage = value_hold_torque_percentage
+    .replace('(', '')
+    .replace(')', '');
+  var code = 'n.open_gripper( ' + number_open_speed + ', ' + value_max_torque_percentage + ', ' + value_hold_torque_percentage + ')\n';
+  return code;
+};
+
+BlocklyPy['ned_close_gripper'] = function (block) {
+  var number_close_speed = block.getFieldValue('CLOSE_SPEED');
+  var value_max_torque_percentage =
+    BlocklyPy.valueToCode(block, 'MAX_TORQUE_PERCENTAGE', BlocklyPy.ORDER_ATOMIC) ||
+    '0';
+  value_max_torque_percentage = value_max_torque_percentage
+    .replace('(', '')
+    .replace(')', '');
+  var value_hold_torque_percentage =
+    BlocklyPy.valueToCode(block, 'HOLD_TORQUE_PERCENTAGE', BlocklyPy.ORDER_ATOMIC) ||
+    '0';
+  value_hold_torque_percentage = value_hold_torque_percentage
+    .replace('(', '')
+    .replace(')', '');
+  var code = 'n.close_gripper(' + number_close_speed + ', ' + value_max_torque_percentage + ', ' + value_hold_torque_percentage + ')\n';
+  return code;
+};
+
+// Creating a toolbox containing all the main (default) blocks
+// and adding the ned categories.
+const TOOLBOX_NED = {
+  kind: 'categoryToolbox',
+  contents: [
+    {
+      kind: 'category',
+      name: 'Logic',
+      colour: '210',
+      contents: [
+        {
+          kind: 'block',
+          type: 'controls_if'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'logic_compare'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="logic_operation"></block>',
+          type: 'logic_operation'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="logic_negate"></block>',
+          type: 'logic_negate'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="logic_boolean"></block>',
+          type: 'logic_boolean'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="logic_null"></block>',
+          type: 'logic_null'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="logic_ternary"></block>',
+          type: 'logic_ternary'
+        }
+      ]
+    },
+    {
+      kind: 'category',
+      name: 'Loops',
+      colour: '120',
+      contents: [
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="controls_repeat_ext">\n          <value name="TIMES">\n            <shadow type="math_number">\n              <field name="NUM">10</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'controls_repeat_ext'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="controls_whileUntil"></block>',
+          type: 'controls_whileUntil'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="controls_for">\n          <value name="FROM">\n            <shadow type="math_number">\n              <field name="NUM">1</field>\n            </shadow>\n          </value>\n          <value name="TO">\n            <shadow type="math_number">\n              <field name="NUM">10</field>\n            </shadow>\n          </value>\n          <value name="BY">\n            <shadow type="math_number">\n              <field name="NUM">1</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'controls_for'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="controls_forEach"></block>',
+          type: 'controls_forEach'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="controls_flow_statements"></block>',
+          type: 'controls_flow_statements'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Math',
+      colour: '230',
+      contents: [
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="math_number"></block>',
+          type: 'math_number'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="math_arithmetic">\n          <value name="A">\n            <shadow type="math_number">\n              <field name="NUM">1</field>\n            </shadow>\n          </value>\n          <value name="B">\n            <shadow type="math_number">\n              <field name="NUM">1</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'math_arithmetic'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="math_single">\n          <value name="NUM">\n            <shadow type="math_number">\n              <field name="NUM">9</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'math_single'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="math_trig">\n          <value name="NUM">\n            <shadow type="math_number">\n              <field name="NUM">45</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'math_trig'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="math_constant"></block>',
+          type: 'math_constant'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="math_number_property">\n          <value name="NUMBER_TO_CHECK">\n            <shadow type="math_number">\n              <field name="NUM">0</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'math_number_property'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="math_change">\n          <value name="DELTA">\n            <shadow type="math_number">\n              <field name="NUM">1</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'math_change'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="math_round">\n          <value name="NUM">\n            <shadow type="math_number">\n              <field name="NUM">3.1</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'math_round'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="math_on_list"></block>',
+          type: 'math_on_list'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="math_modulo">\n          <value name="DIVIDEND">\n            <shadow type="math_number">\n              <field name="NUM">64</field>\n            </shadow>\n          </value>\n          <value name="DIVISOR">\n            <shadow type="math_number">\n              <field name="NUM">10</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'math_modulo'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="math_constrain">\n          <value name="VALUE">\n            <shadow type="math_number">\n              <field name="NUM">50</field>\n            </shadow>\n          </value>\n          <value name="LOW">\n            <shadow type="math_number">\n              <field name="NUM">1</field>\n            </shadow>\n          </value>\n          <value name="HIGH">\n            <shadow type="math_number">\n              <field name="NUM">100</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'math_constrain'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="math_random_int">\n          <value name="FROM">\n            <shadow type="math_number">\n              <field name="NUM">1</field>\n            </shadow>\n          </value>\n          <value name="TO">\n            <shadow type="math_number">\n              <field name="NUM">100</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'math_random_int'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="math_random_float"></block>',
+          type: 'math_random_float'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Text',
+      colour: '160',
+      contents: [
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="text"></block>',
+          type: 'text'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="text_join"></block>',
+          type: 'text_join'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="text_append">\n          <value name="TEXT">\n            <shadow type="text"></shadow>\n          </value>\n        </block>',
+          type: 'text_append'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="text_length">\n          <value name="VALUE">\n            <shadow type="text">\n              <field name="TEXT">abc</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'text_length'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="text_isEmpty">\n          <value name="VALUE">\n            <shadow type="text">\n              <field name="TEXT"></field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'text_isEmpty'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="text_indexOf">\n          <value name="VALUE">\n            <block type="variables_get">\n              <field name="VAR">text</field>\n            </block>\n          </value>\n          <value name="FIND">\n            <shadow type="text">\n              <field name="TEXT">abc</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'text_indexOf'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="text_charAt">\n          <value name="VALUE">\n            <block type="variables_get">\n              <field name="VAR">text</field>\n            </block>\n          </value>\n        </block>',
+          type: 'text_charAt'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="text_getSubstring">\n          <value name="STRING">\n            <block type="variables_get">\n              <field name="VAR">text</field>\n            </block>\n          </value>\n        </block>',
+          type: 'text_getSubstring'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="text_changeCase">\n          <value name="TEXT">\n            <shadow type="text">\n              <field name="TEXT">abc</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'text_changeCase'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="text_trim">\n          <value name="TEXT">\n            <shadow type="text">\n              <field name="TEXT">abc</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'text_trim'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="text_print">\n          <value name="TEXT">\n            <shadow type="text">\n              <field name="TEXT">abc</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'text_print'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="text_prompt_ext">\n          <value name="TEXT">\n            <shadow type="text">\n              <field name="TEXT">abc</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'text_prompt_ext'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Lists',
+      colour: '260',
+      contents: [
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="lists_create_with">\n          <mutation items="0"></mutation>\n        </block>',
+          type: 'lists_create_with'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="lists_create_with"></block>',
+          type: 'lists_create_with'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="lists_repeat">\n          <value name="NUM">\n            <shadow type="math_number">\n              <field name="NUM">5</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'lists_repeat'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="lists_length"></block>',
+          type: 'lists_length'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="lists_isEmpty"></block>',
+          type: 'lists_isEmpty'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="lists_indexOf">\n          <value name="VALUE">\n            <block type="variables_get">\n              <field name="VAR">list</field>\n            </block>\n          </value>\n        </block>',
+          type: 'lists_indexOf'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="lists_getIndex">\n          <value name="VALUE">\n            <block type="variables_get">\n              <field name="VAR">list</field>\n            </block>\n          </value>\n        </block>',
+          type: 'lists_getIndex'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="lists_setIndex">\n          <value name="LIST">\n            <block type="variables_get">\n              <field name="VAR">list</field>\n            </block>\n          </value>\n        </block>',
+          type: 'lists_setIndex'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="lists_getSublist">\n          <value name="LIST">\n            <block type="variables_get">\n              <field name="VAR">list</field>\n            </block>\n          </value>\n        </block>',
+          type: 'lists_getSublist'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="lists_split">\n          <value name="DELIM">\n            <shadow type="text">\n              <field name="TEXT">,</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'lists_split'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="lists_sort"></block>',
+          type: 'lists_sort'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Color',
+      colour: '20',
+      contents: [
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="colour_picker"></block>',
+          type: 'colour_picker'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml: '<block type="colour_random"></block>',
+          type: 'colour_random'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="colour_rgb">\n          <value name="RED">\n            <shadow type="math_number">\n              <field name="NUM">100</field>\n            </shadow>\n          </value>\n          <value name="GREEN">\n            <shadow type="math_number">\n              <field name="NUM">50</field>\n            </shadow>\n          </value>\n          <value name="BLUE">\n            <shadow type="math_number">\n              <field name="NUM">0</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'colour_rgb'
+        },
+        {
+          kind: 'BLOCK',
+          blockxml:
+            '<block type="colour_blend">\n          <value name="COLOUR1">\n            <shadow type="colour_picker">\n              <field name="COLOUR">#ff0000</field>\n            </shadow>\n          </value>\n          <value name="COLOUR2">\n            <shadow type="colour_picker">\n              <field name="COLOUR">#3333ff</field>\n            </shadow>\n          </value>\n          <value name="RATIO">\n            <shadow type="math_number">\n              <field name="NUM">0.5</field>\n            </shadow>\n          </value>\n        </block>',
+          type: 'colour_blend'
+        }
+      ]
+    },
+    {
+      kind: 'SEP'
+    },
+    {
+      kind: 'CATEGORY',
+      colour: '330',
+      custom: 'VARIABLE',
+      name: 'Variables'
+    },
+    {
+      kind: 'CATEGORY',
+      colour: '290',
+      custom: 'PROCEDURE',
+      name: 'Functions'
+    },
+    {
+      kind: 'SEP'
+    },
+    {
+      kind: 'CATEGORY',
+      colour: function_color,
+      name: 'Ned2 Connect',
+      contents: [
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_connect'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_calibrate_auto'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_calibrate'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_need_calibration'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_activate_learning_mode'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_learning_mode'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_jog_control'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_wait'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_comment'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Ned2 Movement',
+      colour: movement_color,
+      contents: [
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_joints'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_joints'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_linear_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_pose_quat'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_shift_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_shift_linear_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_arm_max_speed'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_joint'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_joint_from_joint'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_pose_from_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_pick_from_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_place_from_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_pick_and_place'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_jog_joints'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_jog_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_to_home_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_sleep'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_forward_kinematics'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_inverse_kinematics'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_saved_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_delete_pose'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_saved_pose_list'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Ned2 Trajectory',
+      colour: trajectory_color,
+      contents: [
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_trajectory_saved'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_saved_trajectory_list'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_execute_registered_trajectory'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_execute_trajectory_from_poses'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_trajectory'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_last_learned_trajectory'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_delete_trajectory'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_clean_trajectory_memory'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Ned2 Frames',
+      colour: frames_color,
+      contents: [
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_saved_dynamic_frame_list'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_saved_dynamic_frame'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_dynamic_frame_from_poses'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_point'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_dynamic_frame_from_points'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_edit_dynamic_frame'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_delete_dynamic_frame'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_relative'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_linear_relative'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Ned2 IO',
+      colour: io_color,
+      contents: [
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_gpio_select'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_do_di_select'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_ao_ai_select'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_pin_mode'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_digital_write'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_digital_read'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_hardware_status'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_digital_io_state'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_analog_io_state'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_gpio_state'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_sw_select'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_12v_switch'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_analog_write'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_analog_read'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Ned2 Tools',
+      colour: tool_color,
+      contents: [
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_tool_select'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_current_tool_id'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_update_tool'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_grasp_with_tool'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_release_with_tool'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'ned_open_gripper'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'ned_close_gripper'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_pull_air_vacuum_pump'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_push_air_vacuum_pump'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_setup_electromagnet'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_activate_electromagnet'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_deactivate_electromagnet'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_tcp'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_reset_tcp'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_tool_reboot'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Ned2 Vision',
+      colour: vision_color,
+      contents: [
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_vision_color'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_vision_shape'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_vision_pick'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_vision_is_object_detected'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_img_compressed'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_brightness'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_contrast'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_saturation'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_image_parameters'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_target_pose_from_rel'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_target_pose_from_cam'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_move_to_object'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_camera_intrinsics'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_workspace_from_robot_poses'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_save_workspace_from_points'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_delete_workspace'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_workspace_ratio'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_workspace_list'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Ned2 Conveyors',
+      colour: conveyor_color,
+      contents: [
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_conveyor_models'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_conveyor_use'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_conveyor_unset'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_conveyor_control'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_conveyor_run'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_conveyor_stop'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_connected_conveyors_id'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Ned2 Sounds',
+      colour: sound_color,
+      contents: [
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_sounds'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_volume'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_stop_sound'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_get_sound_duration'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_play_sound'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_say'
+        }
+      ]
+    },
+    {
+      kind: 'CATEGORY',
+      name: 'Ned2 Led Ring',
+      colour: led_color,
+      contents: [
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_color'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_set_led_color'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_solid'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_turn_off'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_flashing'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_alternate'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_chase'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_wipe'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_rainbow'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_rainbow_cycle'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_rainbow_chase'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_go_up'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_go_up_down'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_breath'
+        },
+        {
+          kind: 'BLOCK',
+          type: 'niryo_one_led_ring_snake'
+        }
+      ]
+    }
+  ]
+};
+
+const BlocklyNed = {
+  Blocks: Blockly.Blocks,
+  Generator: BlocklyPy,
+  Toolbox: TOOLBOX_NED
+};
+
+// export default [BlocklyNiryo, BlocklyNed];
+export { BlocklyNiryo, BlocklyNed };
