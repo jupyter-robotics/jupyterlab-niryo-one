@@ -5503,14 +5503,14 @@ Blockly.Blocks['ned_open_gripper'] = {
           ['5/5', '1000']
         ]),
         'OPEN_SPEED'
-      )
+      );
     this.appendValueInput('MAX_TORQUE_PERCENTAGE')
       .setCheck('Number')
-      .appendField('with max torque percentage')
+      .appendField('with max torque percentage');
     this.appendDummyInput().appendField('%');
     this.appendValueInput('HOLD_TORQUE_PERCENTAGE')
       .setCheck('Number')
-      .appendField('and hold torque percentage');      
+      .appendField('and hold torque percentage');
     this.appendDummyInput().appendField('%');
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
@@ -5534,14 +5534,14 @@ Blockly.Blocks['ned_close_gripper'] = {
           ['5/5', '1000']
         ]),
         'CLOSE_SPEED'
-      )
+      );
     this.appendValueInput('MAX_TORQUE_PERCENTAGE')
       .setCheck('Number')
-      .appendField('with max torque percentage')
+      .appendField('with max torque percentage');
     this.appendDummyInput().appendField('%');
     this.appendValueInput('HOLD_TORQUE_PERCENTAGE')
       .setCheck('Number')
-      .appendField('and hold torque percentage');  
+      .appendField('and hold torque percentage');
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -5556,36 +5556,62 @@ Blockly.Blocks['ned_close_gripper'] = {
 BlocklyPy['ned_open_gripper'] = function (block) {
   var number_open_speed = block.getFieldValue('OPEN_SPEED');
   var value_max_torque_percentage =
-    BlocklyPy.valueToCode(block, 'MAX_TORQUE_PERCENTAGE', BlocklyPy.ORDER_ATOMIC) ||
-    '0';
+    BlocklyPy.valueToCode(
+      block,
+      'MAX_TORQUE_PERCENTAGE',
+      BlocklyPy.ORDER_ATOMIC
+    ) || '0';
   value_max_torque_percentage = value_max_torque_percentage
     .replace('(', '')
     .replace(')', '');
   var value_hold_torque_percentage =
-    BlocklyPy.valueToCode(block, 'HOLD_TORQUE_PERCENTAGE', BlocklyPy.ORDER_ATOMIC) ||
-    '0';
+    BlocklyPy.valueToCode(
+      block,
+      'HOLD_TORQUE_PERCENTAGE',
+      BlocklyPy.ORDER_ATOMIC
+    ) || '0';
   value_hold_torque_percentage = value_hold_torque_percentage
     .replace('(', '')
     .replace(')', '');
-  var code = 'n.open_gripper( ' + number_open_speed + ', ' + value_max_torque_percentage + ', ' + value_hold_torque_percentage + ')\n';
+  var code =
+    'n.open_gripper( ' +
+    number_open_speed +
+    ', ' +
+    value_max_torque_percentage +
+    ', ' +
+    value_hold_torque_percentage +
+    ')\n';
   return code;
 };
 
 BlocklyPy['ned_close_gripper'] = function (block) {
   var number_close_speed = block.getFieldValue('CLOSE_SPEED');
   var value_max_torque_percentage =
-    BlocklyPy.valueToCode(block, 'MAX_TORQUE_PERCENTAGE', BlocklyPy.ORDER_ATOMIC) ||
-    '0';
+    BlocklyPy.valueToCode(
+      block,
+      'MAX_TORQUE_PERCENTAGE',
+      BlocklyPy.ORDER_ATOMIC
+    ) || '0';
   value_max_torque_percentage = value_max_torque_percentage
     .replace('(', '')
     .replace(')', '');
   var value_hold_torque_percentage =
-    BlocklyPy.valueToCode(block, 'HOLD_TORQUE_PERCENTAGE', BlocklyPy.ORDER_ATOMIC) ||
-    '0';
+    BlocklyPy.valueToCode(
+      block,
+      'HOLD_TORQUE_PERCENTAGE',
+      BlocklyPy.ORDER_ATOMIC
+    ) || '0';
   value_hold_torque_percentage = value_hold_torque_percentage
     .replace('(', '')
     .replace(')', '');
-  var code = 'n.close_gripper(' + number_close_speed + ', ' + value_max_torque_percentage + ', ' + value_hold_torque_percentage + ')\n';
+  var code =
+    'n.close_gripper(' +
+    number_close_speed +
+    ', ' +
+    value_max_torque_percentage +
+    ', ' +
+    value_hold_torque_percentage +
+    ')\n';
   return code;
 };
 
