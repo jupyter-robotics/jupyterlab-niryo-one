@@ -2487,13 +2487,13 @@ Blockly.Blocks['niryo_one_led_ring_snake'] = {
  * Generators
  */
 
-BlocklyPy['niryo_one_connect'] = function (block) {
+Blockly.Python['niryo_one_connect'] = function (block) {
   var ip_0 = block.getFieldValue('ip_0');
   var ip_1 = block.getFieldValue('ip_1');
   var ip_2 = block.getFieldValue('ip_2');
   var ip_3 = block.getFieldValue('ip_3');
 
-  let branch = BlocklyPy.statementToCode(block, 'DO');
+  let branch = Blockly.Python.statementToCode(block, 'DO');
   var ip = ip_0 + '.' + ip_1 + '.' + ip_2 + '.' + ip_3;
 
   var code = '\nwith niryo_connect("' + ip + '") as n:\n' + branch;
@@ -2513,34 +2513,34 @@ class niryo_connect():
 
 `;
 
-BlocklyPy['niryo_one_need_calibration'] = function (block) {
+Blockly.Python['niryo_one_need_calibration'] = function (block) {
   var code = 'n.need_calibration()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_calibrate_auto'] = function (block) {
+Blockly.Python['niryo_one_calibrate_auto'] = function (block) {
   var code = 'n.calibrate_auto()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_calibrate'] = function (block) {
+Blockly.Python['niryo_one_calibrate'] = function (block) {
   var dropdown_calibrate_mode = block.getFieldValue('CALIBRATE_MODE');
   var code = 'n.calibrate(' + dropdown_calibrate_mode + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_activate_learning_mode'] = function (block) {
+Blockly.Python['niryo_one_activate_learning_mode'] = function (block) {
   var dropdown_learning_mode_value = block.getFieldValue('LEARNING_MODE_VALUE');
   var code = 'n.set_learning_mode(' + dropdown_learning_mode_value + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_get_learning_mode'] = function (block) {
+Blockly.Python['niryo_one_get_learning_mode'] = function (block) {
   var code = 'n.get_learning_mode()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_set_jog_control'] = function (block) {
+Blockly.Python['niryo_one_set_jog_control'] = function (block) {
   var dropdown_jog_control_mode_value = block.getFieldValue(
     'JOG_CONTROL_MODE_VALUE'
   );
@@ -2548,7 +2548,7 @@ BlocklyPy['niryo_one_set_jog_control'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_move_joints'] = function (block) {
+Blockly.Python['niryo_one_move_joints'] = function (block) {
   var number_joints_1 = block.getFieldValue('JOINTS_1');
   var number_joints_2 = block.getFieldValue('JOINTS_2');
   var number_joints_3 = block.getFieldValue('JOINTS_3');
@@ -2573,7 +2573,7 @@ BlocklyPy['niryo_one_move_joints'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_move_pose'] = function (block) {
+Blockly.Python['niryo_one_move_pose'] = function (block) {
   var number_pose_x = block.getFieldValue('POSE_X');
   var number_pose_y = block.getFieldValue('POSE_Y');
   var number_pose_z = block.getFieldValue('POSE_Z');
@@ -2598,7 +2598,7 @@ BlocklyPy['niryo_one_move_pose'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_move_linear_pose'] = function (block) {
+Blockly.Python['niryo_one_move_linear_pose'] = function (block) {
   var number_pose_x = block.getFieldValue('POSE_X');
   var number_pose_y = block.getFieldValue('POSE_Y');
   var number_pose_z = block.getFieldValue('POSE_Z');
@@ -2623,7 +2623,7 @@ BlocklyPy['niryo_one_move_linear_pose'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_shift_pose'] = function (block) {
+Blockly.Python['niryo_one_shift_pose'] = function (block) {
   var dropdown_shift_pose_axis = block.getFieldValue('SHIFT_POSE_AXIS');
   var number_shift_pose_value = block.getFieldValue('SHIFT_POSE_VALUE');
 
@@ -2636,9 +2636,9 @@ BlocklyPy['niryo_one_shift_pose'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_set_arm_max_speed'] = function (block) {
+Blockly.Python['niryo_one_set_arm_max_speed'] = function (block) {
   var value_set_arm_max_speed =
-    BlocklyPy.valueToCode(block, 'SET_ARM_MAX_SPEED', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'SET_ARM_MAX_SPEED', Blockly.Python.ORDER_ATOMIC) ||
     '0';
   value_set_arm_max_speed = value_set_arm_max_speed
     .replace('(', '')
@@ -2647,23 +2647,23 @@ BlocklyPy['niryo_one_set_arm_max_speed'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_joint'] = function (block) {
-  var value_j1 = BlocklyPy.valueToCode(block, 'j1', BlocklyPy.ORDER_ATOMIC)
+Blockly.Python['niryo_one_joint'] = function (block) {
+  var value_j1 = Blockly.Python.valueToCode(block, 'j1', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_j2 = BlocklyPy.valueToCode(block, 'j2', BlocklyPy.ORDER_ATOMIC)
+  var value_j2 = Blockly.Python.valueToCode(block, 'j2', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_j3 = BlocklyPy.valueToCode(block, 'j3', BlocklyPy.ORDER_ATOMIC)
+  var value_j3 = Blockly.Python.valueToCode(block, 'j3', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_j4 = BlocklyPy.valueToCode(block, 'j4', BlocklyPy.ORDER_ATOMIC)
+  var value_j4 = Blockly.Python.valueToCode(block, 'j4', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_j5 = BlocklyPy.valueToCode(block, 'j5', BlocklyPy.ORDER_ATOMIC)
+  var value_j5 = Blockly.Python.valueToCode(block, 'j5', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_j6 = BlocklyPy.valueToCode(block, 'j6', BlocklyPy.ORDER_ATOMIC)
+  var value_j6 = Blockly.Python.valueToCode(block, 'j6', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
 
@@ -2681,20 +2681,20 @@ BlocklyPy['niryo_one_joint'] = function (block) {
     ', ' +
     value_j6 +
     ']';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_joints'] = function (block) {
+Blockly.Python['niryo_one_get_joints'] = function (block) {
   var code = 'n.get_joints()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_move_joint_from_joint'] = function (block) {
+Blockly.Python['niryo_one_move_joint_from_joint'] = function (block) {
   // Position object
-  var value_joint = BlocklyPy.valueToCode(
+  var value_joint = Blockly.Python.valueToCode(
     block,
     'JOINT',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_joint = value_joint.replace('(', '').replace(')', '');
 
@@ -2702,27 +2702,27 @@ BlocklyPy['niryo_one_move_joint_from_joint'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_pose'] = function (block) {
-  var value_x = BlocklyPy.valueToCode(block, 'x', BlocklyPy.ORDER_ATOMIC)
+Blockly.Python['niryo_one_pose'] = function (block) {
+  var value_x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_y = BlocklyPy.valueToCode(block, 'y', BlocklyPy.ORDER_ATOMIC)
+  var value_y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_z = BlocklyPy.valueToCode(block, 'z', BlocklyPy.ORDER_ATOMIC)
+  var value_z = Blockly.Python.valueToCode(block, 'z', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_roll = BlocklyPy.valueToCode(block, 'roll', BlocklyPy.ORDER_ATOMIC)
+  var value_roll = Blockly.Python.valueToCode(block, 'roll', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_pitch = BlocklyPy.valueToCode(
+  var value_pitch = Blockly.Python.valueToCode(
     block,
     'pitch',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
-  var value_yaw = BlocklyPy.valueToCode(block, 'yaw', BlocklyPy.ORDER_ATOMIC)
+  var value_yaw = Blockly.Python.valueToCode(block, 'yaw', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
 
@@ -2740,65 +2740,65 @@ BlocklyPy['niryo_one_pose'] = function (block) {
     ', ' +
     value_yaw +
     ']';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_pose'] = function (block) {
+Blockly.Python['niryo_one_get_pose'] = function (block) {
   var code = 'n.get_pose()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_get_pose_quat'] = function (block) {
+Blockly.Python['niryo_one_get_pose_quat'] = function (block) {
   var code = 'n.get_pose_quat()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_move_pose_from_pose'] = function (block) {
+Blockly.Python['niryo_one_move_pose_from_pose'] = function (block) {
   // Position object
-  var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
+  var value_pose = Blockly.Python.valueToCode(block, 'POSE', Blockly.Python.ORDER_ATOMIC);
   value_pose = value_pose.replace('(', '').replace(')', '');
 
   var code = 'n.move_pose(*' + value_pose + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_pick_from_pose'] = function (block) {
+Blockly.Python['niryo_one_pick_from_pose'] = function (block) {
   // Position object
-  var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
+  var value_pose = Blockly.Python.valueToCode(block, 'POSE', Blockly.Python.ORDER_ATOMIC);
   value_pose = value_pose.replace('(', '').replace(')', '');
 
   var code = 'n.pick_from_pose(*' + value_pose + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_place_from_pose'] = function (block) {
+Blockly.Python['niryo_one_place_from_pose'] = function (block) {
   // Position object
-  var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
+  var value_pose = Blockly.Python.valueToCode(block, 'POSE', Blockly.Python.ORDER_ATOMIC);
   value_pose = value_pose.replace('(', '').replace(')', '');
 
   var code = 'n.place_from_pose(*' + value_pose + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_pick_and_place'] = function (block) {
-  var value_pose_1 = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_pick_and_place'] = function (block) {
+  var value_pose_1 = Blockly.Python.valueToCode(
     block,
     'POSE_1',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_pose_1 = value_pose_1.replace('(', '').replace(')', '');
 
-  var value_pose_2 = BlocklyPy.valueToCode(
+  var value_pose_2 = Blockly.Python.valueToCode(
     block,
     'POSE_2',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_pose_2 = value_pose_2.replace('(', '').replace(')', '');
 
-  var dist_smoothing_value = BlocklyPy.valueToCode(
+  var dist_smoothing_value = Blockly.Python.valueToCode(
     block,
     'DIST_SMOOTHING',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   // dist_smoothing_value = dist_smoothing_value.replace('(', '').replace(')', '');
 
@@ -2813,7 +2813,7 @@ BlocklyPy['niryo_one_pick_and_place'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_jog_joints'] = function (block) {
+Blockly.Python['niryo_one_jog_joints'] = function (block) {
   var number_joints_1 = block.getFieldValue('JOINTS_1');
   var number_joints_2 = block.getFieldValue('JOINTS_2');
   var number_joints_3 = block.getFieldValue('JOINTS_3');
@@ -2838,7 +2838,7 @@ BlocklyPy['niryo_one_jog_joints'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_jog_pose'] = function (block) {
+Blockly.Python['niryo_one_jog_pose'] = function (block) {
   var number_pose_x = block.getFieldValue('POSE_X');
   var number_pose_y = block.getFieldValue('POSE_Y');
   var number_pose_z = block.getFieldValue('POSE_Z');
@@ -2863,17 +2863,17 @@ BlocklyPy['niryo_one_jog_pose'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_move_to_home_pose'] = function (block) {
+Blockly.Python['niryo_one_move_to_home_pose'] = function (block) {
   var code = 'n.move_to_home_pose()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_sleep'] = function (block) {
+Blockly.Python['niryo_one_sleep'] = function (block) {
   var code = 'n.go_to_sleep()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_forward_kinematics'] = function (block) {
+Blockly.Python['niryo_one_forward_kinematics'] = function (block) {
   var number_joints_1 = block.getFieldValue('JOINTS_1');
   var number_joints_2 = block.getFieldValue('JOINTS_2');
   var number_joints_3 = block.getFieldValue('JOINTS_3');
@@ -2898,7 +2898,7 @@ BlocklyPy['niryo_one_forward_kinematics'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_inverse_kinematics'] = function (block) {
+Blockly.Python['niryo_one_inverse_kinematics'] = function (block) {
   var number_pose_x = block.getFieldValue('POSE_X');
   var number_pose_y = block.getFieldValue('POSE_Y');
   var number_pose_z = block.getFieldValue('POSE_Z');
@@ -2925,21 +2925,21 @@ BlocklyPy['niryo_one_inverse_kinematics'] = function (block) {
 
 // Saved poses
 
-BlocklyPy['niryo_one_get_saved_pose'] = function (block) {
-  var value_pose_name = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_get_saved_pose'] = function (block) {
+  var value_pose_name = Blockly.Python.valueToCode(
     block,
     'POSE_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   var code = 'n.get_saved_pose(' + value_pose_name + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_save_pose'] = function (block) {
-  var pose_name = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_save_pose'] = function (block) {
+  var pose_name = Blockly.Python.valueToCode(
     block,
     'POSE_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
   var number_pose_x = block.getFieldValue('POSE_X');
@@ -2968,74 +2968,74 @@ BlocklyPy['niryo_one_save_pose'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_delete_pose'] = function (block) {
-  var pose_name = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_delete_pose'] = function (block) {
+  var pose_name = Blockly.Python.valueToCode(
     block,
     'POSE_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   var code = 'n.delete_pose(' + pose_name + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_get_saved_pose_list'] = function (block) {
+Blockly.Python['niryo_one_get_saved_pose_list'] = function (block) {
   var code = 'n.get_saved_pose_list()\n';
   return code;
 };
 
 // Trajectories
 
-BlocklyPy['niryo_one_get_trajectory_saved'] = function (block) {
-  var value_trajectory_name = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_get_trajectory_saved'] = function (block) {
+  var value_trajectory_name = Blockly.Python.valueToCode(
     block,
     'TRAJECTORY_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   var code = 'n.get_trajectory_saved(' + value_trajectory_name + ')\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_saved_trajectory_list'] = function (block) {
+Blockly.Python['niryo_one_get_saved_trajectory_list'] = function (block) {
   var code = 'n.get_saved_trajectory_list()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_execute_registered_trajectory'] = function (block) {
-  var value_trajectory_name = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_execute_registered_trajectory'] = function (block) {
+  var value_trajectory_name = Blockly.Python.valueToCode(
     block,
     'TRAJECTORY_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   var code = 'n.execute_registered_trajectory(' + value_trajectory_name + ')\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_execute_trajectory_from_poses'] = function (block) {
-  var value_pose_1 = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_execute_trajectory_from_poses'] = function (block) {
+  var value_pose_1 = Blockly.Python.valueToCode(
     block,
     'POSE_1',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_pose_1 = value_pose_1.replace('(', '').replace(')', '');
 
-  var value_pose_2 = BlocklyPy.valueToCode(
+  var value_pose_2 = Blockly.Python.valueToCode(
     block,
     'POSE_2',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_pose_2 = value_pose_2.replace('(', '').replace(')', '');
 
-  var value_pose_3 = BlocklyPy.valueToCode(
+  var value_pose_3 = Blockly.Python.valueToCode(
     block,
     'POSE_3',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_pose_3 = value_pose_3.replace('(', '').replace(')', '');
 
-  var dist_smoothing_value = BlocklyPy.valueToCode(
+  var dist_smoothing_value = Blockly.Python.valueToCode(
     block,
     'DIST_SMOOTHING',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   dist_smoothing_value = dist_smoothing_value.replace('(', '').replace(')', '');
 
@@ -3052,38 +3052,38 @@ BlocklyPy['niryo_one_execute_trajectory_from_poses'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_save_trajectory'] = function (block) {
-  var value_joint_1 = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_save_trajectory'] = function (block) {
+  var value_joint_1 = Blockly.Python.valueToCode(
     block,
     'JOINT_1',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_joint_1 = value_joint_1.replace('(', '').replace(')', '');
 
-  var value_joint_2 = BlocklyPy.valueToCode(
+  var value_joint_2 = Blockly.Python.valueToCode(
     block,
     'JOINT_2',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_joint_2 = value_joint_2.replace('(', '').replace(')', '');
 
-  var value_joint_3 = BlocklyPy.valueToCode(
+  var value_joint_3 = Blockly.Python.valueToCode(
     block,
     'JOINT_3',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_joint_3 = value_joint_3.replace('(', '').replace(')', '');
 
-  var trajectory_name = BlocklyPy.valueToCode(
+  var trajectory_name = Blockly.Python.valueToCode(
     block,
     'TRAJECTORY_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
-  var trajectory_description = BlocklyPy.valueToCode(
+  var trajectory_description = Blockly.Python.valueToCode(
     block,
     'TRAJECTORY_DESCRIPTION',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
   var code =
@@ -3101,17 +3101,17 @@ BlocklyPy['niryo_one_save_trajectory'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_save_last_learned_trajectory'] = function (block) {
-  var trajectory_name = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_save_last_learned_trajectory'] = function (block) {
+  var trajectory_name = Blockly.Python.valueToCode(
     block,
     'TRAJECTORY_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
-  var trajectory_description = BlocklyPy.valueToCode(
+  var trajectory_description = Blockly.Python.valueToCode(
     block,
     'TRAJECTORY_DESCRIPTION',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
   var code =
@@ -3123,69 +3123,69 @@ BlocklyPy['niryo_one_save_last_learned_trajectory'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_delete_trajectory'] = function (block) {
-  var trajectory_name = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_delete_trajectory'] = function (block) {
+  var trajectory_name = Blockly.Python.valueToCode(
     block,
     'TRAJECTORY_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   var code = 'n.delete_trajectory(' + trajectory_name + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_clean_trajectory_memory'] = function (block) {
+Blockly.Python['niryo_one_clean_trajectory_memory'] = function (block) {
   var code = 'n.clean_trajectory_memory()\n';
   return code;
 };
 
 // Dynamic frames
 
-BlocklyPy['niryo_one_get_saved_dynamic_frame_list'] = function (block) {
+Blockly.Python['niryo_one_get_saved_dynamic_frame_list'] = function (block) {
   var code = 'n.get_saved_dynamic_frame_list()\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_saved_dynamic_frame'] = function (block) {
-  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_get_saved_dynamic_frame'] = function (block) {
+  var value_dynamic_frame_name = Blockly.Python.valueToCode(
     block,
     'DYNAMIC_FRAME_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   var code = 'n.get_saved_dynamic_frame(' + value_dynamic_frame_name + ')\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_save_dynamic_frame_from_poses'] = function (block) {
-  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_save_dynamic_frame_from_poses'] = function (block) {
+  var value_dynamic_frame_name = Blockly.Python.valueToCode(
     block,
     'DYNAMIC_FRAME_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
-  var value_dynamic_frame_description = BlocklyPy.valueToCode(
+  var value_dynamic_frame_description = Blockly.Python.valueToCode(
     block,
     'DYNAMIC_FRAME_DESCRIPTION',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
-  var value_pose_1 = BlocklyPy.valueToCode(
+  var value_pose_1 = Blockly.Python.valueToCode(
     block,
     'POSE_1',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_pose_1 = value_pose_1.replace('(', '').replace(')', '');
 
-  var value_pose_2 = BlocklyPy.valueToCode(
+  var value_pose_2 = Blockly.Python.valueToCode(
     block,
     'POSE_2',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_pose_2 = value_pose_2.replace('(', '').replace(')', '');
 
-  var value_pose_3 = BlocklyPy.valueToCode(
+  var value_pose_3 = Blockly.Python.valueToCode(
     block,
     'POSE_3',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_pose_3 = value_pose_3.replace('(', '').replace(')', '');
 
@@ -3204,52 +3204,52 @@ BlocklyPy['niryo_one_save_dynamic_frame_from_poses'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_point'] = function (block) {
-  var value_x = BlocklyPy.valueToCode(block, 'x', BlocklyPy.ORDER_ATOMIC)
+Blockly.Python['niryo_one_point'] = function (block) {
+  var value_x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_y = BlocklyPy.valueToCode(block, 'y', BlocklyPy.ORDER_ATOMIC)
+  var value_y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_z = BlocklyPy.valueToCode(block, 'z', BlocklyPy.ORDER_ATOMIC)
+  var value_z = Blockly.Python.valueToCode(block, 'z', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
 
   var code = '[' + value_x + ', ' + value_y + ', ' + value_z + ']';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_save_dynamic_frame_from_points'] = function (block) {
-  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_save_dynamic_frame_from_points'] = function (block) {
+  var value_dynamic_frame_name = Blockly.Python.valueToCode(
     block,
     'DYNAMIC_FRAME_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
-  var value_dynamic_frame_description = BlocklyPy.valueToCode(
+  var value_dynamic_frame_description = Blockly.Python.valueToCode(
     block,
     'DYNAMIC_FRAME_DESCRIPTION',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
-  var value_point_1 = BlocklyPy.valueToCode(
+  var value_point_1 = Blockly.Python.valueToCode(
     block,
     'POINT_1',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_point_1 = value_point_1.replace('(', '').replace(')', '');
 
-  var value_point_2 = BlocklyPy.valueToCode(
+  var value_point_2 = Blockly.Python.valueToCode(
     block,
     'POINT_2',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_point_2 = value_point_2.replace('(', '').replace(')', '');
 
-  var value_point_3 = BlocklyPy.valueToCode(
+  var value_point_3 = Blockly.Python.valueToCode(
     block,
     'POINT_3',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_point_3 = value_point_3.replace('(', '').replace(')', '');
 
@@ -3268,23 +3268,23 @@ BlocklyPy['niryo_one_save_dynamic_frame_from_points'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_edit_dynamic_frame'] = function (block) {
-  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_edit_dynamic_frame'] = function (block) {
+  var value_dynamic_frame_name = Blockly.Python.valueToCode(
     block,
     'DYNAMIC_FRAME_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
-  var value_dynamic_frame_new_name = BlocklyPy.valueToCode(
+  var value_dynamic_frame_new_name = Blockly.Python.valueToCode(
     block,
     'DYNAMIC_FRAME_NEW_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
-  var value_dynamic_frame_new_description = BlocklyPy.valueToCode(
+  var value_dynamic_frame_new_description = Blockly.Python.valueToCode(
     block,
     'DYNAMIC_FRAME_NEW_DESCRIPTION',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
   var code =
@@ -3298,25 +3298,25 @@ BlocklyPy['niryo_one_edit_dynamic_frame'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_delete_dynamic_frame'] = function (block) {
-  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_delete_dynamic_frame'] = function (block) {
+  var value_dynamic_frame_name = Blockly.Python.valueToCode(
     block,
     'DYNAMIC_FRAME_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
   var code = 'n.delete_dynamic_frame(' + value_dynamic_frame_name + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_move_relative'] = function (block) {
-  var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
+Blockly.Python['niryo_one_move_relative'] = function (block) {
+  var value_pose = Blockly.Python.valueToCode(block, 'POSE', Blockly.Python.ORDER_ATOMIC);
   value_pose = value_pose.replace('(', '').replace(')', '');
 
-  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+  var value_dynamic_frame_name = Blockly.Python.valueToCode(
     block,
     'DYNAMIC_FRAME_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
   var code =
@@ -3328,14 +3328,14 @@ BlocklyPy['niryo_one_move_relative'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_move_linear_relative'] = function (block) {
-  var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
+Blockly.Python['niryo_one_move_linear_relative'] = function (block) {
+  var value_pose = Blockly.Python.valueToCode(block, 'POSE', Blockly.Python.ORDER_ATOMIC);
   value_pose = value_pose.replace('(', '').replace(')', '');
 
-  var value_dynamic_frame_name = BlocklyPy.valueToCode(
+  var value_dynamic_frame_name = Blockly.Python.valueToCode(
     block,
     'DYNAMIC_FRAME_NAME',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
 
   var code =
@@ -3349,15 +3349,15 @@ BlocklyPy['niryo_one_move_linear_relative'] = function (block) {
 
 // I/O - Hardware
 
-BlocklyPy['niryo_one_gpio_state'] = function (block) {
+Blockly.Python['niryo_one_gpio_state'] = function (block) {
   var dropdown_gpio_state_select = block.getFieldValue('GPIO_STATE_SELECT');
   var code = dropdown_gpio_state_select;
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_set_pin_mode'] = function (block) {
+Blockly.Python['niryo_one_set_pin_mode'] = function (block) {
   var value_pin =
-    BlocklyPy.valueToCode(block, 'SET_PIN_MODE_PIN', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'SET_PIN_MODE_PIN', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   value_pin = value_pin.replace('(', '').replace(')', '');
   var dropdown_pin_mode_select = block.getFieldValue('PIN_MODE_SELECT');
@@ -3366,9 +3366,9 @@ BlocklyPy['niryo_one_set_pin_mode'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_digital_write'] = function (block) {
+Blockly.Python['niryo_one_digital_write'] = function (block) {
   var value_pin =
-    BlocklyPy.valueToCode(block, 'DIGITAL_WRITE_PIN', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'DIGITAL_WRITE_PIN', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   value_pin = value_pin.replace('(', '').replace(')', '');
   var dropdown_pin_write_select = block.getFieldValue('PIN_WRITE_SELECT');
@@ -3377,38 +3377,38 @@ BlocklyPy['niryo_one_digital_write'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_digital_read'] = function (block) {
+Blockly.Python['niryo_one_digital_read'] = function (block) {
   var value_pin =
-    BlocklyPy.valueToCode(block, 'DIGITAL_READ_PIN', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'DIGITAL_READ_PIN', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   value_pin = value_pin.replace('(', '').replace(')', '');
   var code = 'n.digital_read(' + value_pin + ')';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_hardware_status'] = function (block) {
+Blockly.Python['niryo_one_get_hardware_status'] = function (block) {
   var code = 'n.get_hardware_status()\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_digital_io_state'] = function (block) {
+Blockly.Python['niryo_one_get_digital_io_state'] = function (block) {
   var code = 'n.get_digital_io_state()\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_analog_io_state'] = function (block) {
+Blockly.Python['niryo_one_get_analog_io_state'] = function (block) {
   var code = 'n.get_analog_io_state()\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_analog_write'] = function (block) {
+Blockly.Python['niryo_one_analog_write'] = function (block) {
   var value_pin =
-    BlocklyPy.valueToCode(block, 'ANALOG_WRITE_PIN', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'ANALOG_WRITE_PIN', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   value_pin = value_pin.replace('(', '').replace(')', '');
 
   var voltage_value =
-    BlocklyPy.valueToCode(block, 'VOLTAGE_VALUE', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'VOLTAGE_VALUE', Blockly.Python.ORDER_ATOMIC) ||
     '0';
   voltage_value = voltage_value.replace('(', '').replace(')', '');
 
@@ -3416,42 +3416,42 @@ BlocklyPy['niryo_one_analog_write'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_analog_read'] = function (block) {
+Blockly.Python['niryo_one_analog_read'] = function (block) {
   var value_pin =
-    BlocklyPy.valueToCode(block, 'ANALOG_READ_PIN', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'ANALOG_READ_PIN', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   value_pin = value_pin.replace('(', '').replace(')', '');
   var code = 'n.analog_read(' + value_pin + ')';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_gpio_select'] = function (block) {
+Blockly.Python['niryo_one_gpio_select'] = function (block) {
   var dropdown_gpio_select = block.getFieldValue('GPIO_SELECT');
   var code = dropdown_gpio_select;
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_do_di_select'] = function (block) {
+Blockly.Python['niryo_one_do_di_select'] = function (block) {
   var dropdown_do_di_select = block.getFieldValue('DO_DI_SELECT');
   var code = dropdown_do_di_select;
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_ao_ai_select'] = function (block) {
+Blockly.Python['niryo_one_ao_ai_select'] = function (block) {
   var dropdown_ao_ai_select = block.getFieldValue('AO_AI_SELECT');
   var code = dropdown_ao_ai_select;
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_sw_select'] = function (block) {
+Blockly.Python['niryo_one_sw_select'] = function (block) {
   var dropdown_sw_select = block.getFieldValue('SW_SELECT');
   var code = dropdown_sw_select;
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_set_12v_switch'] = function (block) {
+Blockly.Python['niryo_one_set_12v_switch'] = function (block) {
   var value_pin =
-    BlocklyPy.valueToCode(block, 'SET_12V_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'SET_12V_SWITCH', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   value_pin = value_pin.replace('(', '').replace(')', '');
   var dropdown_set_12v_switch_select = block.getFieldValue(
@@ -3468,7 +3468,7 @@ BlocklyPy['niryo_one_set_12v_switch'] = function (block) {
 
 // Tool
 
-BlocklyPy['niryo_one_tool_select'] = function (block) {
+Blockly.Python['niryo_one_tool_select'] = function (block) {
   const tool_id_map = {
     NONE: 0,
     GRIPPER_1: 11,
@@ -3482,57 +3482,57 @@ BlocklyPy['niryo_one_tool_select'] = function (block) {
 
   // var dropdown_tool_select = block.getFieldValue('TOOL_SELECT');
   // var code = dropdown_tool_select;
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_current_tool_id'] = function (block) {
+Blockly.Python['niryo_one_get_current_tool_id'] = function (block) {
   var code = 'n.get_current_tool_id()\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_update_tool'] = function (block) {
+Blockly.Python['niryo_one_update_tool'] = function (block) {
   var code = 'n.update_tool()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_grasp_with_tool'] = function (block) {
+Blockly.Python['niryo_one_grasp_with_tool'] = function (block) {
   var code = 'n.grasp_with_tool()\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_release_with_tool'] = function (block) {
+Blockly.Python['niryo_one_release_with_tool'] = function (block) {
   var code = 'n.release_with_tool()\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_open_gripper'] = function (block) {
+Blockly.Python['niryo_one_open_gripper'] = function (block) {
   var number_open_speed = block.getFieldValue('OPEN_SPEED');
   var code = 'n.open_gripper( ' + number_open_speed + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_close_gripper'] = function (block) {
+Blockly.Python['niryo_one_close_gripper'] = function (block) {
   var number_close_speed = block.getFieldValue('CLOSE_SPEED');
   var code = 'n.close_gripper(' + number_close_speed + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_pull_air_vacuum_pump'] = function (block) {
+Blockly.Python['niryo_one_pull_air_vacuum_pump'] = function (block) {
   var code = 'n.pull_air_vacuum_pump()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_push_air_vacuum_pump'] = function (block) {
+Blockly.Python['niryo_one_push_air_vacuum_pump'] = function (block) {
   var code = 'n.push_air_vacuum_pump()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_setup_electromagnet'] = function (block) {
+Blockly.Python['niryo_one_setup_electromagnet'] = function (block) {
   var value_electromagnet_pin =
-    BlocklyPy.valueToCode(
+    Blockly.Python.valueToCode(
       block,
       'SETUP_ELECTROMAGNET_PIN',
-      BlocklyPy.ORDER_ATOMIC
+      Blockly.Python.ORDER_ATOMIC
     ) || '(0)';
   value_electromagnet_pin = value_electromagnet_pin
     .replace('(', '')
@@ -3541,12 +3541,12 @@ BlocklyPy['niryo_one_setup_electromagnet'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_activate_electromagnet'] = function (block) {
+Blockly.Python['niryo_one_activate_electromagnet'] = function (block) {
   var value_electromagnet_pin =
-    BlocklyPy.valueToCode(
+    Blockly.Python.valueToCode(
       block,
       'ACTIVATE_ELECTROMAGNET_PIN',
-      BlocklyPy.ORDER_ATOMIC
+      Blockly.Python.ORDER_ATOMIC
     ) || '(0)';
   value_electromagnet_pin = value_electromagnet_pin
     .replace('(', '')
@@ -3555,12 +3555,12 @@ BlocklyPy['niryo_one_activate_electromagnet'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_deactivate_electromagnet'] = function (block) {
+Blockly.Python['niryo_one_deactivate_electromagnet'] = function (block) {
   var value_electromagnet_pin =
-    BlocklyPy.valueToCode(
+    Blockly.Python.valueToCode(
       block,
       'DEACTIVATE_ELECTROMAGNET_PIN',
-      BlocklyPy.ORDER_ATOMIC
+      Blockly.Python.ORDER_ATOMIC
     ) || '(0)';
   value_electromagnet_pin = value_electromagnet_pin
     .replace('(', '')
@@ -3569,41 +3569,41 @@ BlocklyPy['niryo_one_deactivate_electromagnet'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_enable_tcp'] = function (block) {
+Blockly.Python['niryo_one_enable_tcp'] = function (block) {
   var dropdown_enable_tcp = block.getFieldValue('ENABLE_TCP');
   var code = 'n.enable_tcp(' + dropdown_enable_tcp + ')\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_set_tcp'] = function (block) {
-  var value_pose = BlocklyPy.valueToCode(block, 'POSE', BlocklyPy.ORDER_ATOMIC);
+Blockly.Python['niryo_one_set_tcp'] = function (block) {
+  var value_pose = Blockly.Python.valueToCode(block, 'POSE', Blockly.Python.ORDER_ATOMIC);
   value_pose = value_pose.replace('(', '').replace(')', '');
 
   var code = 'n.set_tcp(' + value_pose + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_reset_tcp'] = function (block) {
+Blockly.Python['niryo_one_reset_tcp'] = function (block) {
   var code = 'n.reset_tcp()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_tool_reboot'] = function (block) {
+Blockly.Python['niryo_one_tool_reboot'] = function (block) {
   var code = 'n.tool_reboot()\n';
   return code;
 };
 
 // Utility
 
-BlocklyPy['niryo_one_wait'] = function (block) {
+Blockly.Python['niryo_one_wait'] = function (block) {
   var value_wait_time =
-    BlocklyPy.valueToCode(block, 'WAIT_TIME', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'WAIT_TIME', Blockly.Python.ORDER_ATOMIC) || '0';
   value_wait_time = value_wait_time.replace('(', '').replace(')', '');
   var code = 'n.wait(' + value_wait_time + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_comment'] = function (block) {
+Blockly.Python['niryo_one_comment'] = function (block) {
   var text_comment_text = block.getFieldValue('COMMENT_TEXT');
   var code = ' #' + text_comment_text + '\n';
   return code;
@@ -3611,42 +3611,42 @@ BlocklyPy['niryo_one_comment'] = function (block) {
 
 // Vision
 
-BlocklyPy['niryo_one_vision_color'] = function (block) {
+Blockly.Python['niryo_one_vision_color'] = function (block) {
   var dropdown_color_select = block.getFieldValue('COLOR_SELECT');
   var code = dropdown_color_select;
   code = '"' + g_color_values[code] + '"';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_vision_shape'] = function (block) {
+Blockly.Python['niryo_one_vision_shape'] = function (block) {
   var dropdown_shape_select = block.getFieldValue('SHAPE_SELECT');
   var code = dropdown_shape_select;
   code = '"' + g_shape_values[code] + '"';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_vision_pick'] = function (block) {
+Blockly.Python['niryo_one_vision_pick'] = function (block) {
   // Color (int) value (see g_shape_values at top of this file)
   var value_color =
-    BlocklyPy.valueToCode(block, 'COLOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'COLOR_SWITCH', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   value_color = value_color.replace('(', '').replace(')', '');
 
   // Shape (int) value (see g_shape_values at top of this file)
   var value_shape =
-    BlocklyPy.valueToCode(block, 'SHAPE_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'SHAPE_SWITCH', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   value_shape = value_shape.replace('(', '').replace(')', '');
 
   // Name of workspace
   var workspace_name =
-    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'WORKSPACE_NAME', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   workspace_name = workspace_name.replace('(', '').replace(')', '');
 
   // Height in centimeter
   var height_offset =
-    BlocklyPy.valueToCode(block, 'HEIGHT_OFFSET', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'HEIGHT_OFFSET', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   height_offset = height_offset.replace('(', '').replace(')', '');
 
@@ -3660,25 +3660,25 @@ BlocklyPy['niryo_one_vision_pick'] = function (block) {
     ', ' +
     value_color +
     ')[0]';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_vision_is_object_detected'] = function (block) {
+Blockly.Python['niryo_one_vision_is_object_detected'] = function (block) {
   // Color (int) value (see g_shape_values at top of this file)
   var value_color =
-    BlocklyPy.valueToCode(block, 'COLOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'COLOR_SWITCH', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   value_color = value_color.replace('(', '').replace(')', '');
 
   // Shape (int) value (see g_shape_values at top of this file)
   var value_shape =
-    BlocklyPy.valueToCode(block, 'SHAPE_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'SHAPE_SWITCH', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   value_shape = value_shape.replace('(', '').replace(')', '');
 
   // Name of workspace
   var workspace_name =
-    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'WORKSPACE_NAME', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   workspace_name = workspace_name.replace('(', '').replace(')', '');
 
@@ -3690,66 +3690,66 @@ BlocklyPy['niryo_one_vision_is_object_detected'] = function (block) {
     ', ' +
     value_color +
     ')[0]';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_img_compressed'] = function (block) {
+Blockly.Python['niryo_one_get_img_compressed'] = function (block) {
   var code = 'n.get_img_compressed()\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_set_brightness'] = function (block) {
+Blockly.Python['niryo_one_set_brightness'] = function (block) {
   var value_brightness =
-    BlocklyPy.valueToCode(block, 'BRIGHTNESS', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'BRIGHTNESS', Blockly.Python.ORDER_ATOMIC) || '0';
   value_brightness = value_brightness.replace('(', '').replace(')', '');
 
   var code = 'n.set_brightness(' + value_brightness + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_set_contrast'] = function (block) {
+Blockly.Python['niryo_one_set_contrast'] = function (block) {
   var value_contrast =
-    BlocklyPy.valueToCode(block, 'CONTRAST', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'CONTRAST', Blockly.Python.ORDER_ATOMIC) || '0';
   value_contrast = value_contrast.replace('(', '').replace(')', '');
 
   var code = 'n.set_contrast(' + value_contrast + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_set_saturation'] = function (block) {
+Blockly.Python['niryo_one_set_saturation'] = function (block) {
   var value_saturation =
-    BlocklyPy.valueToCode(block, 'SATURATION', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'SATURATION', Blockly.Python.ORDER_ATOMIC) || '0';
   value_saturation = value_saturation.replace('(', '').replace(')', '');
 
   var code = 'n.set_saturation(' + value_saturation + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_get_image_parameters'] = function (block) {
+Blockly.Python['niryo_one_get_image_parameters'] = function (block) {
   var code = 'n.get_image_parameters()\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_target_pose_from_rel'] = function (block) {
+Blockly.Python['niryo_one_get_target_pose_from_rel'] = function (block) {
   var value_x =
-    BlocklyPy.valueToCode(block, 'POSE_X', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'POSE_X', Blockly.Python.ORDER_ATOMIC) || '0';
   value_x = value_x.replace('(', '').replace(')', '');
 
   var value_y =
-    BlocklyPy.valueToCode(block, 'POSE_Y', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'POSE_Y', Blockly.Python.ORDER_ATOMIC) || '0';
   value_y = value_y.replace('(', '').replace(')', '');
 
   var value_z =
-    BlocklyPy.valueToCode(block, 'POSE_Z', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'POSE_Z', Blockly.Python.ORDER_ATOMIC) || '0';
   value_z = value_z.replace('(', '').replace(')', '');
 
   var height_offset_value =
-    BlocklyPy.valueToCode(block, 'HEIGHT_OFFSET', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'HEIGHT_OFFSET', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   height_offset_value = height_offset_value.replace('(', '').replace(')', '');
 
   var workspace_name =
-    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'WORKSPACE_NAME', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   workspace_name = workspace_name.replace('(', '').replace(')', '');
 
@@ -3765,28 +3765,28 @@ BlocklyPy['niryo_one_get_target_pose_from_rel'] = function (block) {
     ', ' +
     value_z +
     ')\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_target_pose_from_cam'] = function (block) {
+Blockly.Python['niryo_one_get_target_pose_from_cam'] = function (block) {
   var workspace_name =
-    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'WORKSPACE_NAME', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   workspace_name = workspace_name.replace('(', '').replace(')', '');
 
   var height_offset_value =
-    BlocklyPy.valueToCode(block, 'HEIGHT_OFFSET', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'HEIGHT_OFFSET', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   height_offset_value = height_offset_value.replace('(', '').replace(')', '');
 
   // Color (int) value (see g_shape_values at top of this file)
   var value_color =
-    BlocklyPy.valueToCode(block, 'COLOR', BlocklyPy.ORDER_ATOMIC) || '(0)';
+    Blockly.Python.valueToCode(block, 'COLOR', Blockly.Python.ORDER_ATOMIC) || '(0)';
   value_color = value_color.replace('(', '').replace(')', '');
 
   // Shape (int) value (see g_shape_values at top of this file)
   var value_shape =
-    BlocklyPy.valueToCode(block, 'SHAPE', BlocklyPy.ORDER_ATOMIC) || '(0)';
+    Blockly.Python.valueToCode(block, 'SHAPE', Blockly.Python.ORDER_ATOMIC) || '(0)';
   value_shape = value_shape.replace('(', '').replace(')', '');
 
   var code =
@@ -3799,28 +3799,28 @@ BlocklyPy['niryo_one_get_target_pose_from_cam'] = function (block) {
     ', ' +
     value_shape +
     ')\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_move_to_object'] = function (block) {
+Blockly.Python['niryo_one_move_to_object'] = function (block) {
   var workspace_name =
-    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'WORKSPACE_NAME', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   workspace_name = workspace_name.replace('(', '').replace(')', '');
 
   var height_offset_value =
-    BlocklyPy.valueToCode(block, 'HEIGHT_OFFSET', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'HEIGHT_OFFSET', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   height_offset_value = height_offset_value.replace('(', '').replace(')', '');
 
   // Color (int) value (see g_shape_values at top of this file)
   var value_color =
-    BlocklyPy.valueToCode(block, 'COLOR', BlocklyPy.ORDER_ATOMIC) || '(0)';
+    Blockly.Python.valueToCode(block, 'COLOR', Blockly.Python.ORDER_ATOMIC) || '(0)';
   value_color = value_color.replace('(', '').replace(')', '');
 
   // Shape (int) value (see g_shape_values at top of this file)
   var value_shape =
-    BlocklyPy.valueToCode(block, 'SHAPE', BlocklyPy.ORDER_ATOMIC) || '(0)';
+    Blockly.Python.valueToCode(block, 'SHAPE', Blockly.Python.ORDER_ATOMIC) || '(0)';
   value_shape = value_shape.replace('(', '').replace(')', '');
 
   var code =
@@ -3833,45 +3833,45 @@ BlocklyPy['niryo_one_move_to_object'] = function (block) {
     ', ' +
     value_shape +
     ')\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_camera_intrinsics'] = function (block) {
+Blockly.Python['niryo_one_get_camera_intrinsics'] = function (block) {
   var code = 'n.get_camera_intrinsics()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_save_workspace_from_robot_poses'] = function (block) {
+Blockly.Python['niryo_one_save_workspace_from_robot_poses'] = function (block) {
   var workspace_name =
-    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'WORKSPACE_NAME', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   workspace_name = workspace_name.replace('(', '').replace(')', '');
 
-  var value_pose_1 = BlocklyPy.valueToCode(
+  var value_pose_1 = Blockly.Python.valueToCode(
     block,
     'POSE_1',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_pose_1 = value_pose_1.replace('(', '').replace(')', '');
 
-  var value_pose_2 = BlocklyPy.valueToCode(
+  var value_pose_2 = Blockly.Python.valueToCode(
     block,
     'POSE_2',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_pose_2 = value_pose_2.replace('(', '').replace(')', '');
 
-  var value_pose_3 = BlocklyPy.valueToCode(
+  var value_pose_3 = Blockly.Python.valueToCode(
     block,
     'POSE_3',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_pose_3 = value_pose_3.replace('(', '').replace(')', '');
 
-  var value_pose_4 = BlocklyPy.valueToCode(
+  var value_pose_4 = Blockly.Python.valueToCode(
     block,
     'POSE_4',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_pose_4 = value_pose_4.replace('(', '').replace(')', '');
 
@@ -3890,37 +3890,37 @@ BlocklyPy['niryo_one_save_workspace_from_robot_poses'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_save_workspace_from_points'] = function (block) {
+Blockly.Python['niryo_one_save_workspace_from_points'] = function (block) {
   var workspace_name =
-    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'WORKSPACE_NAME', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   workspace_name = workspace_name.replace('(', '').replace(')', '');
 
-  var value_point_1 = BlocklyPy.valueToCode(
+  var value_point_1 = Blockly.Python.valueToCode(
     block,
     'POINT_1',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_point_1 = value_point_1.replace('(', '').replace(')', '');
 
-  var value_point_2 = BlocklyPy.valueToCode(
+  var value_point_2 = Blockly.Python.valueToCode(
     block,
     'POINT_2',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_point_2 = value_point_2.replace('(', '').replace(')', '');
 
-  var value_point_3 = BlocklyPy.valueToCode(
+  var value_point_3 = Blockly.Python.valueToCode(
     block,
     'POINT_3',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_point_3 = value_point_3.replace('(', '').replace(')', '');
 
-  var value_point_4 = BlocklyPy.valueToCode(
+  var value_point_4 = Blockly.Python.valueToCode(
     block,
     'POINT_4',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   );
   value_point_4 = value_point_4.replace('(', '').replace(')', '');
 
@@ -3939,9 +3939,9 @@ BlocklyPy['niryo_one_save_workspace_from_points'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_delete_workspace'] = function (block) {
+Blockly.Python['niryo_one_delete_workspace'] = function (block) {
   var workspace_name =
-    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'WORKSPACE_NAME', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   workspace_name = workspace_name.replace('(', '').replace(')', '');
 
@@ -3949,59 +3949,59 @@ BlocklyPy['niryo_one_delete_workspace'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_get_workspace_ratio'] = function (block) {
+Blockly.Python['niryo_one_get_workspace_ratio'] = function (block) {
   var workspace_name =
-    BlocklyPy.valueToCode(block, 'WORKSPACE_NAME', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'WORKSPACE_NAME', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   workspace_name = workspace_name.replace('(', '').replace(')', '');
 
   var code = 'n.get_workspace_ratio(' + workspace_name + ')\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_workspace_list'] = function (block) {
+Blockly.Python['niryo_one_get_workspace_list'] = function (block) {
   var code = 'n.get_workspace_list()\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
 // Conveyor
 
-BlocklyPy['niryo_one_conveyor_models'] = function (block) {
+Blockly.Python['niryo_one_conveyor_models'] = function (block) {
   const conveyor_id_map = {
     CONVEYOR_1: -1,
     CONVEYOR_2: -2
   };
   var conveyor_model_id = block.getFieldValue('CONVEYOR_SELECT');
   var code = conveyor_id_map[conveyor_model_id];
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_conveyor_use'] = function (block) {
+Blockly.Python['niryo_one_conveyor_use'] = function (block) {
   var code = 'n.set_conveyor()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_conveyor_use'] = function (block) {
+Blockly.Python['niryo_one_conveyor_use'] = function (block) {
   var code = 'n.set_conveyor()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_conveyor_unset'] = function (block) {
+Blockly.Python['niryo_one_conveyor_unset'] = function (block) {
   var conveyor_id =
-    BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'CONVEYOR_SWITCH', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   conveyor_id = conveyor_id.replace('(', '').replace(')', '');
   var code = 'n.unset_conveyor(' + conveyor_id + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_conveyor_control'] = function (block) {
+Blockly.Python['niryo_one_conveyor_control'] = function (block) {
   var conveyor_id =
-    BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'CONVEYOR_SWITCH', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   conveyor_id = conveyor_id.replace('(', '').replace(')', '');
   var speed_percent =
-    BlocklyPy.valueToCode(block, 'SPEED_PERCENT', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'SPEED_PERCENT', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   speed_percent = speed_percent.replace('(', '').replace(')', '');
   var direction = block.getFieldValue('DIRECTION_SELECT');
@@ -4016,13 +4016,13 @@ BlocklyPy['niryo_one_conveyor_control'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_conveyor_run'] = function (block) {
+Blockly.Python['niryo_one_conveyor_run'] = function (block) {
   var conveyor_id =
-    BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'CONVEYOR_SWITCH', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   conveyor_id = conveyor_id.replace('(', '').replace(')', '');
   var speed_percent =
-    BlocklyPy.valueToCode(block, 'SPEED_PERCENT', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'SPEED_PERCENT', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   speed_percent = speed_percent.replace('(', '').replace(')', '');
   var direction = block.getFieldValue('DIRECTION_SELECT');
@@ -4037,61 +4037,61 @@ BlocklyPy['niryo_one_conveyor_run'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_conveyor_stop'] = function (block) {
+Blockly.Python['niryo_one_conveyor_stop'] = function (block) {
   var conveyor_id =
-    BlocklyPy.valueToCode(block, 'CONVEYOR_SWITCH', BlocklyPy.ORDER_ATOMIC) ||
+    Blockly.Python.valueToCode(block, 'CONVEYOR_SWITCH', Blockly.Python.ORDER_ATOMIC) ||
     '(0)';
   conveyor_id = conveyor_id.replace('(', '').replace(')', '');
   var code = 'n.stop_conveyor(' + conveyor_id + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_get_connected_conveyors_id'] = function (block) {
+Blockly.Python['niryo_one_get_connected_conveyors_id'] = function (block) {
   var code = 'n.get_connected_conveyors_id()\n';
   return code;
 };
 
 // Sound
 
-BlocklyPy['niryo_one_get_sounds'] = function (block) {
+Blockly.Python['niryo_one_get_sounds'] = function (block) {
   var code = 'n.get_sounds()\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_set_volume'] = function (block) {
+Blockly.Python['niryo_one_set_volume'] = function (block) {
   var value_set_volume =
-    BlocklyPy.valueToCode(block, 'SET_VOLUME', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'SET_VOLUME', Blockly.Python.ORDER_ATOMIC) || '0';
   value_set_volume = value_set_volume.replace('(', '').replace(')', '');
   var code = 'n.set_volume(' + value_set_volume + ')\n';
   return code;
 };
 
-BlocklyPy['niryo_one_stop_sound'] = function (block) {
+Blockly.Python['niryo_one_stop_sound'] = function (block) {
   var code = 'n.stop_sound()\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_get_sound_duration'] = function (block) {
+Blockly.Python['niryo_one_get_sound_duration'] = function (block) {
   var value_sound_name =
-    BlocklyPy.valueToCode(block, 'SOUND_NAME', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'SOUND_NAME', Blockly.Python.ORDER_ATOMIC) || '0';
   value_sound_name = value_sound_name.replace('(', '').replace(')', '');
   var code = 'n.get_sound_duration(' + value_sound_name + ')\n';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_play_sound'] = function (block) {
+Blockly.Python['niryo_one_play_sound'] = function (block) {
   var value_sound_name =
-    BlocklyPy.valueToCode(block, 'SOUND_NAME', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'SOUND_NAME', Blockly.Python.ORDER_ATOMIC) || '0';
   value_sound_name = value_sound_name.replace('(', '').replace(')', '');
 
   var dropdown_wait_end = block.getFieldValue('WAIT_END');
 
   var value_start_time =
-    BlocklyPy.valueToCode(block, 'START_TIME', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'START_TIME', Blockly.Python.ORDER_ATOMIC) || '0';
   value_start_time = value_start_time.replace('(', '').replace(')', '');
 
   var value_end_time =
-    BlocklyPy.valueToCode(block, 'END_TIME', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'END_TIME', Blockly.Python.ORDER_ATOMIC) || '0';
   value_end_time = value_end_time.replace('(', '').replace(')', '');
 
   var code =
@@ -4108,9 +4108,9 @@ BlocklyPy['niryo_one_play_sound'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_say'] = function (block) {
+Blockly.Python['niryo_one_say'] = function (block) {
   var value_say_text =
-    BlocklyPy.valueToCode(block, 'SAY_TEXT', BlocklyPy.ORDER_ATOMIC) || '0';
+    Blockly.Python.valueToCode(block, 'SAY_TEXT', Blockly.Python.ORDER_ATOMIC) || '0';
   value_say_text = value_say_text.replace('(', '').replace(')', '');
 
   var dropdown_language_select = block.getFieldValue('LANGUAGE_SELECT');
@@ -4122,34 +4122,34 @@ BlocklyPy['niryo_one_say'] = function (block) {
 
 //Led Ring
 
-BlocklyPy['niryo_one_color'] = function (block) {
-  var value_r = BlocklyPy.valueToCode(block, 'RED', BlocklyPy.ORDER_ATOMIC)
+Blockly.Python['niryo_one_color'] = function (block) {
+  var value_r = Blockly.Python.valueToCode(block, 'RED', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_g = BlocklyPy.valueToCode(block, 'GREEN', BlocklyPy.ORDER_ATOMIC)
+  var value_g = Blockly.Python.valueToCode(block, 'GREEN', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
-  var value_b = BlocklyPy.valueToCode(block, 'BLUE', BlocklyPy.ORDER_ATOMIC)
+  var value_b = Blockly.Python.valueToCode(block, 'BLUE', Blockly.Python.ORDER_ATOMIC)
     .replace('(', '')
     .replace(')', '');
 
   var code = '[' + value_r + ', ' + value_g + ', ' + value_b + ']';
-  return [code, BlocklyPy.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
-BlocklyPy['niryo_one_set_led_color'] = function (block) {
-  var value_led_ring_id = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_set_led_color'] = function (block) {
+  var value_led_ring_id = Blockly.Python.valueToCode(
     block,
     'LED_RING_ID',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_color = BlocklyPy.valueToCode(
+  var value_color = Blockly.Python.valueToCode(
     block,
     'COLOR',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -4159,11 +4159,11 @@ BlocklyPy['niryo_one_set_led_color'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_solid'] = function (block) {
-  var value_color = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_led_ring_solid'] = function (block) {
+  var value_color = Blockly.Python.valueToCode(
     block,
     'COLOR',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -4172,32 +4172,32 @@ BlocklyPy['niryo_one_led_ring_solid'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_turn_off'] = function (block) {
+Blockly.Python['niryo_one_led_ring_turn_off'] = function (block) {
   var code = 'n.led_ring_turn_off()\n';
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_flashing'] = function (block) {
-  var value_color = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_led_ring_flashing'] = function (block) {
+  var value_color = Blockly.Python.valueToCode(
     block,
     'COLOR',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_period = BlocklyPy.valueToCode(
+  var value_period = Blockly.Python.valueToCode(
     block,
     'PERIOD',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_iterations = BlocklyPy.valueToCode(
+  var value_iterations = Blockly.Python.valueToCode(
     block,
     'ITERATIONS',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -4213,43 +4213,43 @@ BlocklyPy['niryo_one_led_ring_flashing'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_alternate'] = function (block) {
-  var value_color_1 = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_led_ring_alternate'] = function (block) {
+  var value_color_1 = Blockly.Python.valueToCode(
     block,
     'COLOR_1',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_color_2 = BlocklyPy.valueToCode(
+  var value_color_2 = Blockly.Python.valueToCode(
     block,
     'COLOR_2',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_color_3 = BlocklyPy.valueToCode(
+  var value_color_3 = Blockly.Python.valueToCode(
     block,
     'COLOR_3',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_period = BlocklyPy.valueToCode(
+  var value_period = Blockly.Python.valueToCode(
     block,
     'PERIOD',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_iterations = BlocklyPy.valueToCode(
+  var value_iterations = Blockly.Python.valueToCode(
     block,
     'ITERATIONS',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -4269,27 +4269,27 @@ BlocklyPy['niryo_one_led_ring_alternate'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_chase'] = function (block) {
-  var value_color = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_led_ring_chase'] = function (block) {
+  var value_color = Blockly.Python.valueToCode(
     block,
     'COLOR',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_period = BlocklyPy.valueToCode(
+  var value_period = Blockly.Python.valueToCode(
     block,
     'PERIOD',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_iterations = BlocklyPy.valueToCode(
+  var value_iterations = Blockly.Python.valueToCode(
     block,
     'ITERATIONS',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -4305,19 +4305,19 @@ BlocklyPy['niryo_one_led_ring_chase'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_wipe'] = function (block) {
-  var value_color = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_led_ring_wipe'] = function (block) {
+  var value_color = Blockly.Python.valueToCode(
     block,
     'COLOR',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_period = BlocklyPy.valueToCode(
+  var value_period = Blockly.Python.valueToCode(
     block,
     'PERIOD',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -4327,19 +4327,19 @@ BlocklyPy['niryo_one_led_ring_wipe'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_rainbow'] = function (block) {
-  var value_period = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_led_ring_rainbow'] = function (block) {
+  var value_period = Blockly.Python.valueToCode(
     block,
     'PERIOD',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_iterations = BlocklyPy.valueToCode(
+  var value_iterations = Blockly.Python.valueToCode(
     block,
     'ITERATIONS',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -4353,19 +4353,19 @@ BlocklyPy['niryo_one_led_ring_rainbow'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_rainbow_cycle'] = function (block) {
-  var value_period = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_led_ring_rainbow_cycle'] = function (block) {
+  var value_period = Blockly.Python.valueToCode(
     block,
     'PERIOD',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_iterations = BlocklyPy.valueToCode(
+  var value_iterations = Blockly.Python.valueToCode(
     block,
     'ITERATIONS',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -4379,19 +4379,19 @@ BlocklyPy['niryo_one_led_ring_rainbow_cycle'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_rainbow_chase'] = function (block) {
-  var value_period = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_led_ring_rainbow_chase'] = function (block) {
+  var value_period = Blockly.Python.valueToCode(
     block,
     'PERIOD',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_iterations = BlocklyPy.valueToCode(
+  var value_iterations = Blockly.Python.valueToCode(
     block,
     'ITERATIONS',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -4405,27 +4405,27 @@ BlocklyPy['niryo_one_led_ring_rainbow_chase'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_go_up'] = function (block) {
-  var value_color = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_led_ring_go_up'] = function (block) {
+  var value_color = Blockly.Python.valueToCode(
     block,
     'COLOR',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_period = BlocklyPy.valueToCode(
+  var value_period = Blockly.Python.valueToCode(
     block,
     'PERIOD',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_iterations = BlocklyPy.valueToCode(
+  var value_iterations = Blockly.Python.valueToCode(
     block,
     'ITERATIONS',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -4441,27 +4441,27 @@ BlocklyPy['niryo_one_led_ring_go_up'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_go_up_down'] = function (block) {
-  var value_color = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_led_ring_go_up_down'] = function (block) {
+  var value_color = Blockly.Python.valueToCode(
     block,
     'COLOR',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_period = BlocklyPy.valueToCode(
+  var value_period = Blockly.Python.valueToCode(
     block,
     'PERIOD',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_iterations = BlocklyPy.valueToCode(
+  var value_iterations = Blockly.Python.valueToCode(
     block,
     'ITERATIONS',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -4477,27 +4477,27 @@ BlocklyPy['niryo_one_led_ring_go_up_down'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_breath'] = function (block) {
-  var value_color = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_led_ring_breath'] = function (block) {
+  var value_color = Blockly.Python.valueToCode(
     block,
     'COLOR',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_period = BlocklyPy.valueToCode(
+  var value_period = Blockly.Python.valueToCode(
     block,
     'PERIOD',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_iterations = BlocklyPy.valueToCode(
+  var value_iterations = Blockly.Python.valueToCode(
     block,
     'ITERATIONS',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -4513,27 +4513,27 @@ BlocklyPy['niryo_one_led_ring_breath'] = function (block) {
   return code;
 };
 
-BlocklyPy['niryo_one_led_ring_snake'] = function (block) {
-  var value_color = BlocklyPy.valueToCode(
+Blockly.Python['niryo_one_led_ring_snake'] = function (block) {
+  var value_color = Blockly.Python.valueToCode(
     block,
     'COLOR',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_period = BlocklyPy.valueToCode(
+  var value_period = Blockly.Python.valueToCode(
     block,
     'PERIOD',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
 
-  var value_iterations = BlocklyPy.valueToCode(
+  var value_iterations = Blockly.Python.valueToCode(
     block,
     'ITERATIONS',
-    BlocklyPy.ORDER_ATOMIC
+    Blockly.Python.ORDER_ATOMIC
   )
     .replace('(', '')
     .replace(')', '');
@@ -5485,7 +5485,7 @@ const TOOLBOX_NIRYO = {
 
 const BlocklyNiryo = {
   Blocks: Blockly.Blocks,
-  Generator: BlocklyPy,
+  Generator: Blockly.Python,
   Toolbox: TOOLBOX_NIRYO
 };
 
@@ -5553,22 +5553,22 @@ Blockly.Blocks['ned_close_gripper'] = {
 
 // Defining Python generators for Ned2 blocks.
 
-BlocklyPy['ned_open_gripper'] = function (block) {
+Blockly.Python['ned_open_gripper'] = function (block) {
   var number_open_speed = block.getFieldValue('OPEN_SPEED');
   var value_max_torque_percentage =
-    BlocklyPy.valueToCode(
+    Blockly.Python.valueToCode(
       block,
       'MAX_TORQUE_PERCENTAGE',
-      BlocklyPy.ORDER_ATOMIC
+      Blockly.Python.ORDER_ATOMIC
     ) || '0';
   value_max_torque_percentage = value_max_torque_percentage
     .replace('(', '')
     .replace(')', '');
   var value_hold_torque_percentage =
-    BlocklyPy.valueToCode(
+    Blockly.Python.valueToCode(
       block,
       'HOLD_TORQUE_PERCENTAGE',
-      BlocklyPy.ORDER_ATOMIC
+      Blockly.Python.ORDER_ATOMIC
     ) || '0';
   value_hold_torque_percentage = value_hold_torque_percentage
     .replace('(', '')
@@ -5584,22 +5584,22 @@ BlocklyPy['ned_open_gripper'] = function (block) {
   return code;
 };
 
-BlocklyPy['ned_close_gripper'] = function (block) {
+Blockly.Python['ned_close_gripper'] = function (block) {
   var number_close_speed = block.getFieldValue('CLOSE_SPEED');
   var value_max_torque_percentage =
-    BlocklyPy.valueToCode(
+    Blockly.Python.valueToCode(
       block,
       'MAX_TORQUE_PERCENTAGE',
-      BlocklyPy.ORDER_ATOMIC
+      Blockly.Python.ORDER_ATOMIC
     ) || '0';
   value_max_torque_percentage = value_max_torque_percentage
     .replace('(', '')
     .replace(')', '');
   var value_hold_torque_percentage =
-    BlocklyPy.valueToCode(
+    Blockly.Python.valueToCode(
       block,
       'HOLD_TORQUE_PERCENTAGE',
-      BlocklyPy.ORDER_ATOMIC
+      Blockly.Python.ORDER_ATOMIC
     ) || '0';
   value_hold_torque_percentage = value_hold_torque_percentage
     .replace('(', '')
@@ -6551,7 +6551,7 @@ const TOOLBOX_NED = {
 
 const BlocklyNed = {
   Blocks: Blockly.Blocks,
-  Generator: BlocklyPy,
+  Generator: Blockly.Python,
   Toolbox: TOOLBOX_NED
 };
 
