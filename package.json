@@ -87,17 +87,7 @@
   },
   "jupyterlab": {
     "extension": true,
-    "outputDir": "jupyterlab_niryo_one/labextension",
-    "sharedPackages": {
-      "jupyterlab-blockly": { 
-        "bundled": false, 
-        "singleton": true 
-      }, 
-      "blockly": { 
-        "bundled": false, 
-        "singleton": true 
-      } 
-    }
+    "outputDir": "jupyterlab_niryo_one/labextension"
   },
   "jupyter-releaser": {
     "hooks": {

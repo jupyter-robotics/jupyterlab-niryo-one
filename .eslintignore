@@ -7,3 +7,8 @@ tests
 **/__tests__
 ui-tests
 CHANGELOG.md
+
+examples
+.eslintignore
+.eslintrc.js
+.gitignore
