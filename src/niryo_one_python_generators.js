@@ -4579,7 +4579,7 @@ const TOOLBOX_NIRYO = {
           kind: 'BLOCK',
           type: 'controls_for'
         }
-        ]
+      ]
     },
     {
       kind: 'SEP'
@@ -5326,7 +5326,7 @@ const TOOLBOX_NED = {
         {
           kind: 'BLOCK',
           type: 'controls_for'
-        },
+        }
       ]
     },
     {
