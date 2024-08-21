@@ -26,7 +26,7 @@ Docs: https://docs.niryo.com/dev/pyniryo/v1.1.2/en/index.html
 
 ## Requirements
 
-- JupyterLab == 3.4
+- JupyterLab >= 4.0.0
 
 ## Install
 
@@ -63,7 +63,7 @@ The `jlpm` command is JupyterLab's pinned version of
 `yarn` or `npm` in lieu of `jlpm` below.
 
 ```bash
-micromamba create -n niryo -c conda-forge python nodejs yarn jupyterlab==3.4 jupyter-packaging jupyterlab-language-pack-es-ES jupyterlab-language-pack-fr-FR ipykernel xeus-python xeus-lua
+micromamba create -n niryo -c conda-forge python nodejs yarn jupyterlab jupyterlab-language-pack-fr-FR ipykernel xeus-python xeus-lua
 micromamba activate niryo
 # Clone the repo to your local environment
 # Change directory to the jupyterlab_niryo_one directory

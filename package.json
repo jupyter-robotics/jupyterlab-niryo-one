@@ -5,11 +5,14 @@
   "keywords": [
     "jupyter",
     "jupyterlab",
-    "jupyterlab-extension"
+    "jupyterlab-extension",
+    "ROS",
+    "Niryo",
+    "Niryo-One"
   ],
-  "homepage": "https://github.com/quantstack/jupyterlab-niryo-one",
+  "homepage": "https://github.com/QuantStack/jupyterlab-niryo-one",
   "bugs": {
-    "url": "https://github.com/quantstack/jupyterlab-niryo-one/issues"
+    "url": "https://github.com/QuantStack/jupyterlab-niryo-one/issues"
   },
   "license": "BSD-3-Clause",
   "author": {
@@ -25,17 +28,18 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/quantstack/jupyterlab-niryo-one.git"
+    "url": "https://github.com/QuantStack/jupyterlab-niryo-one.git"
   },
   "scripts": {
     "build": "jlpm build:lib && jlpm build:labextension:dev",
-    "build:prod": "jlpm clean && jlpm build:lib && jlpm build:labextension",
+    "build:prod": "jlpm clean && jlpm build:lib:prod && jlpm build:labextension",
     "build:labextension": "jupyter labextension build .",
     "build:labextension:dev": "jupyter labextension build --development True .",
-    "build:lib": "tsc",
+    "build:lib": "tsc --sourceMap",
+    "build:lib:prod": "tsc",
     "clean": "jlpm clean:lib",
     "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
-    "clean:lintcache": "rimraf .eslintcache .stylelintcache",
+    "clean:lintcache": "rimraf .eslintcache .stylelintcache jupyterlab_niryo_one/_version.py",
     "clean:labextension": "rimraf jupyterlab_niryo_one/labextension",
     "clean:all": "jlpm clean:lib && jlpm clean:labextension && jlpm clean:lintcache",
     "eslint": "jlpm eslint:check --fix",
@@ -49,33 +53,30 @@
     "stylelint": "jlpm stylelint:check --fix",
     "stylelint:check": "stylelint --cache \"style/**/*.css\"",
     "watch": "run-p watch:src watch:labextension",
-    "watch:src": "tsc -w",
-    "watch:labextension": "jupyter labextension watch .",
-    "postinstall": "patch-package"
+    "watch:src": "tsc -w --sourceMap",
+    "watch:labextension": "jupyter labextension watch ."
   },
   "dependencies": {
-    "@jupyterlab/application": "^3.4",
-    "blockly": "^7.20211209.2",
-    "jupyterlab-blockly": "^0.2.1",
-    "patch-package": "^6.4.7",
-    "postinstall-postinstall": "^2.1.0"
+    "@jupyterlab/application": "^4.2",
+    "blockly": "^11.0",
+    "jupyterlab-blockly": "^0.3.2"
   },
   "devDependencies": {
-    "@jupyterlab/builder": "^3.3",
-    "@typescript-eslint/eslint-plugin": "^4.8.1",
-    "@typescript-eslint/parser": "^4.8.1",
-    "eslint": "^7.14.0",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-prettier": "^3.1.4",
+    "@jupyterlab/builder": "^4.2.4",
+    "@typescript-eslint/eslint-plugin": "^5.12.1",
+    "@typescript-eslint/parser": "^5.12.1",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.1.1",
+    "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "stylelint": "^14.3.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-recommended": "^6.0.0",
     "stylelint-config-standard": "~24.0.0",
     "stylelint-prettier": "^2.0.0",
-    "typescript": "~4.5.2"
+    "typescript": "~5.0.2"
   },
   "sideEffects": [
     "style/*.css",
@@ -88,16 +89,5 @@
   "jupyterlab": {
     "extension": true,
     "outputDir": "jupyterlab_niryo_one/labextension"
-  },
-  "jupyter-releaser": {
-    "hooks": {
-      "before-build-npm": [
-        "python -m pip install jupyterlab",
-        "jlpm"
-      ],
-      "before-build-python": [
-        "jlpm clean:all"
-      ]
-    }
   }
 }
