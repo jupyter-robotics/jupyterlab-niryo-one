@@ -44,8 +44,8 @@ source = "nodejs"
 fields = ["description", "authors", "urls"]
 
 [tool.hatch.build.targets.sdist]
-artifacts = ["/jupyterlab_niryo_one/labextension"]
-exclude = ["/.github", "/binder", "node_modules"]
+artifacts = ["jupyterlab_niryo_one/labextension"]
+exclude = [".github", "binder", "node_modules"]
 
 [tool.hatch.build.targets.wheel.shared-data]
 "jupyterlab_niryo_one/labextension" = "share/jupyter/labextensions/jupyterlab-niryo-one"
