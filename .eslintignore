@@ -12,3 +12,5 @@ examples
 .eslintignore
 .eslintrc.js
 .gitignore
+
+.yarn.yml

@@ -16,7 +16,7 @@
     "resolveJsonModule": true,
     "outDir": "lib",
     "rootDir": "src",
-    "target": "es2017",
+    "target": "ES2018",
     "types": []
   },
   "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.tsx", "style/icons"],
