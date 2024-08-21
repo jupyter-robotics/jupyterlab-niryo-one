@@ -88,6 +88,7 @@
   },
   "jupyterlab": {
     "extension": true,
-    "outputDir": "jupyterlab_niryo_one/labextension"
+    "outputDir": "jupyterlab_niryo_one/labextension",
+    "webpackConfig": "./webpack.config.js"
   }
 }
