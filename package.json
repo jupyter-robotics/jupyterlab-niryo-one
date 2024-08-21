@@ -10,9 +10,9 @@
     "Niryo",
     "Niryo-One"
   ],
-  "homepage": "https://github.com/QuantStack/jupyterlab-niryo-one",
+  "homepage": "https://github.com/jupyter-robotics/jupyterlab-niryo-one",
   "bugs": {
-    "url": "https://github.com/QuantStack/jupyterlab-niryo-one/issues"
+    "url": "https://github.com/jupyter-robotics/jupyterlab-niryo-one/issues"
   },
   "license": "BSD-3-Clause",
   "author": {
@@ -28,7 +28,7 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/QuantStack/jupyterlab-niryo-one.git"
+    "url": "https://github.com/jupyter-robotics/jupyterlab-niryo-one.git"
   },
   "scripts": {
     "build": "jlpm build:lib && jlpm build:labextension:dev",
