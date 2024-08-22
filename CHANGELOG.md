@@ -2,6 +2,28 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.1.1
+
+([Full Changelog](https://github.com/jupyter-robotics/jupyterlab-niryo-one/compare/3068f41cad5f9ef8a5c512fc2a3cc97fcb9ed38b...f2a531419800069c0dbf1d4b033f554bd38aba4f))
+
+### Enhancements made
+
+- Upgrade to `v0.3.2` of `jupyterlab-blockly` [#17](https://github.com/jupyter-robotics/jupyterlab-niryo-one/pull/17) ([@DenisaCG](https://github.com/DenisaCG))
+
+### Maintenance and upkeep improvements
+
+- Update repository links for new organisation [#19](https://github.com/jupyter-robotics/jupyterlab-niryo-one/pull/19) ([@DenisaCG](https://github.com/DenisaCG))
+- Add webpack config for `blockly` [#18](https://github.com/jupyter-robotics/jupyterlab-niryo-one/pull/18) ([@DenisaCG](https://github.com/DenisaCG))
+- Upgrade to `v0.3.2` of `jupyterlab-blockly` [#17](https://github.com/jupyter-robotics/jupyterlab-niryo-one/pull/17) ([@DenisaCG](https://github.com/DenisaCG))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter-robotics/jupyterlab-niryo-one/graphs/contributors?from=2024-08-21&to=2024-08-22&type=c))
+
+[@DenisaCG](https://github.com/search?q=repo%3Ajupyter-robotics%2Fjupyterlab-niryo-one+involves%3ADenisaCG+updated%3A2024-08-21..2024-08-22&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.1.0
 
 ([Full Changelog](https://github.com/jupyter-robotics/jupyterlab-niryo-one/compare/99737a8b11ccf7be67c38c6cf5710df46b5abb95...f2a531419800069c0dbf1d4b033f554bd38aba4f))
@@ -36,8 +58,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter-robotics/jupyterlab-niryo-one/graphs/contributors?from=2022-07-01&to=2024-08-22&type=c))
 
 [@DenisaCG](https://github.com/search?q=repo%3Ajupyter-robotics%2Fjupyterlab-niryo-one+involves%3ADenisaCG+updated%3A2022-07-01..2024-08-22&type=Issues) | [@hbcarlos](https://github.com/search?q=repo%3Ajupyter-robotics%2Fjupyterlab-niryo-one+involves%3Ahbcarlos+updated%3A2022-07-01..2024-08-22&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.1.0a0
 
