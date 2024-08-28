@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.1.2
+
+([Full Changelog](https://github.com/jupyter-robotics/jupyterlab-niryo-one/compare/v0.1.1...79d541e2491eecc8d6f5a243a7a37be39d6599f4))
+
+### Maintenance and upkeep improvements
+
+- Update `blockly` dependencies [#20](https://github.com/jupyter-robotics/jupyterlab-niryo-one/pull/20) ([@DenisaCG](https://github.com/DenisaCG))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyter-robotics/jupyterlab-niryo-one/graphs/contributors?from=2024-08-22&to=2024-08-28&type=c))
+
+[@DenisaCG](https://github.com/search?q=repo%3Ajupyter-robotics%2Fjupyterlab-niryo-one+involves%3ADenisaCG+updated%3A2024-08-22..2024-08-28&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.1.1
 
 ([Full Changelog](https://github.com/jupyter-robotics/jupyterlab-niryo-one/compare/3068f41cad5f9ef8a5c512fc2a3cc97fcb9ed38b...f2a531419800069c0dbf1d4b033f554bd38aba4f))
@@ -21,8 +37,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyter-robotics/jupyterlab-niryo-one/graphs/contributors?from=2024-08-21&to=2024-08-22&type=c))
 
 [@DenisaCG](https://github.com/search?q=repo%3Ajupyter-robotics%2Fjupyterlab-niryo-one+involves%3ADenisaCG+updated%3A2024-08-21..2024-08-22&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.1.0
 
