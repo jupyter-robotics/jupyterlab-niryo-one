@@ -2119,7 +2119,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"blockly@npm:^11.0":
+"blockly@npm:^11.0, blockly@npm:^11.1.1":
   version: 11.1.1
   resolution: "blockly@npm:11.1.1"
   dependencies:
@@ -3888,9 +3888,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jupyterlab-blockly@npm:^0.3.2":
-  version: 0.3.2
-  resolution: "jupyterlab-blockly@npm:0.3.2"
+"jupyterlab-blockly@npm:^0.3.3":
+  version: 0.3.3
+  resolution: "jupyterlab-blockly@npm:0.3.3"
   dependencies:
     "@blockly/field-colour": 5.0.6
     "@jupyterlab/apputils": ^4.2
@@ -3909,7 +3909,7 @@ __metadata:
     blockly: ^11.0
     react: ^18.2
     react-dom: ^18.2
-  checksum: d3f0ec4d7d128c1d0defe7e2b46110924f3bb4216d5a77e587e3aa359ff68566d2c85259c56f65fa761f334ce0b2c82f1544cd3d872e1a775d3c5f4639922d24
+  checksum: 78552cf073b865e02eed980167ae1f4613ebf3c46b3e6c37b9d9386bc902132b600f3a7cf11b2081ade7eb47bbdb2045e89d91ce9c93a1d08794dd2700cc07ed
   languageName: node
   linkType: hard
 
@@ -3921,11 +3921,11 @@ __metadata:
     "@jupyterlab/builder": ^4.2.4
     "@typescript-eslint/eslint-plugin": ^5.12.1
     "@typescript-eslint/parser": ^5.12.1
-    blockly: ^11.0
+    blockly: ^11.1.1
     eslint: ^8.9.0
     eslint-config-prettier: ^8.4.0
     eslint-plugin-prettier: ^4.0.0
-    jupyterlab-blockly: ^0.3.2
+    jupyterlab-blockly: ^0.3.3
     npm-run-all: ^4.1.5
     prettier: ^2.5.1
     rimraf: ^3.0.2
